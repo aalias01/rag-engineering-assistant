@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RAG Engineering Assistant</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">⚙️</span>
+        <div>
+          <h1>RAG Engineering Assistant</h1>
+          <p class="tagline">Query engineering standards in natural language · Answers grounded in source documents</p>
+        </div>
+      </div>
+      <div id="status-badge" class="badge badge-loading">Connecting…</div>
+    </div>
+  </header>
+
+  <!-- Main layout -->
+  <main>
+
+    <!-- Left: Chat + Input -->
+    <section class="chat-panel">
+
+      <!-- Conversation -->
+      <div id="conversation" class="conversation">
+        <div class="welcome-message">
+          <h2>Ask an engineering question</h2>
+          <p>This assistant queries a curated corpus of engineering standards and technical documents — ASHRAE, OSHA, ASME, NASA. Answers are grounded in the actual source text with page-level citations.</p>
+          <div class="example-queries">
+            <p class="example-label">Example queries:</p>
+            <button class="example-btn" onclick="useExample(this)">What is the minimum pipe insulation thickness for a 4-inch steam pipe at 400°F per ASHRAE 90.1?</button>
+            <button class="example-btn" onclick="useExample(this)">What hydrostatic test requirements apply to Class 900 flanges per ASME B16.5?</button>
+            <button class="example-btn" onclick="useExample(this)">What does OSHA 1910.217 require for mechanical power press guarding?</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Input form -->
+      <div class="input-area">
+        <div class="input-row">
+          <textarea
+            id="query-input"
+            placeholder="Ask an engineering question…"
+            rows="2"
+            maxlength="1000"
+          ></textarea>
+          <button id="send-btn" onclick="sendQuery()">Ask</button>
+        </div>
+        <div class="input-meta">
+          <label class="toggle-label">
+            <input type="checkbox" id="stream-toggle" checked />
+            Stream response
+          </label>
+          <span id="char-count" class="char-count">0 / 1000</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Right: Sources + Metadata -->
+    <aside class="sources-panel">
+      <h3>Sources</h3>
+      <div id="sources-list">
+        <p class="placeholder-text">Citations appear here after a query.</p>
+      </div>
+
+      <h3 style="margin-top: 24px;">Query Stats</h3>
+      <div id="stats-panel" class="stats-panel">
+        <div class="stat-row"><span>Latency</span><span id="stat-latency">—</span></div>
+        <div class="stat-row"><span>Chunks retrieved</span><span id="stat-chunks">—</span></div>
+        <div class="stat-row"><span>Prompt tokens</span><span id="stat-prompt-tokens">—</span></div>
+        <div class="stat-row"><span>Completion tokens</span><span id="stat-completion-tokens">—</span></div>
+        <div class="stat-row"><span>Estimated cost</span><span id="stat-cost">—</span></div>
+        <div class="stat-row"><span>Model</span><span id="stat-model">—</span></div>
+      </div>
+
+      <h3 style="margin-top: 24px;">Retrieved Chunks</h3>
+      <div id="chunks-list">
+        <p class="placeholder-text">Retrieved document excerpts appear here.</p>
+      </div>
+    </aside>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

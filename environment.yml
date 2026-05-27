@@ -1,0 +1,43 @@
+name: rag-assistant
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pandas>=2.0.0
+  - numpy>=1.24.0
+  - matplotlib>=3.7.0
+  - jupyter
+  - notebook
+  - ipykernel
+  - pip
+  - pip:
+      # PDF processing
+      - pymupdf>=1.24.0
+      - pdfplumber>=0.10.0
+      # LangChain ecosystem
+      - langchain>=0.2.0
+      - langchain-openai>=0.1.0
+      - langchain-community>=0.2.0
+      - langchain-chroma>=0.1.0
+      # Embeddings + reranking
+      - openai>=1.30.0
+      - sentence-transformers>=3.0.0
+      # Vector store
+      - chromadb>=0.5.0
+      # Hybrid retrieval
+      - rank-bm25>=0.2.2
+      # RAG evaluation
+      - ragas>=0.1.13
+      - datasets>=2.19.0
+      # Utilities
+      - python-dotenv>=1.0.0
+      - tiktoken>=0.7.0
+      - tqdm>=4.66.0
+      # API
+      - fastapi>=0.110.0
+      - uvicorn[standard]>=0.27.0
+      - pydantic>=2.0.0
+      - python-multipart>=0.0.9
+      # LangSmith observability (optional — set LANGCHAIN_TRACING_V2=true to enable)
+      - langsmith>=0.1.0

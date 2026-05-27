@@ -1,0 +1,38 @@
+// RAG Engineering Assistant — Ground-Truth Test Set
+// Format: one JSON object per line (JSONL)
+// query_type: "in_corpus" | "borderline" | "out_of_corpus"
+//
+// TARGET: 30 queries total — ~20 in_corpus, ~5 borderline, ~5 out_of_corpus
+// BUILD THESE MANUALLY during Phase 2 after documents are ingested.
+// Each query must be answerable from a specific page of a specific document.
+//
+// Fields:
+//   query                    — the natural-language question
+//   expected_source_doc      — PDF filename (must match ingested file name exactly)
+//   expected_source_pages    — list of page numbers where the answer appears
+//   expected_answer_keywords — 2-4 strings that must appear in a correct answer
+//   query_type               — "in_corpus" | "borderline" | "out_of_corpus"
+//   notes                    — optional; explain why this query was chosen
+//
+// EXAMPLE ENTRIES (replace with real entries after ingesting your PDF corpus):
+
+{"query": "What is the minimum insulation thickness for a nominal 2-inch pipe carrying 200°F fluid per ASHRAE 90.1?", "expected_source_doc": "ASHRAE_90_1_excerpt.pdf", "expected_source_pages": [42, 43], "expected_answer_keywords": ["1.5 inch", "ASHRAE 90.1", "Table 6.8"], "query_type": "in_corpus", "notes": "Core HVAC spec question; answer is a specific table lookup value"}
+
+{"query": "What are the hydrostatic test pressure requirements for Class 600 flanges per ASME B16.5?", "expected_source_doc": "ASME_B16_5_excerpt.pdf", "expected_source_pages": [18, 19], "expected_answer_keywords": ["1480 psi", "Class 600", "hydrostatic"], "query_type": "in_corpus", "notes": "Pressure vessel engineering; answer is a specific numeric value"}
+
+{"query": "According to OSHA 1910.217, what guarding method is required for point-of-operation on a mechanical power press?", "expected_source_doc": "OSHA_1910_217.pdf", "expected_source_pages": [3, 4], "expected_answer_keywords": ["guard", "die enclosure", "1910.217"], "query_type": "in_corpus", "notes": "Safety requirement; should cite specific subsection"}
+
+{"query": "What NASA technical report addresses turbofan engine health monitoring via sensor fusion?", "expected_source_doc": "NASA_TM_2003_212339.pdf", "expected_source_pages": [1, 2, 5], "expected_answer_keywords": ["health monitoring", "sensor fusion", "degradation"], "query_type": "in_corpus", "notes": "Direct corpus query — tests document-level retrieval"}
+
+{"query": "What is the definition of 'rated capacity' for a pressure vessel under ASME Section VIII?", "expected_source_doc": "ASME_Section_VIII_excerpt.pdf", "expected_source_pages": [8], "expected_answer_keywords": ["rated capacity", "maximum allowable working pressure", "MAWP"], "query_type": "borderline", "notes": "Term may appear across multiple pages; tests multi-chunk retrieval"}
+
+// OUT-OF-CORPUS queries — system must refuse cleanly (no hallucination)
+{"query": "What is the recipe for concrete mix design per ACI 318?", "expected_source_doc": "N/A", "expected_source_pages": [], "expected_answer_keywords": [], "query_type": "out_of_corpus", "notes": "ACI 318 not in corpus — system must say it doesn't have information on this"}
+
+{"query": "What are the NFPA 13 requirements for sprinkler spacing in a high-piled storage warehouse?", "expected_source_doc": "N/A", "expected_source_pages": [], "expected_answer_keywords": [], "query_type": "out_of_corpus", "notes": "NFPA 13 not in corpus"}
+
+{"query": "What is the current federal minimum wage as of 2026?", "expected_source_doc": "N/A", "expected_source_pages": [], "expected_answer_keywords": [], "query_type": "out_of_corpus", "notes": "General knowledge question — not in any engineering doc; tests refusal on non-engineering topics"}
+
+// ADD MORE ENTRIES HERE — target 30 total
+// Template:
+// {"query": "...", "expected_source_doc": "filename.pdf", "expected_source_pages": [N], "expected_answer_keywords": ["...", "..."], "query_type": "in_corpus", "notes": "..."}
