@@ -53,14 +53,25 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+# CORS origins
+#
+# Local dev origins are always allowed. The deployed frontend origin is read from
+# the FRONTEND_ORIGIN env var (comma-separated for multiple). Set this in Render
+# after the frontend is deployed (e.g. FRONTEND_ORIGIN=https://your-app.vercel.app)
+# and redeploy. No production URL is hardcoded.
+_DEV_ORIGINS = [
+    "http://localhost:3000",
+    "http://localhost:8080",
+    "http://127.0.0.1:5500",
+    "http://localhost:5500",
+]
+_frontend_origin_env = os.getenv("FRONTEND_ORIGIN", "").strip()
+_extra_origins = [o.strip() for o in _frontend_origin_env.split(",") if o.strip()]
+_ALLOWED_ORIGINS = _DEV_ORIGINS + _extra_origins
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://localhost:8080",
-        "http://127.0.0.1:5500",
-        "https://your-project.vercel.app",  # Replace with actual Vercel URL after deploy
-    ],
+    allow_origins=_ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

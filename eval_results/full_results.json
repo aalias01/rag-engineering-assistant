@@ -1,0 +1,1633 @@
+{
+  "timestamp": "2026-06-11 14:34:34",
+  "k": 3,
+  "retrieval_ablations_chunk500": {
+    "dense_only": {
+      "recall_at_3": 0.8461538461538461,
+      "mrr": 0.7964743589743589,
+      "n": 26,
+      "per_query": [
+        {
+          "query": "What is the First Law of Thermodynamics and what principle is it referred to as?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.80",
+          "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[80, 81]"
+        },
+        {
+          "query": "How is the efficiency of a Carnot cycle defined?",
+          "recall": 1,
+          "rr": 0.5,
+          "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.112",
+          "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[100, 101]"
+        },
+        {
+          "query": "Why is enthalpy given with respect to a reference value, and what reference is used for water?",
+          "recall": 0,
+          "rr": 0.25,
+          "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.71",
+          "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[45]"
+        },
+        {
+          "query": "What are the temperature and pressure at the triple point of water?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.64",
+          "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[64]"
+        },
+        {
+          "query": "What law is most commonly used to correlate conduction heat transfer, and what does it calculate?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.28",
+          "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[28, 31]"
+        },
+        {
+          "query": "What is the log mean temperature difference and why is it used in heat exchanger calculations?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.25",
+          "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[25]"
+        },
+        {
+          "query": "What is the value of the Stefan-Boltzmann constant in English units?",
+          "recall": 0,
+          "rr": 0.125,
+          "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.50",
+          "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[48]"
+        },
+        {
+          "query": "What is the difference between counter-flow and parallel flow heat exchangers?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.55",
+          "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[53, 54, 55]"
+        },
+        {
+          "query": "What type of motion does a gate valve use and why is pressure drop low across an open gate valve?",
+          "recall": 1,
+          "rr": 0.5,
+          "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.30",
+          "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[28]"
+        },
+        {
+          "query": "What is a globe valve used for?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.35",
+          "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[35]"
+        },
+        {
+          "query": "Why are swing check valves usually installed in conjunction with gate valves?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.56",
+          "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[56]"
+        },
+        {
+          "query": "What is the difference between a relief valve and a safety valve?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.61",
+          "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[61]"
+        },
+        {
+          "query": "What kind of valve motion does a butterfly valve use?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.51",
+          "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[51]"
+        },
+        {
+          "query": "How does NASA define systems engineering?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "nasa_systems_engineering_handbook.pdf p.13",
+          "expected": "nasa_systems_engineering_handbook.pdf p.[13, 14]"
+        },
+        {
+          "query": "What is the purpose of the Critical Design Review according to the NASA Systems Engineering Handbook?",
+          "recall": 0,
+          "rr": 0.0,
+          "top": "nasa_systems_engineering_handbook.pdf p.171",
+          "expected": "nasa_systems_engineering_handbook.pdf p.[189]"
+        },
+        {
+          "query": "What is a Technology Readiness Level?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "nasa_systems_engineering_handbook.pdf p.220",
+          "expected": "nasa_systems_engineering_handbook.pdf p.[220]"
+        },
+        {
+          "query": "How often must a process hazard analysis be updated and revalidated under the PSM standard?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "osha_3132_process_safety_management.pdf p.15",
+          "expected": "osha_3132_process_safety_management.pdf p.[13, 15]"
+        },
+        {
+          "query": "What must a hot work permit document under the PSM standard?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "osha_3132_process_safety_management.pdf p.25",
+          "expected": "osha_3132_process_safety_management.pdf p.[25]"
+        },
+        {
+          "query": "Which equipment do the PSM mechanical integrity requirements apply to?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "osha_3132_process_safety_management.pdf p.23",
+          "expected": "osha_3132_process_safety_management.pdf p.[23]"
+        },
+        {
+          "query": "What SEER level did the 2017 DOE final rule set for split-system air conditioners under 45,000 Btu/h in the Southeast region?",
+          "recall": 0,
+          "rr": 0.0,
+          "top": "doe_final_rule_2017_cac_hp_efficiency.pdf p.63",
+          "expected": "doe_final_rule_2017_cac_hp_efficiency.pdf p.[3]"
+        },
+        {
+          "query": "When did compliance with the amended energy conservation standards for residential central air conditioners become required?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_final_rule_2017_cac_hp_efficiency.pdf p.1",
+          "expected": "doe_final_rule_2017_cac_hp_efficiency.pdf p.[1, 2, 3]"
+        },
+        {
+          "query": "Why would a globe valve be chosen over a gate valve for throttling service?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.35",
+          "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[28, 35, 36]"
+        },
+        {
+          "query": "Which heat exchanger flow arrangement transfers heat more effectively, and what explains the difference?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.55",
+          "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[53, 54, 55, 57]"
+        },
+        {
+          "query": "Can a real heat engine achieve Carnot efficiency? Explain.",
+          "recall": 1,
+          "rr": 0.3333333333333333,
+          "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.112",
+          "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[101, 102, 104]"
+        },
+        {
+          "query": "What methods are available for product validation, and how should the method be chosen?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "nasa_systems_engineering_handbook.pdf p.136",
+          "expected": "nasa_systems_engineering_handbook.pdf p.[136]"
+        },
+        {
+          "query": "Does the 2017 DOE final rule apply uniform national standards, or do requirements differ by region and product class?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_final_rule_2017_cac_hp_efficiency.pdf p.8",
+          "expected": "doe_final_rule_2017_cac_hp_efficiency.pdf p.[1, 3, 8]"
+        }
+      ],
+      "avg_latency_s": 0.18
+    },
+    "bm25_only": {
+      "recall_at_3": 0.6923076923076923,
+      "mrr": 0.6357295482295482,
+      "n": 26,
+      "per_query": [
+        {
+          "query": "What is the First Law of Thermodynamics and what principle is it referred to as?",
+          "recall": 0,
+          "rr": 0.1111111111111111,
+          "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.83",
+          "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[80, 81]"
+        },
+        {
+          "query": "How is the efficiency of a Carnot cycle defined?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.100",
+          "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[100, 101]"
+        },
+        {
+          "query": "Why is enthalpy given with respect to a reference value, and what reference is used for water?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.45",
+          "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[45]"
+        },
+        {
+          "query": "What are the temperature and pressure at the triple point of water?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.64",
+          "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[64]"
+        },
+        {
+          "query": "What law is most commonly used to correlate conduction heat transfer, and what does it calculate?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.28",
+          "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[28, 31]"
+        },
+        {
+          "query": "What is the log mean temperature difference and why is it used in heat exchanger calculations?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.25",
+          "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[25]"
+        },
+        {
+          "query": "What is the value of the Stefan-Boltzmann constant in English units?",
+          "recall": 0,
+          "rr": 0.0,
+          "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.28",
+          "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[48]"
+        },
+        {
+          "query": "What is the difference between counter-flow and parallel flow heat exchangers?",
+          "recall": 1,
+          "rr": 0.5,
+          "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.61",
+          "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[53, 54, 55]"
+        },
+        {
+          "query": "What type of motion does a gate valve use and why is pressure drop low across an open gate valve?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.28",
+          "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[28]"
+        },
+        {
+          "query": "What is a globe valve used for?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.35",
+          "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[35]"
+        },
+        {
+          "query": "Why are swing check valves usually installed in conjunction with gate valves?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.56",
+          "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[56]"
+        },
+        {
+          "query": "What is the difference between a relief valve and a safety valve?",
+          "recall": 1,
+          "rr": 0.5,
+          "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.60",
+          "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[61]"
+        },
+        {
+          "query": "What kind of valve motion does a butterfly valve use?",
+          "recall": 1,
+          "rr": 0.5,
+          "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.28",
+          "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[51]"
+        },
+        {
+          "query": "How does NASA define systems engineering?",
+          "recall": 0,
+          "rr": 0.0,
+          "top": "nasa_systems_engineering_handbook.pdf p.224",
+          "expected": "nasa_systems_engineering_handbook.pdf p.[13, 14]"
+        },
+        {
+          "query": "What is the purpose of the Critical Design Review according to the NASA Systems Engineering Handbook?",
+          "recall": 0,
+          "rr": 0.2,
+          "top": "nasa_systems_engineering_handbook.pdf p.172",
+          "expected": "nasa_systems_engineering_handbook.pdf p.[189]"
+        },
+        {
+          "query": "What is a Technology Readiness Level?",
+          "recall": 0,
+          "rr": 0.14285714285714285,
+          "top": "nasa_systems_engineering_handbook.pdf p.217",
+          "expected": "nasa_systems_engineering_handbook.pdf p.[220]"
+        },
+        {
+          "query": "How often must a process hazard analysis be updated and revalidated under the PSM standard?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "osha_3132_process_safety_management.pdf p.15",
+          "expected": "osha_3132_process_safety_management.pdf p.[13, 15]"
+        },
+        {
+          "query": "What must a hot work permit document under the PSM standard?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "osha_3132_process_safety_management.pdf p.25",
+          "expected": "osha_3132_process_safety_management.pdf p.[25]"
+        },
+        {
+          "query": "Which equipment do the PSM mechanical integrity requirements apply to?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "osha_3132_process_safety_management.pdf p.23",
+          "expected": "osha_3132_process_safety_management.pdf p.[23]"
+        },
+        {
+          "query": "What SEER level did the 2017 DOE final rule set for split-system air conditioners under 45,000 Btu/h in the Southeast region?",
+          "recall": 1,
+          "rr": 0.5,
+          "top": "doe_final_rule_2017_cac_hp_efficiency.pdf p.63",
+          "expected": "doe_final_rule_2017_cac_hp_efficiency.pdf p.[3]"
+        },
+        {
+          "query": "When did compliance with the amended energy conservation standards for residential central air conditioners become required?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_final_rule_2017_cac_hp_efficiency.pdf p.1",
+          "expected": "doe_final_rule_2017_cac_hp_efficiency.pdf p.[1, 2, 3]"
+        },
+        {
+          "query": "Why would a globe valve be chosen over a gate valve for throttling service?",
+          "recall": 1,
+          "rr": 0.5,
+          "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.63",
+          "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[28, 35, 36]"
+        },
+        {
+          "query": "Which heat exchanger flow arrangement transfers heat more effectively, and what explains the difference?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.55",
+          "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[53, 54, 55, 57]"
+        },
+        {
+          "query": "Can a real heat engine achieve Carnot efficiency? Explain.",
+          "recall": 0,
+          "rr": 0.25,
+          "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.112",
+          "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[101, 102, 104]"
+        },
+        {
+          "query": "What methods are available for product validation, and how should the method be chosen?",
+          "recall": 0,
+          "rr": 0.2,
+          "top": "nasa_systems_engineering_handbook.pdf p.227",
+          "expected": "nasa_systems_engineering_handbook.pdf p.[136]"
+        },
+        {
+          "query": "Does the 2017 DOE final rule apply uniform national standards, or do requirements differ by region and product class?",
+          "recall": 0,
+          "rr": 0.125,
+          "top": "doe_final_rule_2017_cac_hp_efficiency.pdf p.9",
+          "expected": "doe_final_rule_2017_cac_hp_efficiency.pdf p.[1, 3, 8]"
+        }
+      ],
+      "avg_latency_s": 0.008
+    },
+    "hybrid_rrf": {
+      "recall_at_3": 0.8461538461538461,
+      "mrr": 0.7542735042735041,
+      "n": 26,
+      "per_query": [
+        {
+          "query": "What is the First Law of Thermodynamics and what principle is it referred to as?",
+          "recall": 0,
+          "rr": 0.25,
+          "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.95",
+          "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[80, 81]"
+        },
+        {
+          "query": "How is the efficiency of a Carnot cycle defined?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.100",
+          "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[100, 101]"
+        },
+        {
+          "query": "Why is enthalpy given with respect to a reference value, and what reference is used for water?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.45",
+          "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[45]"
+        },
+        {
+          "query": "What are the temperature and pressure at the triple point of water?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.64",
+          "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[64]"
+        },
+        {
+          "query": "What law is most commonly used to correlate conduction heat transfer, and what does it calculate?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.28",
+          "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[28, 31]"
+        },
+        {
+          "query": "What is the log mean temperature difference and why is it used in heat exchanger calculations?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.25",
+          "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[25]"
+        },
+        {
+          "query": "What is the value of the Stefan-Boltzmann constant in English units?",
+          "recall": 0,
+          "rr": 0.0,
+          "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.51",
+          "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[48]"
+        },
+        {
+          "query": "What is the difference between counter-flow and parallel flow heat exchangers?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.55",
+          "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[53, 54, 55]"
+        },
+        {
+          "query": "What type of motion does a gate valve use and why is pressure drop low across an open gate valve?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.28",
+          "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[28]"
+        },
+        {
+          "query": "What is a globe valve used for?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.35",
+          "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[35]"
+        },
+        {
+          "query": "Why are swing check valves usually installed in conjunction with gate valves?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.56",
+          "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[56]"
+        },
+        {
+          "query": "What is the difference between a relief valve and a safety valve?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.61",
+          "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[61]"
+        },
+        {
+          "query": "What kind of valve motion does a butterfly valve use?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.51",
+          "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[51]"
+        },
+        {
+          "query": "How does NASA define systems engineering?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "nasa_systems_engineering_handbook.pdf p.13",
+          "expected": "nasa_systems_engineering_handbook.pdf p.[13, 14]"
+        },
+        {
+          "query": "What is the purpose of the Critical Design Review according to the NASA Systems Engineering Handbook?",
+          "recall": 0,
+          "rr": 0.25,
+          "top": "nasa_systems_engineering_handbook.pdf p.172",
+          "expected": "nasa_systems_engineering_handbook.pdf p.[189]"
+        },
+        {
+          "query": "What is a Technology Readiness Level?",
+          "recall": 1,
+          "rr": 0.5,
+          "top": "nasa_systems_engineering_handbook.pdf p.221",
+          "expected": "nasa_systems_engineering_handbook.pdf p.[220]"
+        },
+        {
+          "query": "How often must a process hazard analysis be updated and revalidated under the PSM standard?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "osha_3132_process_safety_management.pdf p.15",
+          "expected": "osha_3132_process_safety_management.pdf p.[13, 15]"
+        },
+        {
+          "query": "What must a hot work permit document under the PSM standard?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "osha_3132_process_safety_management.pdf p.25",
+          "expected": "osha_3132_process_safety_management.pdf p.[25]"
+        },
+        {
+          "query": "Which equipment do the PSM mechanical integrity requirements apply to?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "osha_3132_process_safety_management.pdf p.23",
+          "expected": "osha_3132_process_safety_management.pdf p.[23]"
+        },
+        {
+          "query": "What SEER level did the 2017 DOE final rule set for split-system air conditioners under 45,000 Btu/h in the Southeast region?",
+          "recall": 0,
+          "rr": 0.1111111111111111,
+          "top": "doe_final_rule_2017_cac_hp_efficiency.pdf p.63",
+          "expected": "doe_final_rule_2017_cac_hp_efficiency.pdf p.[3]"
+        },
+        {
+          "query": "When did compliance with the amended energy conservation standards for residential central air conditioners become required?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_final_rule_2017_cac_hp_efficiency.pdf p.1",
+          "expected": "doe_final_rule_2017_cac_hp_efficiency.pdf p.[1, 2, 3]"
+        },
+        {
+          "query": "Why would a globe valve be chosen over a gate valve for throttling service?",
+          "recall": 1,
+          "rr": 0.5,
+          "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.30",
+          "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[28, 35, 36]"
+        },
+        {
+          "query": "Which heat exchanger flow arrangement transfers heat more effectively, and what explains the difference?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.55",
+          "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[53, 54, 55, 57]"
+        },
+        {
+          "query": "Can a real heat engine achieve Carnot efficiency? Explain.",
+          "recall": 1,
+          "rr": 0.3333333333333333,
+          "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.112",
+          "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[101, 102, 104]"
+        },
+        {
+          "query": "What methods are available for product validation, and how should the method be chosen?",
+          "recall": 1,
+          "rr": 0.3333333333333333,
+          "top": "nasa_systems_engineering_handbook.pdf p.109",
+          "expected": "nasa_systems_engineering_handbook.pdf p.[136]"
+        },
+        {
+          "query": "Does the 2017 DOE final rule apply uniform national standards, or do requirements differ by region and product class?",
+          "recall": 1,
+          "rr": 0.3333333333333333,
+          "top": "doe_final_rule_2017_cac_hp_efficiency.pdf p.9",
+          "expected": "doe_final_rule_2017_cac_hp_efficiency.pdf p.[1, 3, 8]"
+        }
+      ],
+      "avg_latency_s": 0.301
+    },
+    "hybrid_rrf_reranker": {
+      "recall_at_3": 0.8076923076923077,
+      "mrr": 0.6716117216117217,
+      "n": 26,
+      "per_query": [
+        {
+          "query": "What is the First Law of Thermodynamics and what principle is it referred to as?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.81",
+          "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[80, 81]"
+        },
+        {
+          "query": "How is the efficiency of a Carnot cycle defined?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.100",
+          "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[100, 101]"
+        },
+        {
+          "query": "Why is enthalpy given with respect to a reference value, and what reference is used for water?",
+          "recall": 1,
+          "rr": 0.5,
+          "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.50",
+          "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[45]"
+        },
+        {
+          "query": "What are the temperature and pressure at the triple point of water?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.64",
+          "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[64]"
+        },
+        {
+          "query": "What law is most commonly used to correlate conduction heat transfer, and what does it calculate?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.28",
+          "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[28, 31]"
+        },
+        {
+          "query": "What is the log mean temperature difference and why is it used in heat exchanger calculations?",
+          "recall": 0,
+          "rr": 0.14285714285714285,
+          "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.52",
+          "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[25]"
+        },
+        {
+          "query": "What is the value of the Stefan-Boltzmann constant in English units?",
+          "recall": 1,
+          "rr": 0.3333333333333333,
+          "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.29",
+          "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[48]"
+        },
+        {
+          "query": "What is the difference between counter-flow and parallel flow heat exchangers?",
+          "recall": 1,
+          "rr": 0.5,
+          "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.61",
+          "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[53, 54, 55]"
+        },
+        {
+          "query": "What type of motion does a gate valve use and why is pressure drop low across an open gate valve?",
+          "recall": 1,
+          "rr": 0.5,
+          "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.33",
+          "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[28]"
+        },
+        {
+          "query": "What is a globe valve used for?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.35",
+          "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[35]"
+        },
+        {
+          "query": "Why are swing check valves usually installed in conjunction with gate valves?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.56",
+          "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[56]"
+        },
+        {
+          "query": "What is the difference between a relief valve and a safety valve?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.61",
+          "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[61]"
+        },
+        {
+          "query": "What kind of valve motion does a butterfly valve use?",
+          "recall": 0,
+          "rr": 0.2,
+          "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.52",
+          "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[51]"
+        },
+        {
+          "query": "How does NASA define systems engineering?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "nasa_systems_engineering_handbook.pdf p.13",
+          "expected": "nasa_systems_engineering_handbook.pdf p.[13, 14]"
+        },
+        {
+          "query": "What is the purpose of the Critical Design Review according to the NASA Systems Engineering Handbook?",
+          "recall": 1,
+          "rr": 0.3333333333333333,
+          "top": "nasa_systems_engineering_handbook.pdf p.172",
+          "expected": "nasa_systems_engineering_handbook.pdf p.[189]"
+        },
+        {
+          "query": "What is a Technology Readiness Level?",
+          "recall": 0,
+          "rr": 0.14285714285714285,
+          "top": "nasa_systems_engineering_handbook.pdf p.205",
+          "expected": "nasa_systems_engineering_handbook.pdf p.[220]"
+        },
+        {
+          "query": "How often must a process hazard analysis be updated and revalidated under the PSM standard?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "osha_3132_process_safety_management.pdf p.15",
+          "expected": "osha_3132_process_safety_management.pdf p.[13, 15]"
+        },
+        {
+          "query": "What must a hot work permit document under the PSM standard?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "osha_3132_process_safety_management.pdf p.25",
+          "expected": "osha_3132_process_safety_management.pdf p.[25]"
+        },
+        {
+          "query": "Which equipment do the PSM mechanical integrity requirements apply to?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "osha_3132_process_safety_management.pdf p.23",
+          "expected": "osha_3132_process_safety_management.pdf p.[23]"
+        },
+        {
+          "query": "What SEER level did the 2017 DOE final rule set for split-system air conditioners under 45,000 Btu/h in the Southeast region?",
+          "recall": 0,
+          "rr": 0.14285714285714285,
+          "top": "doe_final_rule_2017_cac_hp_efficiency.pdf p.63",
+          "expected": "doe_final_rule_2017_cac_hp_efficiency.pdf p.[3]"
+        },
+        {
+          "query": "When did compliance with the amended energy conservation standards for residential central air conditioners become required?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "doe_final_rule_2017_cac_hp_efficiency.pdf p.1",
+          "expected": "doe_final_rule_2017_cac_hp_efficiency.pdf p.[1, 2, 3]"
+        },
+        {
+          "query": "Why would a globe valve be chosen over a gate valve for throttling service?",
+          "recall": 1,
+          "rr": 0.5,
+          "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.63",
+          "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[28, 35, 36]"
+        },
+        {
+          "query": "Which heat exchanger flow arrangement transfers heat more effectively, and what explains the difference?",
+          "recall": 1,
+          "rr": 0.5,
+          "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.61",
+          "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[53, 54, 55, 57]"
+        },
+        {
+          "query": "Can a real heat engine achieve Carnot efficiency? Explain.",
+          "recall": 1,
+          "rr": 0.5,
+          "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.112",
+          "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[101, 102, 104]"
+        },
+        {
+          "query": "What methods are available for product validation, and how should the method be chosen?",
+          "recall": 1,
+          "rr": 1.0,
+          "top": "nasa_systems_engineering_handbook.pdf p.136",
+          "expected": "nasa_systems_engineering_handbook.pdf p.[136]"
+        },
+        {
+          "query": "Does the 2017 DOE final rule apply uniform national standards, or do requirements differ by region and product class?",
+          "recall": 0,
+          "rr": 0.16666666666666666,
+          "top": "doe_final_rule_2017_cac_hp_efficiency.pdf p.9",
+          "expected": "doe_final_rule_2017_cac_hp_efficiency.pdf p.[1, 3, 8]"
+        }
+      ],
+      "avg_latency_s": 0.685
+    }
+  },
+  "chunk_size_ablation": {
+    "chunk_300": {
+      "recall_at_3": 0.8846153846153846,
+      "mrr": 0.7735042735042735,
+      "n": 26
+    },
+    "chunk_800": {
+      "recall_at_3": 0.8076923076923077,
+      "mrr": 0.7846153846153846,
+      "n": 26
+    }
+  },
+  "final_store": "chunk_300",
+  "latency_cost_sample": [
+    {
+      "query": "What is the difference between a relief valve and a safety valve?",
+      "latency_s": 2.3,
+      "prompt_tokens": 1361,
+      "completion_tokens": 166,
+      "cost_usd": 0.00030375
+    },
+    {
+      "query": "How does NASA define systems engineering?",
+      "latency_s": 2.05,
+      "prompt_tokens": 1599,
+      "completion_tokens": 137,
+      "cost_usd": 0.00032205
+    },
+    {
+      "query": "How often must a process hazard analysis be revalidated?",
+      "latency_s": 1.7,
+      "prompt_tokens": 1167,
+      "completion_tokens": 74,
+      "cost_usd": 0.00021945
+    },
+    {
+      "query": "What SEER level applies to split-system air conditioners in the Southeast?",
+      "latency_s": 1.27,
+      "prompt_tokens": 2260,
+      "completion_tokens": 38,
+      "cost_usd": 0.0003618
+    },
+    {
+      "query": "What is the log mean temperature difference?",
+      "latency_s": 2.22,
+      "prompt_tokens": 1679,
+      "completion_tokens": 47,
+      "cost_usd": 0.00028005
+    }
+  ],
+  "generation_eval": {
+    "faithfulness": 0.8904761904761904,
+    "answer_relevancy": 0.9191311388815494,
+    "refusal_accuracy": 1.0,
+    "n_in_corpus": 26,
+    "n_out_of_corpus": 5
+  },
+  "final_config_chunk300": {
+    "chunk_size": 300,
+    "timestamp": "2026-06-11 17:00:36",
+    "retrieval_ablations": {
+      "dense_only": {
+        "recall_at_3": 0.9230769230769231,
+        "mrr": 0.8173076923076922,
+        "n": 26,
+        "per_query": [
+          {
+            "query": "What is the First Law of Thermodynamics and what principle is it referred to as?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.80",
+            "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[80, 81]"
+          },
+          {
+            "query": "How is the efficiency of a Carnot cycle defined?",
+            "recall": 1,
+            "rr": 0.3333333333333333,
+            "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.111",
+            "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[100, 101]"
+          },
+          {
+            "query": "Why is enthalpy given with respect to a reference value, and what reference is used for water?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.45",
+            "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[45]"
+          },
+          {
+            "query": "What are the temperature and pressure at the triple point of water?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.64",
+            "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[64]"
+          },
+          {
+            "query": "What law is most commonly used to correlate conduction heat transfer, and what does it calculate?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.28",
+            "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[28, 31]"
+          },
+          {
+            "query": "What is the log mean temperature difference and why is it used in heat exchanger calculations?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.25",
+            "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[25]"
+          },
+          {
+            "query": "What is the value of the Stefan-Boltzmann constant in English units?",
+            "recall": 0,
+            "rr": 0.25,
+            "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.43",
+            "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[48]"
+          },
+          {
+            "query": "What is the difference between counter-flow and parallel flow heat exchangers?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.55",
+            "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[53, 54, 55]"
+          },
+          {
+            "query": "What type of motion does a gate valve use and why is pressure drop low across an open gate valve?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.28",
+            "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[28]"
+          },
+          {
+            "query": "What is a globe valve used for?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.35",
+            "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[35]"
+          },
+          {
+            "query": "Why are swing check valves usually installed in conjunction with gate valves?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.56",
+            "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[56]"
+          },
+          {
+            "query": "What is the difference between a relief valve and a safety valve?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.61",
+            "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[61]"
+          },
+          {
+            "query": "What kind of valve motion does a butterfly valve use?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.51",
+            "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[51]"
+          },
+          {
+            "query": "How does NASA define systems engineering?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "nasa_systems_engineering_handbook.pdf p.13",
+            "expected": "nasa_systems_engineering_handbook.pdf p.[13, 14]"
+          },
+          {
+            "query": "What is the purpose of the Critical Design Review according to the NASA Systems Engineering Handbook?",
+            "recall": 1,
+            "rr": 0.3333333333333333,
+            "top": "nasa_systems_engineering_handbook.pdf p.172",
+            "expected": "nasa_systems_engineering_handbook.pdf p.[189]"
+          },
+          {
+            "query": "What is a Technology Readiness Level?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "nasa_systems_engineering_handbook.pdf p.220",
+            "expected": "nasa_systems_engineering_handbook.pdf p.[220]"
+          },
+          {
+            "query": "How often must a process hazard analysis be updated and revalidated under the PSM standard?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "osha_3132_process_safety_management.pdf p.15",
+            "expected": "osha_3132_process_safety_management.pdf p.[13, 15]"
+          },
+          {
+            "query": "What must a hot work permit document under the PSM standard?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "osha_3132_process_safety_management.pdf p.25",
+            "expected": "osha_3132_process_safety_management.pdf p.[25]"
+          },
+          {
+            "query": "Which equipment do the PSM mechanical integrity requirements apply to?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "osha_3132_process_safety_management.pdf p.23",
+            "expected": "osha_3132_process_safety_management.pdf p.[23]"
+          },
+          {
+            "query": "What SEER level did the 2017 DOE final rule set for split-system air conditioners under 45,000 Btu/h in the Southeast region?",
+            "recall": 0,
+            "rr": 0.0,
+            "top": "doe_final_rule_2017_cac_hp_efficiency.pdf p.63",
+            "expected": "doe_final_rule_2017_cac_hp_efficiency.pdf p.[3]"
+          },
+          {
+            "query": "When did compliance with the amended energy conservation standards for residential central air conditioners become required?",
+            "recall": 1,
+            "rr": 0.5,
+            "top": "doe_final_rule_2017_cac_hp_efficiency.pdf p.72",
+            "expected": "doe_final_rule_2017_cac_hp_efficiency.pdf p.[1, 2, 3]"
+          },
+          {
+            "query": "Why would a globe valve be chosen over a gate valve for throttling service?",
+            "recall": 1,
+            "rr": 0.5,
+            "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.30",
+            "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[28, 35, 36]"
+          },
+          {
+            "query": "Which heat exchanger flow arrangement transfers heat more effectively, and what explains the difference?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.55",
+            "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[53, 54, 55, 57]"
+          },
+          {
+            "query": "Can a real heat engine achieve Carnot efficiency? Explain.",
+            "recall": 1,
+            "rr": 0.3333333333333333,
+            "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.112",
+            "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[101, 102, 104]"
+          },
+          {
+            "query": "What methods are available for product validation, and how should the method be chosen?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "nasa_systems_engineering_handbook.pdf p.136",
+            "expected": "nasa_systems_engineering_handbook.pdf p.[136]"
+          },
+          {
+            "query": "Does the 2017 DOE final rule apply uniform national standards, or do requirements differ by region and product class?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_final_rule_2017_cac_hp_efficiency.pdf p.8",
+            "expected": "doe_final_rule_2017_cac_hp_efficiency.pdf p.[1, 3, 8]"
+          }
+        ],
+        "avg_latency_s": 0.245
+      },
+      "bm25_only": {
+        "recall_at_3": 0.7307692307692307,
+        "mrr": 0.5801282051282052,
+        "n": 26,
+        "per_query": [
+          {
+            "query": "What is the First Law of Thermodynamics and what principle is it referred to as?",
+            "recall": 0,
+            "rr": 0.25,
+            "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.83",
+            "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[80, 81]"
+          },
+          {
+            "query": "How is the efficiency of a Carnot cycle defined?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.100",
+            "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[100, 101]"
+          },
+          {
+            "query": "Why is enthalpy given with respect to a reference value, and what reference is used for water?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.45",
+            "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[45]"
+          },
+          {
+            "query": "What are the temperature and pressure at the triple point of water?",
+            "recall": 1,
+            "rr": 0.5,
+            "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.66",
+            "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[64]"
+          },
+          {
+            "query": "What law is most commonly used to correlate conduction heat transfer, and what does it calculate?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.28",
+            "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[28, 31]"
+          },
+          {
+            "query": "What is the log mean temperature difference and why is it used in heat exchanger calculations?",
+            "recall": 1,
+            "rr": 0.5,
+            "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.58",
+            "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[25]"
+          },
+          {
+            "query": "What is the value of the Stefan-Boltzmann constant in English units?",
+            "recall": 0,
+            "rr": 0.0,
+            "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.28",
+            "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[48]"
+          },
+          {
+            "query": "What is the difference between counter-flow and parallel flow heat exchangers?",
+            "recall": 1,
+            "rr": 0.5,
+            "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.61",
+            "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[53, 54, 55]"
+          },
+          {
+            "query": "What type of motion does a gate valve use and why is pressure drop low across an open gate valve?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.28",
+            "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[28]"
+          },
+          {
+            "query": "What is a globe valve used for?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.35",
+            "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[35]"
+          },
+          {
+            "query": "Why are swing check valves usually installed in conjunction with gate valves?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.56",
+            "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[56]"
+          },
+          {
+            "query": "What is the difference between a relief valve and a safety valve?",
+            "recall": 1,
+            "rr": 0.3333333333333333,
+            "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.60",
+            "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[61]"
+          },
+          {
+            "query": "What kind of valve motion does a butterfly valve use?",
+            "recall": 1,
+            "rr": 0.5,
+            "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.28",
+            "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[51]"
+          },
+          {
+            "query": "How does NASA define systems engineering?",
+            "recall": 0,
+            "rr": 0.0,
+            "top": "nasa_systems_engineering_handbook.pdf p.224",
+            "expected": "nasa_systems_engineering_handbook.pdf p.[13, 14]"
+          },
+          {
+            "query": "What is the purpose of the Critical Design Review according to the NASA Systems Engineering Handbook?",
+            "recall": 1,
+            "rr": 0.5,
+            "top": "nasa_systems_engineering_handbook.pdf p.172",
+            "expected": "nasa_systems_engineering_handbook.pdf p.[189]"
+          },
+          {
+            "query": "What is a Technology Readiness Level?",
+            "recall": 0,
+            "rr": 0.16666666666666666,
+            "top": "nasa_systems_engineering_handbook.pdf p.221",
+            "expected": "nasa_systems_engineering_handbook.pdf p.[220]"
+          },
+          {
+            "query": "How often must a process hazard analysis be updated and revalidated under the PSM standard?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "osha_3132_process_safety_management.pdf p.15",
+            "expected": "osha_3132_process_safety_management.pdf p.[13, 15]"
+          },
+          {
+            "query": "What must a hot work permit document under the PSM standard?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "osha_3132_process_safety_management.pdf p.25",
+            "expected": "osha_3132_process_safety_management.pdf p.[25]"
+          },
+          {
+            "query": "Which equipment do the PSM mechanical integrity requirements apply to?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "osha_3132_process_safety_management.pdf p.23",
+            "expected": "osha_3132_process_safety_management.pdf p.[23]"
+          },
+          {
+            "query": "What SEER level did the 2017 DOE final rule set for split-system air conditioners under 45,000 Btu/h in the Southeast region?",
+            "recall": 0,
+            "rr": 0.25,
+            "top": "doe_final_rule_2017_cac_hp_efficiency.pdf p.63",
+            "expected": "doe_final_rule_2017_cac_hp_efficiency.pdf p.[3]"
+          },
+          {
+            "query": "When did compliance with the amended energy conservation standards for residential central air conditioners become required?",
+            "recall": 1,
+            "rr": 0.5,
+            "top": "doe_final_rule_2017_cac_hp_efficiency.pdf p.54",
+            "expected": "doe_final_rule_2017_cac_hp_efficiency.pdf p.[1, 2, 3]"
+          },
+          {
+            "query": "Why would a globe valve be chosen over a gate valve for throttling service?",
+            "recall": 1,
+            "rr": 0.5,
+            "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.63",
+            "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[28, 35, 36]"
+          },
+          {
+            "query": "Which heat exchanger flow arrangement transfers heat more effectively, and what explains the difference?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.55",
+            "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[53, 54, 55, 57]"
+          },
+          {
+            "query": "Can a real heat engine achieve Carnot efficiency? Explain.",
+            "recall": 1,
+            "rr": 0.3333333333333333,
+            "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.112",
+            "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[101, 102, 104]"
+          },
+          {
+            "query": "What methods are available for product validation, and how should the method be chosen?",
+            "recall": 0,
+            "rr": 0.25,
+            "top": "nasa_systems_engineering_handbook.pdf p.227",
+            "expected": "nasa_systems_engineering_handbook.pdf p.[136]"
+          },
+          {
+            "query": "Does the 2017 DOE final rule apply uniform national standards, or do requirements differ by region and product class?",
+            "recall": 0,
+            "rr": 0.0,
+            "top": "doe_final_rule_2017_cac_hp_efficiency.pdf p.9",
+            "expected": "doe_final_rule_2017_cac_hp_efficiency.pdf p.[1, 3, 8]"
+          }
+        ],
+        "avg_latency_s": 0.011
+      },
+      "hybrid_rrf": {
+        "recall_at_3": 0.8846153846153846,
+        "mrr": 0.7735042735042735,
+        "n": 26,
+        "per_query": [
+          {
+            "query": "What is the First Law of Thermodynamics and what principle is it referred to as?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.81",
+            "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[80, 81]"
+          },
+          {
+            "query": "How is the efficiency of a Carnot cycle defined?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.100",
+            "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[100, 101]"
+          },
+          {
+            "query": "Why is enthalpy given with respect to a reference value, and what reference is used for water?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.45",
+            "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[45]"
+          },
+          {
+            "query": "What are the temperature and pressure at the triple point of water?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.64",
+            "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[64]"
+          },
+          {
+            "query": "What law is most commonly used to correlate conduction heat transfer, and what does it calculate?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.28",
+            "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[28, 31]"
+          },
+          {
+            "query": "What is the log mean temperature difference and why is it used in heat exchanger calculations?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.25",
+            "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[25]"
+          },
+          {
+            "query": "What is the value of the Stefan-Boltzmann constant in English units?",
+            "recall": 0,
+            "rr": 0.0,
+            "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.29",
+            "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[48]"
+          },
+          {
+            "query": "What is the difference between counter-flow and parallel flow heat exchangers?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.55",
+            "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[53, 54, 55]"
+          },
+          {
+            "query": "What type of motion does a gate valve use and why is pressure drop low across an open gate valve?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.28",
+            "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[28]"
+          },
+          {
+            "query": "What is a globe valve used for?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.35",
+            "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[35]"
+          },
+          {
+            "query": "Why are swing check valves usually installed in conjunction with gate valves?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.56",
+            "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[56]"
+          },
+          {
+            "query": "What is the difference between a relief valve and a safety valve?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.61",
+            "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[61]"
+          },
+          {
+            "query": "What kind of valve motion does a butterfly valve use?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.51",
+            "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[51]"
+          },
+          {
+            "query": "How does NASA define systems engineering?",
+            "recall": 1,
+            "rr": 0.5,
+            "top": "nasa_systems_engineering_handbook.pdf p.18",
+            "expected": "nasa_systems_engineering_handbook.pdf p.[13, 14]"
+          },
+          {
+            "query": "What is the purpose of the Critical Design Review according to the NASA Systems Engineering Handbook?",
+            "recall": 1,
+            "rr": 0.5,
+            "top": "nasa_systems_engineering_handbook.pdf p.172",
+            "expected": "nasa_systems_engineering_handbook.pdf p.[189]"
+          },
+          {
+            "query": "What is a Technology Readiness Level?",
+            "recall": 1,
+            "rr": 0.5,
+            "top": "nasa_systems_engineering_handbook.pdf p.221",
+            "expected": "nasa_systems_engineering_handbook.pdf p.[220]"
+          },
+          {
+            "query": "How often must a process hazard analysis be updated and revalidated under the PSM standard?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "osha_3132_process_safety_management.pdf p.15",
+            "expected": "osha_3132_process_safety_management.pdf p.[13, 15]"
+          },
+          {
+            "query": "What must a hot work permit document under the PSM standard?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "osha_3132_process_safety_management.pdf p.25",
+            "expected": "osha_3132_process_safety_management.pdf p.[25]"
+          },
+          {
+            "query": "Which equipment do the PSM mechanical integrity requirements apply to?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "osha_3132_process_safety_management.pdf p.23",
+            "expected": "osha_3132_process_safety_management.pdf p.[23]"
+          },
+          {
+            "query": "What SEER level did the 2017 DOE final rule set for split-system air conditioners under 45,000 Btu/h in the Southeast region?",
+            "recall": 0,
+            "rr": 0.1111111111111111,
+            "top": "doe_final_rule_2017_cac_hp_efficiency.pdf p.63",
+            "expected": "doe_final_rule_2017_cac_hp_efficiency.pdf p.[3]"
+          },
+          {
+            "query": "When did compliance with the amended energy conservation standards for residential central air conditioners become required?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_final_rule_2017_cac_hp_efficiency.pdf p.1",
+            "expected": "doe_final_rule_2017_cac_hp_efficiency.pdf p.[1, 2, 3]"
+          },
+          {
+            "query": "Why would a globe valve be chosen over a gate valve for throttling service?",
+            "recall": 1,
+            "rr": 0.5,
+            "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.30",
+            "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[28, 35, 36]"
+          },
+          {
+            "query": "Which heat exchanger flow arrangement transfers heat more effectively, and what explains the difference?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.55",
+            "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[53, 54, 55, 57]"
+          },
+          {
+            "query": "Can a real heat engine achieve Carnot efficiency? Explain.",
+            "recall": 1,
+            "rr": 0.3333333333333333,
+            "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.112",
+            "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[101, 102, 104]"
+          },
+          {
+            "query": "What methods are available for product validation, and how should the method be chosen?",
+            "recall": 1,
+            "rr": 0.5,
+            "top": "nasa_systems_engineering_handbook.pdf p.109",
+            "expected": "nasa_systems_engineering_handbook.pdf p.[136]"
+          },
+          {
+            "query": "Does the 2017 DOE final rule apply uniform national standards, or do requirements differ by region and product class?",
+            "recall": 0,
+            "rr": 0.16666666666666666,
+            "top": "doe_final_rule_2017_cac_hp_efficiency.pdf p.15",
+            "expected": "doe_final_rule_2017_cac_hp_efficiency.pdf p.[1, 3, 8]"
+          }
+        ],
+        "avg_latency_s": 0.229
+      },
+      "hybrid_rrf_reranker": {
+        "recall_at_3": 0.9230769230769231,
+        "mrr": 0.7405372405372405,
+        "n": 26,
+        "per_query": [
+          {
+            "query": "What is the First Law of Thermodynamics and what principle is it referred to as?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.81",
+            "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[80, 81]"
+          },
+          {
+            "query": "How is the efficiency of a Carnot cycle defined?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.100",
+            "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[100, 101]"
+          },
+          {
+            "query": "Why is enthalpy given with respect to a reference value, and what reference is used for water?",
+            "recall": 1,
+            "rr": 0.5,
+            "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.50",
+            "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[45]"
+          },
+          {
+            "query": "What are the temperature and pressure at the triple point of water?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.64",
+            "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[64]"
+          },
+          {
+            "query": "What law is most commonly used to correlate conduction heat transfer, and what does it calculate?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.28",
+            "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[28, 31]"
+          },
+          {
+            "query": "What is the log mean temperature difference and why is it used in heat exchanger calculations?",
+            "recall": 1,
+            "rr": 0.5,
+            "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.27",
+            "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[25]"
+          },
+          {
+            "query": "What is the value of the Stefan-Boltzmann constant in English units?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.48",
+            "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[48]"
+          },
+          {
+            "query": "What is the difference between counter-flow and parallel flow heat exchangers?",
+            "recall": 1,
+            "rr": 0.5,
+            "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.61",
+            "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[53, 54, 55]"
+          },
+          {
+            "query": "What type of motion does a gate valve use and why is pressure drop low across an open gate valve?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.28",
+            "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[28]"
+          },
+          {
+            "query": "What is a globe valve used for?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.35",
+            "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[35]"
+          },
+          {
+            "query": "Why are swing check valves usually installed in conjunction with gate valves?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.56",
+            "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[56]"
+          },
+          {
+            "query": "What is the difference between a relief valve and a safety valve?",
+            "recall": 1,
+            "rr": 0.3333333333333333,
+            "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.60",
+            "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[61]"
+          },
+          {
+            "query": "What kind of valve motion does a butterfly valve use?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.51",
+            "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[51]"
+          },
+          {
+            "query": "How does NASA define systems engineering?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "nasa_systems_engineering_handbook.pdf p.13",
+            "expected": "nasa_systems_engineering_handbook.pdf p.[13, 14]"
+          },
+          {
+            "query": "What is the purpose of the Critical Design Review according to the NASA Systems Engineering Handbook?",
+            "recall": 1,
+            "rr": 0.5,
+            "top": "nasa_systems_engineering_handbook.pdf p.172",
+            "expected": "nasa_systems_engineering_handbook.pdf p.[189]"
+          },
+          {
+            "query": "What is a Technology Readiness Level?",
+            "recall": 1,
+            "rr": 0.5,
+            "top": "nasa_systems_engineering_handbook.pdf p.205",
+            "expected": "nasa_systems_engineering_handbook.pdf p.[220]"
+          },
+          {
+            "query": "How often must a process hazard analysis be updated and revalidated under the PSM standard?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "osha_3132_process_safety_management.pdf p.15",
+            "expected": "osha_3132_process_safety_management.pdf p.[13, 15]"
+          },
+          {
+            "query": "What must a hot work permit document under the PSM standard?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "osha_3132_process_safety_management.pdf p.25",
+            "expected": "osha_3132_process_safety_management.pdf p.[25]"
+          },
+          {
+            "query": "Which equipment do the PSM mechanical integrity requirements apply to?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "osha_3132_process_safety_management.pdf p.23",
+            "expected": "osha_3132_process_safety_management.pdf p.[23]"
+          },
+          {
+            "query": "What SEER level did the 2017 DOE final rule set for split-system air conditioners under 45,000 Btu/h in the Southeast region?",
+            "recall": 0,
+            "rr": 0.1111111111111111,
+            "top": "doe_final_rule_2017_cac_hp_efficiency.pdf p.63",
+            "expected": "doe_final_rule_2017_cac_hp_efficiency.pdf p.[3]"
+          },
+          {
+            "query": "When did compliance with the amended energy conservation standards for residential central air conditioners become required?",
+            "recall": 1,
+            "rr": 0.3333333333333333,
+            "top": "doe_final_rule_2017_cac_hp_efficiency.pdf p.9",
+            "expected": "doe_final_rule_2017_cac_hp_efficiency.pdf p.[1, 2, 3]"
+          },
+          {
+            "query": "Why would a globe valve be chosen over a gate valve for throttling service?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "doe_hdbk_1018_v2_mechanical_science.pdf p.35",
+            "expected": "doe_hdbk_1018_v2_mechanical_science.pdf p.[28, 35, 36]"
+          },
+          {
+            "query": "Which heat exchanger flow arrangement transfers heat more effectively, and what explains the difference?",
+            "recall": 1,
+            "rr": 0.5,
+            "top": "doe_hdbk_1012_v2_heat_transfer.pdf p.61",
+            "expected": "doe_hdbk_1012_v2_heat_transfer.pdf p.[53, 54, 55, 57]"
+          },
+          {
+            "query": "Can a real heat engine achieve Carnot efficiency? Explain.",
+            "recall": 1,
+            "rr": 0.3333333333333333,
+            "top": "doe_hdbk_1012_v1_thermodynamics.pdf p.111",
+            "expected": "doe_hdbk_1012_v1_thermodynamics.pdf p.[101, 102, 104]"
+          },
+          {
+            "query": "What methods are available for product validation, and how should the method be chosen?",
+            "recall": 1,
+            "rr": 1.0,
+            "top": "nasa_systems_engineering_handbook.pdf p.136",
+            "expected": "nasa_systems_engineering_handbook.pdf p.[136]"
+          },
+          {
+            "query": "Does the 2017 DOE final rule apply uniform national standards, or do requirements differ by region and product class?",
+            "recall": 0,
+            "rr": 0.14285714285714285,
+            "top": "doe_final_rule_2017_cac_hp_efficiency.pdf p.9",
+            "expected": "doe_final_rule_2017_cac_hp_efficiency.pdf p.[1, 3, 8]"
+          }
+        ],
+        "avg_latency_s": 0.738
+      }
+    },
+    "generation_eval": {
+      "faithfulness": 0.928113553113553,
+      "answer_relevancy": 0.9597956193954874,
+      "refusal_accuracy": 1.0,
+      "n_in_corpus": 26,
+      "n_out_of_corpus": 5
+    },
+    "latency_cost_sample": [
+      {
+        "query": "What is the difference between a relief valve and a safety valve?",
+        "latency_s": 4.17,
+        "prompt_tokens": 853,
+        "completion_tokens": 211,
+        "cost_usd": 0.00025455
+      },
+      {
+        "query": "How does NASA define systems engineering?",
+        "latency_s": 2.31,
+        "prompt_tokens": 1232,
+        "completion_tokens": 130,
+        "cost_usd": 0.00026279999999999994
+      },
+      {
+        "query": "How often must a process hazard analysis be revalidated?",
+        "latency_s": 1.18,
+        "prompt_tokens": 970,
+        "completion_tokens": 42,
+        "cost_usd": 0.0001707
+      },
+      {
+        "query": "What SEER level applies to split-system air conditioners in the Southeast?",
+        "latency_s": 2.2,
+        "prompt_tokens": 1304,
+        "completion_tokens": 97,
+        "cost_usd": 0.0002538
+      },
+      {
+        "query": "What is the log mean temperature difference?",
+        "latency_s": 4.12,
+        "prompt_tokens": 1024,
+        "completion_tokens": 171,
+        "cost_usd": 0.0002562
+      }
+    ]
+  }
+}

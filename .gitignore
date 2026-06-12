@@ -43,3 +43,6 @@ Thumbs.db
 # HuggingFace model cache (cross-encoder reranker download)
 # These are auto-downloaded at runtime — don't commit
 .cache/
+
+# Ingestion hash store — local state, rebuilt on ingest
+data/eval/ingested_hashes.json

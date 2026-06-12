@@ -1,8 +1,10 @@
 // RAG Engineering Assistant — frontend logic
 // Communicates with FastAPI backend via REST (POST /query) or SSE (GET /query/stream)
 
-// Replace with actual Render URL after deploying the API
-const API_BASE = "http://localhost:8000";
+// API_BASE comes from window.RAG_CONFIG (see config.js). This avoids per-environment
+// code edits — point at the deployed Render URL by changing config.js (or injecting
+// a window.RAG_CONFIG override via Vercel project settings) rather than this file.
+const API_BASE = (window.RAG_CONFIG && window.RAG_CONFIG.API_BASE) || "http://localhost:8000";
 
 // ---------------------------------------------------------------------------
 // Health check on load

@@ -63,7 +63,8 @@ def _get_embedding_fn():
             _embedding_fn = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
         else:
             from langchain_openai import OpenAIEmbeddings
-            _embedding_fn = OpenAIEmbeddings(model="text-embedding-3-small")
+            # check_embedding_ctx_length=False — see note in src/ingestion.py
+            _embedding_fn = OpenAIEmbeddings(model="text-embedding-3-small", check_embedding_ctx_length=False)
     return _embedding_fn
 
 

@@ -228,9 +228,24 @@ def run_ragas_eval(
 
     refusal_accuracy = refusals / len(out_of_corpus) if out_of_corpus else float("nan")
 
+    def _mean_score(value) -> float:
+        """
+        Ragas returns a scalar in some versions and a per-sample list in others.
+        Individual judging jobs can fail transiently (e.g. API errors) and yield
+        NaN — average over valid samples and report coverage instead of NaN-ing
+        the whole metric.
+        """
+        import math
+        if not isinstance(value, (list, tuple)):
+            return float(value)
+        vals = [v for v in value if v is not None and not math.isnan(v)]
+        if len(vals) < len(value):
+            print(f"  note: {len(value) - len(vals)}/{len(value)} samples failed; mean over valid samples")
+        return sum(vals) / len(vals) if vals else float("nan")
+
     results = {
-        "faithfulness": float(ragas_scores["faithfulness"]),
-        "answer_relevancy": float(ragas_scores["answer_relevancy"]),
+        "faithfulness": _mean_score(ragas_scores["faithfulness"]),
+        "answer_relevancy": _mean_score(ragas_scores["answer_relevancy"]),
         "refusal_accuracy": refusal_accuracy,
         "n_in_corpus": len(in_corpus),
         "n_out_of_corpus": len(out_of_corpus),

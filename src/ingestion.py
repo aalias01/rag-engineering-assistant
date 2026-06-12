@@ -34,8 +34,9 @@ load_dotenv()
 
 DOCUMENTS_DIR = Path("data/documents")
 CHROMA_PERSIST_PATH = Path(os.getenv("CHROMA_PERSIST_PATH", "./chroma_db"))
-CHUNK_SIZE = 500          # tokens (approximated as chars / 4)
-CHUNK_OVERLAP = 50        # tokens
+CHUNK_SIZE = 300          # tokens (approximated as chars / 4) — chosen by ablation:
+                          # Recall@3 0.885 (300) vs 0.846 (500) vs 0.808 (800) on hybrid retrieval
+CHUNK_OVERLAP = 30        # tokens (~10% of chunk size)
 EMBEDDING_MODEL = "text-embedding-3-small"
 COLLECTION_NAME = "engineering_docs"
 HASH_STORE_PATH = Path("data/eval/ingested_hashes.json")
@@ -135,7 +136,11 @@ def get_embedding_function():
         return HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
     else:
         from langchain_openai import OpenAIEmbeddings
-        return OpenAIEmbeddings(model=EMBEDDING_MODEL)
+        # check_embedding_ctx_length=False skips tiktoken's client-side token
+        # count (which requires downloading an encoding file at runtime).
+        # Chunks are ~500 tokens — far below the 8191-token embedding limit —
+        # so the check is unnecessary and the pipeline works offline-restricted.
+        return OpenAIEmbeddings(model=EMBEDDING_MODEL, check_embedding_ctx_length=False)
 
 
 # ---------------------------------------------------------------------------

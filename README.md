@@ -12,18 +12,19 @@ The project is designed as a portfolio-quality demonstration of practical GenAI 
 
 ## Current Status
 
-This repository contains the application scaffold and core implementation. It is ready for corpus selection, ingestion, evaluation runs, and deployment.
+The system is fully implemented and evaluated on a six-document public-domain engineering corpus (778 pages, 2,091 chunks). All evaluation targets are met — see [Results](#results).
 
 | Area | Status | Notes |
 |------|--------|-------|
-| PDF ingestion | Implemented | PyMuPDF extraction with pdfplumber fallback, hash-based reingestion skip |
-| Vector store | Implemented | ChromaDB persistent local collection |
-| Retrieval | Implemented | Dense retrieval, BM25 retrieval, Reciprocal Rank Fusion, optional cross-encoder reranking |
-| Generation | Implemented | GPT-4o-mini by default; Ollama local model path supported |
-| API | Implemented | FastAPI `GET /health`, `POST /query`, `GET /query/stream` |
-| Frontend | Implemented | Vanilla JS chat UI with streaming, citations, retrieved chunk panel, latency/cost stats |
-| Evaluation set | Draft scaffold | `data/eval/test_queries.jsonl` contains examples and must be replaced after final corpus selection |
-| Metrics | Pending | Run notebooks after ingesting real documents |
+| PDF ingestion | Complete | PyMuPDF extraction with pdfplumber fallback, hash-based reingestion skip |
+| Corpus | Complete | 6 public-domain documents, 778 pages — see `docs/corpus_selection.md` |
+| Vector store | Complete | ChromaDB persistent collection, 2,091 chunks at chunk size 300 (ablation-selected) |
+| Retrieval | Complete | Dense retrieval, BM25 retrieval, Reciprocal Rank Fusion, optional cross-encoder reranking |
+| Generation | Complete | GPT-4o-mini by default; Ollama local model path supported |
+| API | Complete | FastAPI `GET /health`, `POST /query`, `GET /query/stream` |
+| Frontend | Complete | Vanilla JS chat UI with streaming, citations, retrieved chunk panel, latency/cost stats |
+| Evaluation set | Complete | 31 hand-labeled queries with verified page-level ground truth |
+| Metrics | Complete | Recall@3 0.923 · MRR 0.817 · faithfulness 0.928 · relevancy 0.960 · refusal 1.000 |
 | Deployment | Configured, not deployed | Render blueprint included; Vercel frontend needs deployed API URL |
 
 Live demo and hosted API links should be added here after deployment:
@@ -43,16 +44,31 @@ This project focuses on the parts of RAG that matter in production:
 - Every response includes source document and page citations.
 - Out-of-corpus questions are part of the evaluation plan, not an afterthought.
 
+## The Corpus
+
+Six public-domain engineering documents (778 pages), spanning mechanical fundamentals, systems engineering, and safety/efficiency regulation — full provenance in `docs/corpus_selection.md`:
+
+| Document | Pages | Domain |
+|----------|-------|--------|
+| DOE-HDBK-1012 Vol 1 — Thermodynamics | 139 | Mechanical / HVAC fundamentals |
+| DOE-HDBK-1012 Vol 2 — Heat Transfer | 80 | Mechanical / HVAC fundamentals |
+| DOE-HDBK-1018 Vol 2 — Valves & Mechanical Components | 130 | Plant equipment |
+| NASA Systems Engineering Handbook (SP-2016-6105 Rev 2) | 297 | Systems engineering |
+| OSHA 3132 — Process Safety Management | 59 | Industrial safety regulation |
+| DOE Final Rule 82 FR 1786 — Residential CAC/HP Efficiency Standards | 73 | Federal energy regulation |
+
+Every document type here is one I worked with directly across 12 years in HVAC, subsea, and manufacturing engineering. The 2017 DOE final rule is the regulation behind the January 2023 product-line redesign I led at Rheem Manufacturing — this corpus is the problem I lived, not a demo dataset.
+
 ## Example Questions
 
-These are representative examples. Replace them with corpus-specific examples after the final PDFs are selected and ingested.
-
 ```text
-What is the minimum pipe insulation thickness for a 4-inch steam pipe at 400 F per ASHRAE 90.1?
+What is the difference between a relief valve and a safety valve?
 
-What does OSHA 1910.217 require for mechanical power press guarding?
+How often must a process hazard analysis be updated and revalidated under the PSM standard?
 
-What NASA technical report discusses turbofan engine health monitoring using sensor fusion?
+What SEER level did the 2017 DOE final rule set for split-system air conditioners in the Southeast?
+
+How does NASA define systems engineering?
 ```
 
 ## Architecture
@@ -67,7 +83,7 @@ PyMuPDF / pdfplumber extraction
 Page-level text with source metadata
     |
     v
-Recursive chunking, default about 500 tokens with 50-token overlap
+Recursive chunking, default about 300 tokens with 30-token overlap (ablation-selected)
     |
     v
 Embeddings: OpenAI text-embedding-3-small or local MiniLM
@@ -166,7 +182,7 @@ Open:
 - Health check: `http://localhost:8000/health`
 - Frontend: open `frontend/index.html` in a browser
 
-The frontend defaults to `http://localhost:8000` in `frontend/app.js`.
+The frontend reads its API base URL from `frontend/config.js` (`window.RAG_CONFIG.API_BASE`). It defaults to `http://localhost:8000`. Change `config.js` (or inject `window.RAG_CONFIG` via Vercel settings) when pointing at a deployed backend — no edit to `frontend/app.js` is needed.
 
 ## API
 
@@ -213,42 +229,21 @@ Streams answer tokens with Server-Sent Events:
 /query/stream?q=your%20question&top_k=4
 ```
 
-## Evaluation Plan
+## Evaluation
 
-The evaluation workflow is intentionally part of the portfolio story. After selecting and ingesting the final corpus, replace the examples in `data/eval/test_queries.jsonl` with about 30 hand-labeled queries:
+The evaluation set (`data/eval/test_queries.jsonl`) contains 31 hand-labeled queries with verified page-level ground truth: 21 in-corpus questions, 5 borderline questions requiring synthesis across chunks, and 5 out-of-corpus questions that must be refused — including deliberately hard refusal traps (e.g. a SEER2/2029 question that shares nearly all its vocabulary with an in-corpus document).
 
-- About 20 in-corpus questions with known source pages
-- About 5 borderline questions requiring careful retrieval
-- About 5 out-of-corpus questions that should be refused
-
-Target metrics:
-
-| Metric | Target | Why it matters |
-|--------|--------|----------------|
-| Retrieval Recall@3 | >= 0.85 | Correct source appears in top results |
-| Retrieval MRR | >= 0.70 | Correct source ranks near the top |
-| Ragas faithfulness | >= 0.85 | Answer stays grounded in retrieved context |
-| Ragas answer relevancy | >= 0.85 | Answer addresses the question |
-| Refusal accuracy | >= 0.80 | System avoids answering unsupported questions |
-| Median end-to-end latency | <= 3 seconds | UX remains usable |
-
-Planned ablations:
-
-| Experiment | Comparisons |
-|------------|-------------|
-| Chunk size | 300 vs 500 vs 800 approximate tokens |
-| Retrieval mode | Dense-only vs BM25-only vs hybrid RRF |
-| Reranking | Hybrid without reranker vs hybrid with cross-encoder reranker |
+Retrieval metrics (Recall@3, MRR) are computed separately from generation metrics (Ragas faithfulness and answer relevancy via gpt-4o-mini judging, plus refusal accuracy). The full suite runs via `python scripts/run_full_eval.py` and writes `eval_results/full_results.json`.
 
 ## Repository Structure
 
 ```text
 rag-engineering-assistant/
 ├── README.md
-├── PROJECT_BRIEF.md
 ├── .env.example
 ├── environment.yml
 ├── requirements.txt
+├── requirements-dev.txt        # adds ragas/datasets for evaluation
 ├── render.yaml
 ├── runtime.txt
 ├── api/
@@ -268,8 +263,21 @@ rag-engineering-assistant/
 │   ├── 02_retrieval_evaluation.ipynb
 │   ├── 03_rag_pipeline.ipynb
 │   └── 04_reranker_ablation.ipynb
+├── eval_results/
+│   └── full_results.json       # measured metrics (committed for reproducibility)
 ├── scripts/
-│   └── smoke_test.py
+│   ├── smoke_test.py
+│   ├── validate_eval_set.py
+│   ├── run_full_eval.py        # one-shot evaluation suite
+│   ├── finalize_chunk300.py
+│   └── capture_demo.md
+├── docs/
+│   ├── corpus_selection.md
+│   ├── evaluation_protocol.md
+│   ├── deployment_notes.md
+│   ├── interview_walkthrough.md
+│   └── portfolio_pr_summary.md
+├── LICENSE
 └── src/
     ├── ingestion.py
     ├── retriever.py
@@ -291,40 +299,66 @@ rag-engineering-assistant/
 
 1. Create a Vercel project from the same repo.
 2. Set the project root to `frontend/`.
-3. Update `API_BASE` in `frontend/app.js` to the Render API URL.
-4. Add the Vercel URL to `allow_origins` in `api/main.py`.
+3. Update `API_BASE` in `frontend/config.js` to the Render API URL.
+4. In Render, set `FRONTEND_ORIGIN` to the Vercel URL (CORS is read from env, not hardcoded).
 5. Redeploy the backend.
 
 ## Portfolio Readiness Checklist
 
 Before making the repository public or linking it from a resume:
 
-- [ ] Select 5-10 public or license-compatible engineering PDFs.
-- [ ] Replace placeholder examples in `data/eval/test_queries.jsonl` with real corpus-grounded queries.
-- [ ] Run ingestion and commit only code, docs, and evaluation artifacts, not PDFs or ChromaDB.
-- [ ] Run retrieval and RAG evaluation notebooks.
-- [ ] Fill in the metrics table below with actual values.
+- [x] Select 5-10 public or license-compatible engineering PDFs.
+- [x] Replace placeholder examples in `data/eval/test_queries.jsonl` with real corpus-grounded queries.
+- [x] Run ingestion and commit only code, docs, and evaluation artifacts, not PDFs or ChromaDB.
+- [x] Run retrieval and generation evaluation (`scripts/run_full_eval.py`).
+- [x] Fill in the metrics table with actual values.
 - [ ] Add a short demo GIF or screenshots to `figures/`.
 - [ ] Deploy backend and frontend.
 - [ ] Replace pending live demo/API links at the top of this README.
-- [ ] Update example questions so they match the final corpus.
-- [ ] Add a license file or remove license references from external listings.
+- [x] Update example questions so they match the final corpus.
+- [x] Add a license file (MIT — see `LICENSE`).
 
-For the detailed step-by-step launch workflow, see `PORTFOLIO_LAUNCH_STEPS.md`.
+For the detailed step-by-step launch workflow, see `docs_local/PORTFOLIO_LAUNCH_STEPS.md`. Supporting docs live in `docs/` (`corpus_selection.md`, `evaluation_protocol.md`, `deployment_notes.md`, `interview_walkthrough.md`, `portfolio_pr_summary.md`).
 
 ## Results
 
-Fill this table after evaluation runs:
+All metrics measured on the 31-query evaluation set against the 6-document corpus (2,091 chunks, chunk size 300). Raw output: `eval_results/full_results.json`.
 
-| Metric | Value | Notes |
-|--------|-------|-------|
-| Retrieval Recall@3 | pending | Target >= 0.85 |
-| Retrieval MRR | pending | Target >= 0.70 |
-| Ragas faithfulness | pending | Target >= 0.85 |
-| Ragas answer relevancy | pending | Target >= 0.85 |
-| Refusal accuracy | pending | Target >= 0.80 |
-| Median latency | pending | Target <= 3 seconds |
-| Estimated cost per 100 queries | pending | Based on observed token use |
+| Metric | Value | Target | Status |
+|--------|-------|--------|--------|
+| Retrieval Recall@3 | **0.923** | ≥ 0.85 | ✅ |
+| Retrieval MRR | **0.817** (dense) / 0.741 (hybrid+reranker) | ≥ 0.70 | ✅ |
+| Ragas faithfulness | **0.928** | ≥ 0.85 | ✅ |
+| Ragas answer relevancy | **0.960** | ≥ 0.85 | ✅ |
+| Refusal accuracy | **1.000** (5/5 out-of-corpus refused) | ≥ 0.80 | ✅ |
+| Median end-to-end latency | **~2.3 s** | ≤ 3 s | ✅ |
+| Cost per 100 queries | **~$0.02** | — | gpt-4o-mini + text-embedding-3-small |
+
+### Retrieval ablation (k=3, chunk size 300)
+
+| Configuration | Recall@3 | MRR | Avg latency/query |
+|---------------|----------|-----|-------------------|
+| Dense-only | 0.923 | **0.817** | 0.25 s |
+| BM25-only | 0.731 | 0.580 | 0.01 s |
+| Hybrid RRF | 0.885 | 0.774 | 0.23 s |
+| Hybrid RRF + cross-encoder reranker | **0.923** | 0.741 | 0.74 s |
+
+### Chunk-size ablation (hybrid RRF, no reranker)
+
+| Chunk size | Recall@3 | MRR |
+|------------|----------|-----|
+| **300** | **0.885** | 0.774 |
+| 500 | 0.846 | 0.754 |
+| 800 | 0.808 | 0.785 |
+
+### Honest findings
+
+Two results went against the "more machinery is better" assumption, and both are worth more in an interview than a clean sweep would be:
+
+1. **Dense-only retrieval matched the full hybrid+reranker pipeline on Recall@3 (0.923) with the best MRR (0.817) at a third of the latency.** The corpus's natural-language educational prose plays to embedding strengths; BM25's exact-term advantage matters less when eval queries are phrased the way real users ask questions rather than as bare spec identifiers.
+2. **The cross-encoder reranker did not improve top-3 quality** — it matched hybrid recall but shuffled MRR downward (0.774 → 0.741). On this corpus the reranker adds latency and memory cost without measurable benefit, which is exactly why ablations belong in production RAG work.
+
+The deployed default keeps hybrid+reranker (configurable per request via the API), but for a memory-constrained deployment, dense-only is the measured-equivalent cheap option.
 
 ## Cost Notes
 
@@ -342,17 +376,20 @@ Local path:
 ## Known Limitations
 
 - Scanned PDFs require OCR, which is currently out of scope.
-- The default BM25 tokenizer is simple whitespace splitting; technical punctuation may need stronger normalization for final tuning.
+- The default BM25 tokenizer is simple whitespace splitting; measured BM25-only performance (Recall@3 0.731) partly reflects this — technical punctuation needs stronger normalization before BM25 can pull its weight.
+- The Federal Register document's 3-column layout extracts imperfectly; the table-lookup eval queries against it are the hardest retrieval cases in the set.
 - Streaming responses currently estimate completion tokens unless provider usage metadata is available.
-- Render free tier memory may be tight with the cross-encoder reranker loaded.
+- Render free tier memory may be tight with the cross-encoder reranker loaded — the ablation shows dense-only retrieval is a measured-equivalent fallback.
+- Ragas judging jobs can fail transiently (HTTP 431); metrics average over valid samples and report coverage.
 
 ## Interview Framing
 
 This project is strongest when presented as an evaluated RAG system, not just a chat demo:
 
-- "I evaluated retrieval quality separately from generation quality using Recall@3 and MRR."
-- "I included out-of-corpus questions so the system is tested on refusal behavior."
-- "I compared dense-only, BM25-only, and hybrid retrieval because engineering standards rely heavily on exact acronyms and specification identifiers."
+- "I evaluated retrieval quality separately from generation quality — Recall@3 0.923, MRR 0.817, faithfulness 0.928."
+- "I included out-of-corpus questions so the system is tested on refusal behavior — 5/5 refused, including a near-corpus vocabulary trap."
+- "My ablations showed the reranker didn't help on this corpus and dense-only matched hybrid — measuring is what told me; that's why ablations belong in production RAG work."
+- "The chunk-size ablation changed the production config: 300 tokens beat the 500-token default by 4 points of Recall@3."
 - "I exposed retrieved chunks and citations in the UI so users can inspect why an answer was produced."
 
 Built by [Alvin Alias](https://github.com/aalias01).
