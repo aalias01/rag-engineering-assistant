@@ -303,23 +303,6 @@ rag-engineering-assistant/
 4. In Render, set `FRONTEND_ORIGIN` to the Vercel URL (CORS is read from env, not hardcoded).
 5. Redeploy the backend.
 
-## Portfolio Readiness Checklist
-
-Before making the repository public or linking it from a resume:
-
-- [x] Select 5-10 public or license-compatible engineering PDFs.
-- [x] Replace placeholder examples in `data/eval/test_queries.jsonl` with real corpus-grounded queries.
-- [x] Run ingestion and commit only code, docs, and evaluation artifacts, not PDFs or ChromaDB.
-- [x] Run retrieval and generation evaluation (`scripts/run_full_eval.py`).
-- [x] Fill in the metrics table with actual values.
-- [ ] Add a short demo GIF or screenshots to `figures/`.
-- [ ] Deploy backend and frontend.
-- [ ] Replace pending live demo/API links at the top of this README.
-- [x] Update example questions so they match the final corpus.
-- [x] Add a license file (MIT — see `LICENSE`).
-
-For the detailed step-by-step launch workflow, see `docs_local/PORTFOLIO_LAUNCH_STEPS.md`. Supporting docs live in `docs/` (`corpus_selection.md`, `evaluation_protocol.md`, `deployment_notes.md`, `interview_walkthrough.md`, `portfolio_pr_summary.md`).
-
 ## Results
 
 All metrics measured on the 31-query evaluation set against the 6-document corpus (2,091 chunks, chunk size 300). Raw output: `eval_results/full_results.json`.
@@ -382,14 +365,4 @@ Local path:
 - Render free tier memory may be tight with the cross-encoder reranker loaded — the ablation shows dense-only retrieval is a measured-equivalent fallback.
 - Ragas judging jobs can fail transiently (HTTP 431); metrics average over valid samples and report coverage.
 
-## Interview Framing
-
-This project is strongest when presented as an evaluated RAG system, not just a chat demo:
-
-- "I evaluated retrieval quality separately from generation quality — Recall@3 0.923, MRR 0.817, faithfulness 0.928."
-- "I included out-of-corpus questions so the system is tested on refusal behavior — 5/5 refused, including a near-corpus vocabulary trap."
-- "My ablations showed the reranker didn't help on this corpus and dense-only matched hybrid — measuring is what told me; that's why ablations belong in production RAG work."
-- "The chunk-size ablation changed the production config: 300 tokens beat the 500-token default by 4 points of Recall@3."
-- "I exposed retrieved chunks and citations in the UI so users can inspect why an answer was produced."
-
-Built by [Alvin Alias](https://github.com/aalias01).
+*Built by [Alvin Alias](https://github.com/aalias01) · MS Data Science, University of Washington · 12 years HVAC/subsea/manufacturing engineering*
