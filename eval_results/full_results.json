@@ -1,4 +1,43 @@
 {
+  "official_results": {
+    "source": "final_config_chunk300",
+    "timestamp": "2026-06-11 17:00:36",
+    "chunk_size": 300,
+    "retrieval": {
+      "dense_only": {
+        "recall_at_3": 0.9230769230769231,
+        "mrr": 0.8173076923076922,
+        "avg_latency_s": 0.245
+      },
+      "bm25_only": {
+        "recall_at_3": 0.7307692307692307,
+        "mrr": 0.5801282051282052,
+        "avg_latency_s": 0.011
+      },
+      "hybrid_rrf": {
+        "recall_at_3": 0.8846153846153846,
+        "mrr": 0.7735042735042735,
+        "avg_latency_s": 0.229
+      },
+      "hybrid_rrf_reranker": {
+        "recall_at_3": 0.9230769230769231,
+        "mrr": 0.7405372405372405,
+        "avg_latency_s": 0.738
+      }
+    },
+    "generation": {
+      "faithfulness": 0.928113553113553,
+      "answer_relevancy": 0.9597956193954874,
+      "refusal_accuracy": 1.0,
+      "n_in_corpus": 26,
+      "n_out_of_corpus": 5
+    },
+    "latency_cost": {
+      "median_latency_s": 2.31,
+      "cost_per_100_queries_usd": 0.023961
+    },
+    "note": "Older top-level keys are retained as historical runs; use this object and final_config_chunk300 for the README values."
+  },
   "timestamp": "2026-06-11 14:34:34",
   "k": 3,
   "retrieval_ablations_chunk500": {

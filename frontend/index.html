@@ -4,92 +4,212 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RAG Engineering Assistant</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=2" />
 </head>
 <body>
-
-  <!-- Header -->
-  <header>
-    <div class="header-inner">
-      <div class="logo">
-        <span class="logo-icon">⚙️</span>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand-block">
+        <div class="brand-mark" aria-hidden="true">RA</div>
         <div>
-          <h1>RAG Engineering Assistant</h1>
-          <p class="tagline">Query engineering standards in natural language · Answers grounded in source documents</p>
+          <p class="eyebrow">RAG Engineering Assistant</p>
+          <h1>Engineering Evidence Workbench</h1>
         </div>
       </div>
-      <div id="status-badge" class="badge badge-loading">Connecting…</div>
-    </div>
-  </header>
 
-  <!-- Main layout -->
-  <main>
+      <div class="system-strip" aria-label="System status">
+        <div class="system-item">
+          <span>Corpus</span>
+          <strong id="status-badge" class="badge badge-loading">Connecting...</strong>
+        </div>
+        <div class="system-item">
+          <span>Evaluation</span>
+          <strong>Recall@3 0.923</strong>
+        </div>
+        <div class="system-item">
+          <span>Refusal</span>
+          <strong>5/5 traps</strong>
+        </div>
+      </div>
+    </header>
 
-    <!-- Left: Chat + Input -->
-    <section class="chat-panel">
+    <main class="workbench">
+      <aside class="corpus-panel" aria-label="Corpus inventory">
+        <div class="panel-head">
+          <p class="eyebrow">Corpus</p>
+          <h2>778 pages, 2,091 retrieval chunks</h2>
+        </div>
 
-      <!-- Conversation -->
-      <div id="conversation" class="conversation">
-        <div class="welcome-message">
-          <h2>Ask an engineering question</h2>
-          <p>This assistant queries a curated corpus of engineering standards and technical documents — ASHRAE, OSHA, ASME, NASA. Answers are grounded in the actual source text with page-level citations.</p>
-          <div class="example-queries">
-            <p class="example-label">Example queries:</p>
-            <button class="example-btn" onclick="useExample(this)">What is the minimum pipe insulation thickness for a 4-inch steam pipe at 400°F per ASHRAE 90.1?</button>
-            <button class="example-btn" onclick="useExample(this)">What hydrostatic test requirements apply to Class 900 flanges per ASME B16.5?</button>
-            <button class="example-btn" onclick="useExample(this)">What does OSHA 1910.217 require for mechanical power press guarding?</button>
+        <div class="metric-grid" aria-label="Portfolio metrics">
+          <div>
+            <span>Faithfulness</span>
+            <strong>0.928</strong>
+          </div>
+          <div>
+            <span>MRR</span>
+            <strong>0.817</strong>
           </div>
         </div>
-      </div>
 
-      <!-- Input form -->
-      <div class="input-area">
-        <div class="input-row">
+        <div class="doc-list" aria-label="Documents">
+          <button class="doc-row active" type="button">
+            <span>DOE 1012-1</span>
+            <strong>Thermodynamics</strong>
+            <small>139 pages</small>
+          </button>
+          <button class="doc-row" type="button">
+            <span>DOE 1012-2</span>
+            <strong>Heat Transfer</strong>
+            <small>80 pages</small>
+          </button>
+          <button class="doc-row" type="button">
+            <span>DOE 1018-2</span>
+            <strong>Mechanical Components</strong>
+            <small>130 pages</small>
+          </button>
+          <button class="doc-row" type="button">
+            <span>NASA SP-2016</span>
+            <strong>Systems Engineering</strong>
+            <small>297 pages</small>
+          </button>
+          <button class="doc-row" type="button">
+            <span>OSHA 3132</span>
+            <strong>Process Safety</strong>
+            <small>59 pages</small>
+          </button>
+          <button class="doc-row" type="button">
+            <span>82 FR 1786</span>
+            <strong>CAC/HP Efficiency Rule</strong>
+            <small>73 pages</small>
+          </button>
+        </div>
+
+        <div class="query-bank" aria-label="Example queries">
+          <p class="eyebrow">Query Bank</p>
+          <button class="example-btn" type="button" data-query="What is the difference between a relief valve and a safety valve?">
+            Relief valve vs safety valve
+          </button>
+          <button class="example-btn" type="button" data-query="How often must a process hazard analysis be updated and revalidated under the PSM standard?">
+            PSM revalidation interval
+          </button>
+          <button class="example-btn" type="button" data-query="What SEER level did the 2017 DOE final rule set for split-system air conditioners under 45,000 Btu/h in the Southeast region?">
+            DOE Southeast SEER rule
+          </button>
+          <button class="example-btn" type="button" data-query="What SEER2 efficiency standards will apply to residential central air conditioners in 2029?">
+            Out-of-corpus refusal trap
+          </button>
+        </div>
+      </aside>
+
+      <section class="answer-panel" aria-label="Answer trace">
+        <div class="stage-toolbar">
+          <div>
+            <p class="eyebrow">Answer Trace</p>
+            <h2>Grounded response</h2>
+          </div>
+
+          <div class="mode-controls" aria-label="Run controls">
+            <label class="control-check">
+              <input type="checkbox" id="stream-toggle" checked />
+              <span>Stream</span>
+            </label>
+            <label class="control-check">
+              <input type="checkbox" id="hybrid-toggle" checked />
+              <span>Hybrid</span>
+            </label>
+            <label class="control-check">
+              <input type="checkbox" id="reranker-toggle" checked />
+              <span>Rerank</span>
+            </label>
+            <label class="topk-control">
+              <span>Top K</span>
+              <select id="top-k-select">
+                <option value="3">3</option>
+                <option value="4" selected>4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div id="conversation" class="conversation">
+          <div class="welcome-message">
+            <div class="empty-state">
+              <p class="eyebrow">Ready</p>
+              <h2>Select a query or enter an engineering question.</h2>
+              <div class="empty-grid">
+                <div>
+                  <span>Retrieval</span>
+                  <strong>Dense + BM25 + RRF</strong>
+                </div>
+                <div>
+                  <span>Generation</span>
+                  <strong>Citation constrained</strong>
+                </div>
+                <div>
+                  <span>Evaluation</span>
+                  <strong>31 labeled queries</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="input-area">
           <textarea
             id="query-input"
-            placeholder="Ask an engineering question…"
-            rows="2"
+            placeholder="Ask about valves, heat transfer, NASA reviews, PSM, or DOE efficiency rules"
+            rows="3"
             maxlength="1000"
           ></textarea>
-          <button id="send-btn" onclick="sendQuery()">Ask</button>
+          <div class="input-footer">
+            <span id="char-count" class="char-count">0 / 1000</span>
+            <button id="send-btn" type="button">Run Query</button>
+          </div>
         </div>
-        <div class="input-meta">
-          <label class="toggle-label">
-            <input type="checkbox" id="stream-toggle" checked />
-            Stream response
-          </label>
-          <span id="char-count" class="char-count">0 / 1000</span>
-        </div>
-      </div>
+      </section>
 
-    </section>
+      <aside class="trace-panel" aria-label="Run evidence">
+        <section class="trace-block">
+          <div class="trace-heading">
+            <p class="eyebrow">Run Stats</p>
+            <h2>Execution</h2>
+          </div>
+          <div id="stats-panel" class="stats-panel">
+            <div class="stat-row"><span>Latency</span><strong id="stat-latency">-</strong></div>
+            <div class="stat-row"><span>Chunks</span><strong id="stat-chunks">-</strong></div>
+            <div class="stat-row"><span>Prompt tokens</span><strong id="stat-prompt-tokens">-</strong></div>
+            <div class="stat-row"><span>Completion</span><strong id="stat-completion-tokens">-</strong></div>
+            <div class="stat-row"><span>Cost</span><strong id="stat-cost">-</strong></div>
+            <div class="stat-row"><span>Model</span><strong id="stat-model">-</strong></div>
+          </div>
+        </section>
 
-    <!-- Right: Sources + Metadata -->
-    <aside class="sources-panel">
-      <h3>Sources</h3>
-      <div id="sources-list">
-        <p class="placeholder-text">Citations appear here after a query.</p>
-      </div>
+        <section class="trace-block">
+          <div class="trace-heading">
+            <p class="eyebrow">Citations</p>
+            <h2>Page anchors</h2>
+          </div>
+          <div id="sources-list" class="citation-list">
+            <p class="placeholder-text">No citations yet.</p>
+          </div>
+        </section>
 
-      <h3 style="margin-top: 24px;">Query Stats</h3>
-      <div id="stats-panel" class="stats-panel">
-        <div class="stat-row"><span>Latency</span><span id="stat-latency">—</span></div>
-        <div class="stat-row"><span>Chunks retrieved</span><span id="stat-chunks">—</span></div>
-        <div class="stat-row"><span>Prompt tokens</span><span id="stat-prompt-tokens">—</span></div>
-        <div class="stat-row"><span>Completion tokens</span><span id="stat-completion-tokens">—</span></div>
-        <div class="stat-row"><span>Estimated cost</span><span id="stat-cost">—</span></div>
-        <div class="stat-row"><span>Model</span><span id="stat-model">—</span></div>
-      </div>
-
-      <h3 style="margin-top: 24px;">Retrieved Chunks</h3>
-      <div id="chunks-list">
-        <p class="placeholder-text">Retrieved document excerpts appear here.</p>
-      </div>
-    </aside>
-
-  </main>
+        <section class="trace-block evidence-block">
+          <div class="trace-heading">
+            <p class="eyebrow">Retrieved Evidence</p>
+            <h2>Chunk dossier</h2>
+          </div>
+          <div id="chunks-list" class="chunks-list">
+            <p class="placeholder-text">No retrieved chunks yet.</p>
+          </div>
+        </section>
+      </aside>
+    </main>
+  </div>
 
   <script src="config.js"></script>
-  <script src="app.js"></script>
+  <script src="app.js?v=2"></script>
 </body>
 </html>

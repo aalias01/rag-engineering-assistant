@@ -14,4 +14,4 @@ Use three query types:
 - `borderline`: answer is present but requires careful retrieval or synthesis across chunks
 - `out_of_corpus`: answer is not present and the system should refuse
 
-Before publishing the project, replace the example rows with about 30 final rows tied to the selected PDF corpus.
+The committed set contains 31 final rows tied to the selected public-domain PDF corpus.

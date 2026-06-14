@@ -6,7 +6,7 @@ before starting the evaluation notebooks.
 
 Usage:
     python scripts/smoke_test.py
-    python scripts/smoke_test.py --query "What is ASHRAE 90.1 Section 6.4?"
+    python scripts/smoke_test.py --query "How does NASA define systems engineering?"
 """
 
 from __future__ import annotations
@@ -24,9 +24,9 @@ load_dotenv()
 
 
 DEFAULT_QUERIES = [
-    "What is the minimum pipe insulation thickness for a 4-inch steam line?",
-    "What are the safety requirements for machine guarding per OSHA?",
-    "How is hydrostatic test pressure determined for pressure vessels?",
+    "What is the difference between a relief valve and a safety valve?",
+    "How often must a process hazard analysis be updated and revalidated under the PSM standard?",
+    "How does NASA define systems engineering?",
 ]
 
 

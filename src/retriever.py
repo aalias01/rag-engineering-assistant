@@ -8,7 +8,7 @@ Retrieval pipeline:
     4. Rerank (optional): cross-encoder reranker pushes most-relevant chunk to top
 
 Why hybrid?
-    Engineering documents contain domain acronyms (ASME B16.5, NPSH, COP, ASHRAE 90.1)
+    Engineering documents contain domain acronyms (PSM, TRL, SEER, LMTD)
     that pure semantic search can underrank if they don't appear in training data
     with enough frequency. BM25 handles exact-match acronyms perfectly; dense
     handles paraphrased queries. Combining them with RRF is additive.

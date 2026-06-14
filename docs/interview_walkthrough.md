@@ -60,7 +60,7 @@ Pick two from `docs/deployment_notes.md` and `PROJECT_BRIEF.md`:
 | Why ChromaDB and not Pinecone? | Zero-cost local dev; production swap is documented. |
 | Why GPT-4o-mini? | Strong grounded-Q&A quality at $0.15/$0.60 per 1M tokens; the local Ollama path proves the system is not locked to OpenAI. |
 | How do you prevent hallucination? | Strict prompt + retrieved-only context + refusal evaluation in the test set. |
-| Why hybrid retrieval? | Engineering text has exact identifiers (ASME B16.5, NPSH, 1910.217); BM25 rescues those cases. |
+| Why hybrid retrieval? | Engineering text has exact identifiers (PSM, TRL, SEER, LMTD); BM25 rescues those cases. |
 | How big is the corpus? | 5-10 public PDFs in 2-3 domains. Quality of selection matters more than volume. |
 
 ## Demo Failure Recovery

@@ -6,58 +6,63 @@
 [![LangChain](https://img.shields.io/badge/LangChain-0.2-green)](https://www.langchain.com/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110-teal)](https://fastapi.tiangolo.com/)
 
-RAG Engineering Assistant is an end-to-end retrieval-augmented generation system for technical engineering documents. It ingests PDF standards, manuals, and reports; retrieves relevant excerpts with hybrid search; reranks the best candidates; and generates concise answers grounded only in the retrieved source text.
+RAG Engineering Assistant is an end-to-end GenAI application for technical engineering documents. It ingests PDF standards, manuals, and reports, retrieves relevant excerpts with hybrid search, reranks candidates, and generates answers with page-level citations.
 
-The project is designed as a portfolio-quality demonstration of practical GenAI engineering: document ingestion, vector search, hybrid retrieval, reranking, citation-grounded prompting, evaluation, API deployment, and a usable chat interface.
+I built this project to show the work behind a real RAG system, not just a chat box on top of PDFs. It covers ingestion, vector search, hybrid retrieval, reranking, grounded prompting, evaluation, API serving, deployment planning, and a custom evidence-review interface.
 
-## Current Status
+## Highlights
 
-The system is fully implemented and evaluated on a six-document public-domain engineering corpus (778 pages, 2,091 chunks). All evaluation targets are met — see [Results](#results).
+- Built a full RAG application over 778 pages of engineering documents from DOE, NASA, OSHA, and the Federal Register.
+- Preserved page-level metadata through ingestion so answers can cite the source document and page.
+- Combined dense retrieval, BM25, Reciprocal Rank Fusion, and optional cross-encoder reranking.
+- Evaluated retrieval and generation separately on 31 hand-labeled questions.
+- Tested refusal behavior with out-of-corpus questions that are close to the engineering domain.
+- Exposed the system through FastAPI and a custom frontend for reviewing answers, citations, chunks, latency, and cost.
+
+## Project Snapshot
+
+The system is fully implemented and evaluated on a six-document public-domain engineering corpus with 778 pages and 2,091 chunks. All evaluation targets are met. See [Results](#results).
 
 | Area | Status | Notes |
 |------|--------|-------|
 | PDF ingestion | Complete | PyMuPDF extraction with pdfplumber fallback, hash-based reingestion skip |
-| Corpus | Complete | 6 public-domain documents, 778 pages — see `docs/corpus_selection.md` |
+| Corpus | Complete | 6 public-domain documents, 778 pages. See `docs/corpus_selection.md` |
 | Vector store | Complete | ChromaDB persistent collection, 2,091 chunks at chunk size 300 (ablation-selected) |
 | Retrieval | Complete | Dense retrieval, BM25 retrieval, Reciprocal Rank Fusion, optional cross-encoder reranking |
 | Generation | Complete | GPT-4o-mini by default; Ollama local model path supported |
 | API | Complete | FastAPI `GET /health`, `POST /query`, `GET /query/stream` |
-| Frontend | Complete | Vanilla JS chat UI with streaming, citations, retrieved chunk panel, latency/cost stats |
+| Frontend | Complete | Vanilla JS evidence workbench with streaming, citations, retrieval trace, latency, and cost stats |
 | Evaluation set | Complete | 31 hand-labeled queries with verified page-level ground truth |
-| Metrics | Complete | Recall@3 0.923 · MRR 0.817 · faithfulness 0.928 · relevancy 0.960 · refusal 1.000 |
-| Deployment | Configured, not deployed | Render blueprint included; Vercel frontend needs deployed API URL |
+| Metrics | Complete | Recall@3 0.923, MRR 0.817, faithfulness 0.928, relevancy 0.960, refusal 1.000 |
+| Deployment | Ready for hosting | Render/Vercel config included; production needs document ingestion or a hosted vector store |
 
-Live demo and hosted API links should be added here after deployment:
+## Why I Built It
 
-- Live demo: pending
-- API docs: pending
+Engineers spend a lot of time searching standards, procedures, design manuals, and technical reports. Search can find a document, but it usually does not say which section answers the question or whether the answer is grounded in the source.
 
-## Why This Project Matters
-
-Engineers often spend a large share of their time searching standards, procedures, design manuals, and technical reports. Generic search can find documents, but it does not reliably explain which section answers the question or whether the answer is grounded in the source text.
-
-This project focuses on the parts of RAG that matter in production:
+I built this around the parts of RAG that matter when the system has to be trusted:
 
 - Retrieval quality is measured separately from answer quality.
 - Hybrid retrieval handles engineering acronyms and exact specification names better than dense search alone.
 - The generator is constrained to answer only from retrieved excerpts.
 - Every response includes source document and page citations.
-- Out-of-corpus questions are part of the evaluation plan, not an afterthought.
+- Out-of-corpus questions are included in the evaluation set.
+- The frontend shows the answer, citations, retrieved chunks, latency, and cost in one place.
 
 ## The Corpus
 
-Six public-domain engineering documents (778 pages), spanning mechanical fundamentals, systems engineering, and safety/efficiency regulation — full provenance in `docs/corpus_selection.md`:
+Six public-domain engineering documents (778 pages), spanning mechanical fundamentals, systems engineering, and safety/efficiency regulation. Full provenance is in `docs/corpus_selection.md`.
 
 | Document | Pages | Domain |
 |----------|-------|--------|
-| DOE-HDBK-1012 Vol 1 — Thermodynamics | 139 | Mechanical / HVAC fundamentals |
-| DOE-HDBK-1012 Vol 2 — Heat Transfer | 80 | Mechanical / HVAC fundamentals |
-| DOE-HDBK-1018 Vol 2 — Valves & Mechanical Components | 130 | Plant equipment |
+| DOE-HDBK-1012 Vol 1: Thermodynamics | 139 | Mechanical / HVAC fundamentals |
+| DOE-HDBK-1012 Vol 2: Heat Transfer | 80 | Mechanical / HVAC fundamentals |
+| DOE-HDBK-1018 Vol 2: Valves & Mechanical Components | 130 | Plant equipment |
 | NASA Systems Engineering Handbook (SP-2016-6105 Rev 2) | 297 | Systems engineering |
-| OSHA 3132 — Process Safety Management | 59 | Industrial safety regulation |
-| DOE Final Rule 82 FR 1786 — Residential CAC/HP Efficiency Standards | 73 | Federal energy regulation |
+| OSHA 3132: Process Safety Management | 59 | Industrial safety regulation |
+| DOE Final Rule 82 FR 1786: Residential CAC/HP Efficiency Standards | 73 | Federal energy regulation |
 
-Every document type here is one I worked with directly across 12 years in HVAC, subsea, and manufacturing engineering. The 2017 DOE final rule is the regulation behind the January 2023 product-line redesign I led at Rheem Manufacturing — this corpus is the problem I lived, not a demo dataset.
+Every document type here connects to work I have done across 12 years in HVAC, subsea, and manufacturing engineering. The 2017 DOE final rule is the regulation behind the January 2023 product-line redesign I led at Rheem Manufacturing. This corpus is based on a real problem I worked around for years.
 
 ## Example Questions
 
@@ -130,7 +135,7 @@ Answer, sources, retrieved chunks, latency, cost estimate
 | LLM | GPT-4o-mini | Grounded answer generation |
 | Local LLM option | Ollama + Llama 3.1 8B | Zero-cost local generation path |
 | API | FastAPI | Health checks, JSON queries, SSE streaming |
-| Frontend | HTML, CSS, vanilla JS | Chat UI with sources and retrieved chunks |
+| Frontend | HTML, CSS, vanilla JS | Evidence workbench with sources, retrieval trace, and run stats |
 | Evaluation | Custom metrics + Ragas | Recall@k, MRR, faithfulness, answer relevancy |
 
 ## Setup
@@ -180,9 +185,9 @@ Open:
 
 - API docs: `http://localhost:8000/docs`
 - Health check: `http://localhost:8000/health`
-- Frontend: open `frontend/index.html` in a browser
+- Frontend: serve `frontend/` with a static server, then open the local URL
 
-The frontend reads its API base URL from `frontend/config.js` (`window.RAG_CONFIG.API_BASE`). It defaults to `http://localhost:8000`. Change `config.js` (or inject `window.RAG_CONFIG` via Vercel settings) when pointing at a deployed backend — no edit to `frontend/app.js` is needed.
+The frontend reads its API base URL from `frontend/config.js` (`window.RAG_CONFIG.API_BASE`). It defaults to `http://localhost:8000`. Change `config.js` or inject `window.RAG_CONFIG` via Vercel settings when pointing at a deployed backend. No edit to `frontend/app.js` is needed.
 
 ## API
 
@@ -196,7 +201,7 @@ Example request:
 
 ```json
 {
-  "query": "What does OSHA 1910.217 require for mechanical power press guarding?",
+  "query": "How often must a process hazard analysis be updated and revalidated under the PSM standard?",
   "top_k": 4,
   "use_hybrid": true,
   "use_reranker": true
@@ -231,7 +236,7 @@ Streams answer tokens with Server-Sent Events:
 
 ## Evaluation
 
-The evaluation set (`data/eval/test_queries.jsonl`) contains 31 hand-labeled queries with verified page-level ground truth: 21 in-corpus questions, 5 borderline questions requiring synthesis across chunks, and 5 out-of-corpus questions that must be refused — including deliberately hard refusal traps (e.g. a SEER2/2029 question that shares nearly all its vocabulary with an in-corpus document).
+The evaluation set (`data/eval/test_queries.jsonl`) contains 31 hand-labeled queries with verified page-level ground truth. It includes 21 in-corpus questions, 5 borderline questions that require synthesis across chunks, and 5 out-of-corpus questions that should be refused. One hard refusal trap asks about future SEER2/2029 rules using almost the same vocabulary as an in-corpus DOE rule.
 
 Retrieval metrics (Recall@3, MRR) are computed separately from generation metrics (Ragas faithfulness and answer relevancy via gpt-4o-mini judging, plus refusal accuracy). The full suite runs via `python scripts/run_full_eval.py` and writes `eval_results/full_results.json`.
 
@@ -293,7 +298,8 @@ rag-engineering-assistant/
 2. Create a Render Blueprint from this repo.
 3. Render reads `render.yaml`.
 4. Add `OPENAI_API_KEY` as a secret environment variable.
-5. After deploy, open `/health` and `/docs`.
+5. Add a production vector-store path: run ingestion at build time from public PDFs, attach a persistent disk, or point the app at a hosted vector database.
+6. After deploy, open `/health` and `/docs`.
 
 ### Frontend on Vercel
 
@@ -305,7 +311,7 @@ rag-engineering-assistant/
 
 ## Results
 
-All metrics measured on the 31-query evaluation set against the 6-document corpus (2,091 chunks, chunk size 300). Raw output: `eval_results/full_results.json`.
+All metrics measured on the 31-query evaluation set against the 6-document corpus (2,091 chunks, chunk size 300). Raw output: `eval_results/full_results.json`; the README values come from the `official_results` / `final_config_chunk300` entries.
 
 | Metric | Value | Target | Status |
 |--------|-------|--------|--------|
@@ -315,7 +321,7 @@ All metrics measured on the 31-query evaluation set against the 6-document corpu
 | Ragas answer relevancy | **0.960** | ≥ 0.85 | ✅ |
 | Refusal accuracy | **1.000** (5/5 out-of-corpus refused) | ≥ 0.80 | ✅ |
 | Median end-to-end latency | **~2.3 s** | ≤ 3 s | ✅ |
-| Cost per 100 queries | **~$0.02** | — | gpt-4o-mini + text-embedding-3-small |
+| Cost per 100 queries | **~$0.02** | n/a | gpt-4o-mini + text-embedding-3-small |
 
 ### Retrieval ablation (k=3, chunk size 300)
 
@@ -334,14 +340,14 @@ All metrics measured on the 31-query evaluation set against the 6-document corpu
 | 500 | 0.846 | 0.754 |
 | 800 | 0.808 | 0.785 |
 
-### Honest findings
+### What I Learned From The Evaluation
 
-Two results went against the "more machinery is better" assumption, and both are worth more in an interview than a clean sweep would be:
+Two findings changed how I would ship this system:
 
-1. **Dense-only retrieval matched the full hybrid+reranker pipeline on Recall@3 (0.923) with the best MRR (0.817) at a third of the latency.** The corpus's natural-language educational prose plays to embedding strengths; BM25's exact-term advantage matters less when eval queries are phrased the way real users ask questions rather than as bare spec identifiers.
-2. **The cross-encoder reranker did not improve top-3 quality** — it matched hybrid recall but shuffled MRR downward (0.774 → 0.741). On this corpus the reranker adds latency and memory cost without measurable benefit, which is exactly why ablations belong in production RAG work.
+1. **Dense-only retrieval matched the full hybrid+reranker pipeline on Recall@3 (0.923) and had the best MRR (0.817) at about a third of the latency.** The corpus has a lot of natural-language technical prose, so embeddings performed very well.
+2. **The cross-encoder reranker did not improve top-3 quality.** It matched hybrid recall, but moved MRR down from 0.774 to 0.741. On this corpus, the reranker adds latency and memory cost without a measurable retrieval gain.
 
-The deployed default keeps hybrid+reranker (configurable per request via the API), but for a memory-constrained deployment, dense-only is the measured-equivalent cheap option.
+The API still supports hybrid retrieval and reranking per request. For a memory-constrained deployment, dense-only is the simpler and cheaper option based on these results.
 
 ## Cost Notes
 
@@ -359,10 +365,10 @@ Local path:
 ## Known Limitations
 
 - Scanned PDFs require OCR, which is currently out of scope.
-- The default BM25 tokenizer is simple whitespace splitting; measured BM25-only performance (Recall@3 0.731) partly reflects this — technical punctuation needs stronger normalization before BM25 can pull its weight.
+- The default BM25 tokenizer is simple whitespace splitting. Measured BM25-only performance (Recall@3 0.731) partly reflects this. Technical punctuation needs stronger normalization before BM25 can pull its weight.
 - The Federal Register document's 3-column layout extracts imperfectly; the table-lookup eval queries against it are the hardest retrieval cases in the set.
 - Streaming responses currently estimate completion tokens unless provider usage metadata is available.
-- Render free tier memory may be tight with the cross-encoder reranker loaded — the ablation shows dense-only retrieval is a measured-equivalent fallback.
+- Render free tier memory may be tight with the cross-encoder reranker loaded. The ablation shows dense-only retrieval is a measured-equivalent fallback.
 - Ragas judging jobs can fail transiently (HTTP 431); metrics average over valid samples and report coverage.
 
-*Built by [Alvin Alias](https://github.com/aalias01) · MS Data Science, University of Washington · 12 years HVAC/subsea/manufacturing engineering*
+*Built by [Alvin Alias](https://github.com/aalias01) | MS Data Science, University of Washington | 12 years HVAC/subsea/manufacturing engineering*

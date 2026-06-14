@@ -21,7 +21,7 @@ class QueryRequest(BaseModel):
 
     model_config = {"json_schema_extra": {
         "example": {
-            "query": "What is the minimum pipe insulation thickness for a 4-inch steam pipe at 400°F per ASHRAE 90.1?",
+            "query": "What is the difference between a relief valve and a safety valve?",
             "top_k": 4,
             "use_hybrid": True,
             "use_reranker": True,

@@ -2,11 +2,11 @@
 scripts/run_full_eval.py — One-shot evaluation suite for the RAG Engineering Assistant.
 
 Runs, in order:
-  1. Ingestion at chunk_size=500 (the production setting)
+  1. Ingestion at chunk_size=300 (the ablation-selected setting)
   2. Retrieval ablations on the eval set (in_corpus + borderline queries):
        dense-only / BM25-only / hybrid RRF / hybrid RRF + cross-encoder reranker
-  3. Chunk-size ablation: re-ingest at 300 and 800, evaluate hybrid retrieval,
-     then re-ingest at 500 so the final vector store is the production one
+  3. Chunk-size ablation: re-ingest at 500 and 800, evaluate hybrid retrieval,
+     then re-ingest at 300 so the final vector store is the production one
   4. Ragas generation eval (faithfulness, answer relevancy) + refusal accuracy
   5. Latency + token-cost sampling on 5 representative queries
 
@@ -91,9 +91,9 @@ def reingest(chunk_size):
 
 
 def run_chunk_ablation(queries):
-    """Evaluate hybrid retrieval at chunk sizes 300 / 800 (500 runs in main pass)."""
+    """Evaluate hybrid retrieval at chunk sizes 500 / 800 (300 runs in main pass)."""
     out = {}
-    for size in (300, 800):
+    for size in (500, 800):
         reingest(size)
         from src.retriever import Retriever
         r = Retriever(use_reranker=False)
@@ -166,18 +166,18 @@ def main():
     def save():
         out_path.write_text(json.dumps(results, indent=2, default=str))
 
-    # 1+2. Production ingestion (chunk 500) + retrieval ablations
-    if "retrieval_ablations_chunk500" not in results:
-        reingest(500)
-        results["retrieval_ablations_chunk500"] = run_retrieval_ablations(queries)
+    # 1+2. Production ingestion (chunk 300) + retrieval ablations
+    if "retrieval_ablations_chunk300" not in results:
+        reingest(300)
+        results["retrieval_ablations_chunk300"] = run_retrieval_ablations(queries)
         save()
 
-    # 3. Chunk-size ablation (then restore 500)
+    # 3. Chunk-size ablation (then restore 300)
     if not args.skip_chunk_ablation and "chunk_size_ablation" not in results:
         results["chunk_size_ablation"] = run_chunk_ablation(queries)
         save()
-        reingest(500)
-        results["final_store"] = "chunk_500"
+        reingest(300)
+        results["final_store"] = "chunk_300"
         save()
 
     # 4. Generation eval (Ragas + refusal)

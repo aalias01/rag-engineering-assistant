@@ -17,7 +17,7 @@ Documents in `data/documents/` are chosen against the following rules:
 | Slot | Document type | Why it belongs |
 |------|---------------|----------------|
 | 1-3 | NASA Technical Reports (https://ntrs.nasa.gov) | Long-form technical writing, named figures and tables, good for testing recall on specific page references. |
-| 4-5 | OSHA regulations (https://www.osha.gov/laws-regs/regulations/standardnumber) | Highly structured numeric subsections, exercises exact-term BM25 retrieval (e.g. "1910.217(c)(3)"). |
+| 4-5 | OSHA regulations (https://www.osha.gov/laws-regs/regulations/standardnumber) | Highly structured numeric subsections, exercises exact-term BM25 retrieval (e.g. "1910.119(e)"). |
 | 6-7 | Public energy-efficiency guides (DOE, EPA, ASHRAE public summaries) | Numeric tables and unit-sensitive queries (psi, °F, inches). Good for testing whether the answer cites the correct row. |
 | 8-10 | Public mechanical/piping educational references | Domain-specific acronyms (NPSH, BHN, CFM). Stresses hybrid retrieval over dense-only. |
 

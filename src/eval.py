@@ -42,7 +42,7 @@ def load_test_queries(path: Path = TEST_QUERIES_PATH) -> list[dict]:
 
     Expected format per line:
     {
-        "query": "What is the minimum pipe insulation thickness...",
+        "query": "How does NASA define systems engineering?",
         "expected_source_doc": "ASHRAE_90_1_excerpt.pdf",
         "expected_source_pages": [42, 43],
         "expected_answer_keywords": ["1.5 inches", "Section 6.4"],

@@ -4,7 +4,7 @@ src/ingestion.py — Document ingestion pipeline for RAG Engineering Assistant.
 Pipeline:
     PDF files in data/documents/
         → PyMuPDF text extraction (page-level, with metadata)
-        → RecursiveCharacterTextSplitter (chunk_size=500, overlap=50)
+        → RecursiveCharacterTextSplitter (chunk_size=300, overlap=30)
         → OpenAI text-embedding-3-small (or local all-MiniLM-L6-v2)
         → ChromaDB persistent vector store
 

@@ -1,101 +1,130 @@
-// RAG Engineering Assistant — frontend logic
-// Communicates with FastAPI backend via REST (POST /query) or SSE (GET /query/stream)
+// Frontend runtime for the Engineering Evidence Workbench.
 
-// API_BASE comes from window.RAG_CONFIG (see config.js). This avoids per-environment
-// code edits — point at the deployed Render URL by changing config.js (or injecting
-// a window.RAG_CONFIG override via Vercel project settings) rather than this file.
 const API_BASE = (window.RAG_CONFIG && window.RAG_CONFIG.API_BASE) || "http://localhost:8000";
 
-// ---------------------------------------------------------------------------
-// Health check on load
-// ---------------------------------------------------------------------------
+const els = {};
 
-async function checkHealth() {
-  const badge = document.getElementById("status-badge");
-  try {
-    const res = await fetch(`${API_BASE}/health`, { signal: AbortSignal.timeout(5000) });
-    if (!res.ok) throw new Error();
-    const data = await res.json();
-    if (data.chroma_loaded) {
-      badge.textContent = `Ready · ${data.collection_size} chunks`;
-      badge.className = "badge badge-ready";
-    } else {
-      badge.textContent = "Degraded — no documents ingested";
-      badge.className = "badge badge-degraded";
-    }
-  } catch {
-    badge.textContent = "API offline";
-    badge.className = "badge badge-degraded";
-  }
-}
-
-checkHealth();
-
-// ---------------------------------------------------------------------------
-// Example query buttons
-// ---------------------------------------------------------------------------
-
-function useExample(btn) {
-  document.getElementById("query-input").value = btn.textContent.trim();
+document.addEventListener("DOMContentLoaded", () => {
+  cacheElements();
+  bindEvents();
   updateCharCount();
-}
-
-// ---------------------------------------------------------------------------
-// Character count
-// ---------------------------------------------------------------------------
-
-document.getElementById("query-input").addEventListener("input", updateCharCount);
-document.getElementById("query-input").addEventListener("keydown", (e) => {
-  if (e.key === "Enter" && !e.shiftKey) {
-    e.preventDefault();
-    sendQuery();
-  }
+  checkHealth();
 });
 
-function updateCharCount() {
-  const val = document.getElementById("query-input").value.length;
-  document.getElementById("char-count").textContent = `${val} / 1000`;
+function cacheElements() {
+  els.badge = document.getElementById("status-badge");
+  els.conversation = document.getElementById("conversation");
+  els.input = document.getElementById("query-input");
+  els.send = document.getElementById("send-btn");
+  els.charCount = document.getElementById("char-count");
+  els.stream = document.getElementById("stream-toggle");
+  els.hybrid = document.getElementById("hybrid-toggle");
+  els.reranker = document.getElementById("reranker-toggle");
+  els.topK = document.getElementById("top-k-select");
 }
 
-// ---------------------------------------------------------------------------
-// Send query
-// ---------------------------------------------------------------------------
+function bindEvents() {
+  els.input.addEventListener("input", updateCharCount);
+  els.input.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      sendQuery();
+    }
+  });
+  els.send.addEventListener("click", sendQuery);
+
+  document.querySelectorAll(".example-btn").forEach((button) => {
+    button.addEventListener("click", () => {
+      els.input.value = button.dataset.query || button.textContent.trim();
+      updateCharCount();
+      els.input.focus();
+    });
+  });
+
+  document.querySelectorAll(".doc-row").forEach((button) => {
+    button.addEventListener("click", () => {
+      document.querySelectorAll(".doc-row").forEach((row) => row.classList.remove("active"));
+      button.classList.add("active");
+    });
+  });
+}
+
+async function checkHealth() {
+  try {
+    const res = await fetch(`${API_BASE}/health`, { signal: AbortSignal.timeout(5000) });
+    if (!res.ok) throw new Error("Health check failed");
+    const data = await res.json();
+
+    if (data.chroma_loaded) {
+      els.badge.textContent = `Ready / ${data.collection_size} chunks`;
+      els.badge.className = "badge badge-ready";
+    } else {
+      els.badge.textContent = "Degraded / no vector store";
+      els.badge.className = "badge badge-degraded";
+    }
+  } catch {
+    els.badge.textContent = "API offline";
+    els.badge.className = "badge badge-degraded";
+  }
+}
+
+function updateCharCount() {
+  els.charCount.textContent = `${els.input.value.length} / 1000`;
+}
+
+function readControls() {
+  return {
+    useStream: els.stream.checked,
+    useHybrid: els.hybrid.checked,
+    useReranker: els.reranker.checked,
+    topK: Number(els.topK.value || 4),
+  };
+}
 
 async function sendQuery() {
-  const input = document.getElementById("query-input");
-  const query = input.value.trim();
+  const query = els.input.value.trim();
   if (!query) return;
 
-  const useStream = document.getElementById("stream-toggle").checked;
-
-  appendUserBubble(query);
-  input.value = "";
+  const controls = readControls();
+  appendUserTurn(query);
+  els.input.value = "";
   updateCharCount();
   clearSidePanel();
-  document.getElementById("send-btn").disabled = true;
+  setBusy(true);
 
-  if (useStream) {
-    await sendStreaming(query);
+  if (controls.useStream) {
+    await sendStreaming(query, controls);
   } else {
-    await sendBlocking(query);
+    await sendBlocking(query, controls);
   }
 
-  document.getElementById("send-btn").disabled = false;
+  setBusy(false);
+  els.input.focus();
 }
 
-// ---------------------------------------------------------------------------
-// Blocking (POST /query)
-// ---------------------------------------------------------------------------
+function setBusy(isBusy) {
+  els.send.disabled = isBusy;
+  els.input.disabled = isBusy;
+  els.topK.disabled = isBusy;
+  els.stream.disabled = isBusy;
+  els.hybrid.disabled = isBusy;
+  els.reranker.disabled = isBusy;
+  els.send.textContent = isBusy ? "Running" : "Run Query";
+}
 
-async function sendBlocking(query) {
-  const bubble = appendAssistantBubble("Thinking…", true);
-  const t0 = performance.now();
+async function sendBlocking(query, controls) {
+  const bubble = appendAssistantTurn("Retrieving evidence...", true);
 
   try {
     const res = await fetch(`${API_BASE}/query`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ query, top_k: 4, use_hybrid: true, use_reranker: true }),
+      body: JSON.stringify({
+        query,
+        top_k: controls.topK,
+        use_hybrid: controls.useHybrid,
+        use_reranker: controls.useReranker,
+      }),
     });
 
     if (!res.ok) {
@@ -119,56 +148,54 @@ async function sendBlocking(query) {
       cost_usd: data.cost_usd,
       model: data.model,
     });
-
   } catch (err) {
     bubble.textContent = `Network error: ${err.message}`;
     bubble.classList.remove("streaming");
   }
 }
 
-// ---------------------------------------------------------------------------
-// Streaming (GET /query/stream — SSE)
-// ---------------------------------------------------------------------------
-
-async function sendStreaming(query) {
-  const bubble = appendAssistantBubble("", true);
+async function sendStreaming(query, controls) {
+  const bubble = appendAssistantTurn("", true);
   const cursor = document.createElement("span");
   cursor.className = "cursor-blink";
   bubble.appendChild(cursor);
 
   const t0 = performance.now();
-  const url = `${API_BASE}/query/stream?q=${encodeURIComponent(query)}&top_k=4`;
+  const url = `${API_BASE}/query/stream?q=${encodeURIComponent(query)}&top_k=${controls.topK}`;
 
   return new Promise((resolve) => {
     const es = new EventSource(url);
     let fullText = "";
 
-    es.onmessage = (e) => {
-      const token = e.data;
+    es.onmessage = (event) => {
+      const token = event.data;
 
-      // Final metadata token
       if (token.startsWith("__METADATA__:")) {
         es.close();
         cursor.remove();
         bubble.classList.remove("streaming");
+
         try {
           const meta = JSON.parse(token.replace("__METADATA__:", ""));
           renderSources(meta.sources || []);
+          renderChunks([]);
           renderStats({
             latency_ms: Math.round(performance.now() - t0),
             chunks_used: meta.chunks_used,
-            prompt_tokens: "—",
-            completion_tokens: "—",
+            prompt_tokens: "-",
+            completion_tokens: "-",
             cost_usd: meta.cost_usd,
             model: meta.model,
           });
-        } catch {}
+        } catch {
+          renderChunks([]);
+        }
+
         resolve();
         return;
       }
 
       fullText += token;
-      // Update bubble text, keeping cursor at end
       bubble.textContent = fullText;
       bubble.appendChild(cursor);
       scrollConversationToBottom();
@@ -177,159 +204,144 @@ async function sendStreaming(query) {
     es.onerror = () => {
       es.close();
       cursor.remove();
-      if (!fullText) bubble.textContent = "Stream error — check if API is running.";
+      if (!fullText) bubble.textContent = "Stream error. Check the API connection.";
       bubble.classList.remove("streaming");
       resolve();
     };
   });
 }
 
-// ---------------------------------------------------------------------------
-// DOM helpers
-// ---------------------------------------------------------------------------
+function appendUserTurn(text) {
+  removeWelcome();
 
-function appendUserBubble(text) {
-  const conv = document.getElementById("conversation");
-  // Remove welcome message on first query
-  const welcome = conv.querySelector(".welcome-message");
-  if (welcome) welcome.remove();
+  const turn = document.createElement("article");
+  turn.className = "turn user-turn";
 
-  const turn = document.createElement("div");
-  turn.className = "turn";
+  const label = document.createElement("div");
+  label.className = "turn-meta";
+  label.textContent = "Query";
 
   const bubble = document.createElement("div");
   bubble.className = "user-bubble";
   bubble.textContent = text;
-  turn.appendChild(bubble);
-  conv.appendChild(turn);
+
+  turn.append(label, bubble);
+  els.conversation.appendChild(turn);
   scrollConversationToBottom();
 }
 
-function appendAssistantBubble(text, streaming = false) {
-  const conv = document.getElementById("conversation");
-
-  const turn = document.createElement("div");
-  turn.className = "turn";
+function appendAssistantTurn(text, streaming = false) {
+  const turn = document.createElement("article");
+  turn.className = "turn assistant-turn";
 
   const label = document.createElement("div");
   label.className = "assistant-label";
-  label.textContent = "Assistant";
-  turn.appendChild(label);
+  label.textContent = "Grounded answer";
 
   const bubble = document.createElement("div");
-  bubble.className = "assistant-bubble" + (streaming ? " streaming" : "");
+  bubble.className = `assistant-bubble${streaming ? " streaming" : ""}`;
   bubble.textContent = text;
-  turn.appendChild(bubble);
-  conv.appendChild(turn);
+
+  turn.append(label, bubble);
+  els.conversation.appendChild(turn);
   scrollConversationToBottom();
   return bubble;
 }
 
+function removeWelcome() {
+  const welcome = els.conversation.querySelector(".welcome-message");
+  if (welcome) welcome.remove();
+}
+
 function scrollConversationToBottom() {
-  const conv = document.getElementById("conversation");
-  conv.scrollTop = conv.scrollHeight;
+  els.conversation.scrollTop = els.conversation.scrollHeight;
 }
 
 function clearSidePanel() {
-  document.getElementById("sources-list").innerHTML = '<p class="placeholder-text">Loading…</p>';
-  document.getElementById("chunks-list").innerHTML = '<p class="placeholder-text">Loading…</p>';
-  document.getElementById("stat-latency").textContent = "—";
-  document.getElementById("stat-chunks").textContent = "—";
-  document.getElementById("stat-prompt-tokens").textContent = "—";
-  document.getElementById("stat-completion-tokens").textContent = "—";
-  document.getElementById("stat-cost").textContent = "—";
-  document.getElementById("stat-model").textContent = "—";
+  document.getElementById("sources-list").innerHTML = '<p class="placeholder-text">Waiting for citations.</p>';
+  document.getElementById("chunks-list").innerHTML = '<p class="placeholder-text">Waiting for retrieved chunks.</p>';
+  renderStats({
+    latency_ms: "-",
+    chunks_used: "-",
+    prompt_tokens: "-",
+    completion_tokens: "-",
+    cost_usd: "-",
+    model: "-",
+  });
 }
-
-// ---------------------------------------------------------------------------
-// Source citations
-// ---------------------------------------------------------------------------
 
 function renderSources(sources) {
   const list = document.getElementById("sources-list");
   if (!sources || sources.length === 0) {
-    list.innerHTML = '<p class="placeholder-text">No sources cited.</p>';
+    list.innerHTML = '<p class="placeholder-text">No citations returned.</p>';
     return;
   }
 
-  // Deduplicate by source+page
   const seen = new Set();
-  const unique = sources.filter((s) => {
-    const key = `${s.source}::${s.page}`;
+  const unique = sources.filter((source) => {
+    const key = `${source.source}::${source.page}`;
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
   });
 
   list.innerHTML = unique
-    .map(
-      (s) => `
-    <div class="source-pill">
-      <div class="doc-name">${escapeHtml(s.source)}</div>
-      <div class="page-num">Page ${s.page}</div>
-    </div>`
-    )
+    .map((source) => `
+      <div class="citation-card">
+        <div class="citation-doc">${escapeHtml(source.source)}</div>
+        <div class="citation-page">Page ${escapeHtml(source.page)}</div>
+      </div>
+    `)
     .join("");
 }
-
-// ---------------------------------------------------------------------------
-// Retrieved chunks (expandable accordion)
-// ---------------------------------------------------------------------------
 
 function renderChunks(chunks) {
   const list = document.getElementById("chunks-list");
   if (!chunks || chunks.length === 0) {
-    list.innerHTML = '<p class="placeholder-text">No chunks available.</p>';
+    list.innerHTML = '<p class="placeholder-text">Chunk previews are returned by the full JSON endpoint.</p>';
     return;
   }
 
   list.innerHTML = chunks
-    .map(
-      (c, i) => `
-    <div class="chunk-item">
-      <div class="chunk-header" onclick="toggleChunk(${i})">
-        <span><span class="chunk-source">${escapeHtml(c.source)}</span> <span class="chunk-page">p.${c.page}</span></span>
-        <span class="chunk-toggle" id="toggle-${i}">▼</span>
-      </div>
-      <div class="chunk-body" id="chunk-body-${i}">
-${escapeHtml(c.text)}
-      </div>
-      ${c.rerank_score != null ? `<div class="chunk-score">Rerank score: ${c.rerank_score.toFixed(3)}</div>` : ""}
-    </div>`
-    )
+    .map((chunk, index) => {
+      const method = chunk.retrieval_method || (chunk.rerank_score != null ? "reranked" : "retrieved");
+      const score = formatScore(chunk);
+      return `
+        <details class="chunk-item">
+          <summary>
+            <span class="chunk-rank">${index + 1}</span>
+            <span class="chunk-title">${escapeHtml(chunk.source)} p.${escapeHtml(chunk.page)}</span>
+            <span class="chunk-meta">${escapeHtml(method)}${score ? ` / ${score}` : ""}</span>
+          </summary>
+          <pre class="chunk-body">${escapeHtml(chunk.text)}</pre>
+        </details>
+      `;
+    })
     .join("");
 }
 
-function toggleChunk(i) {
-  const body = document.getElementById(`chunk-body-${i}`);
-  const toggle = document.getElementById(`toggle-${i}`);
-  body.classList.toggle("open");
-  toggle.classList.toggle("open");
+function formatScore(chunk) {
+  if (chunk.rerank_score != null) return `rerank ${Number(chunk.rerank_score).toFixed(3)}`;
+  if (chunk.rrf_score != null) return `rrf ${Number(chunk.rrf_score).toFixed(4)}`;
+  return "";
 }
-
-// ---------------------------------------------------------------------------
-// Stats panel
-// ---------------------------------------------------------------------------
 
 function renderStats({ latency_ms, chunks_used, prompt_tokens, completion_tokens, cost_usd, model }) {
   document.getElementById("stat-latency").textContent =
-    latency_ms !== "—" ? `${latency_ms} ms` : "—";
-  document.getElementById("stat-chunks").textContent = chunks_used ?? "—";
-  document.getElementById("stat-prompt-tokens").textContent = prompt_tokens ?? "—";
-  document.getElementById("stat-completion-tokens").textContent = completion_tokens ?? "—";
+    latency_ms !== "-" ? `${latency_ms} ms` : "-";
+  document.getElementById("stat-chunks").textContent = chunks_used ?? "-";
+  document.getElementById("stat-prompt-tokens").textContent = prompt_tokens ?? "-";
+  document.getElementById("stat-completion-tokens").textContent = completion_tokens ?? "-";
   document.getElementById("stat-cost").textContent =
-    cost_usd != null && cost_usd !== "—" ? `$${cost_usd.toFixed(5)}` : "—";
-  document.getElementById("stat-model").textContent = model ?? "—";
+    cost_usd != null && cost_usd !== "-" ? `$${Number(cost_usd).toFixed(5)}` : "-";
+  document.getElementById("stat-model").textContent = model ?? "-";
 }
 
-// ---------------------------------------------------------------------------
-// Utility
-// ---------------------------------------------------------------------------
-
-function escapeHtml(str) {
-  return String(str)
+function escapeHtml(value) {
+  return String(value)
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
