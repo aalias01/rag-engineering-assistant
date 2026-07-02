@@ -291,16 +291,32 @@ class Generator:
                     prompt_tokens = chunk.usage.prompt_tokens
                     completion_tokens = chunk.usage.completion_tokens
 
-        # Emit metadata at end of stream for the frontend to parse
+        # Emit metadata at end of stream for the frontend to parse.
+        # IMPORTANT: no leading "\n" here. The API wraps each yield as an SSE
+        # "data: <token>\n\n" frame, so a leading newline would split the line
+        # and the browser's EventSource would drop the metadata as an unknown
+        # field — leaving the Run Stats / citations / chunk panels empty.
         sources = [
             {"source": c.get("source", ""), "page": c.get("page", 0)}
+            for c in chunks
+        ]
+        chunk_previews = [
+            {
+                "text": (c["text"][:300] + "...") if len(c.get("text", "")) > 300 else c.get("text", ""),
+                "source": c.get("source", ""),
+                "page": c.get("page", 0),
+                "retrieval_method": c.get("retrieval_method"),
+                "rrf_score": c.get("rrf_score"),
+                "rerank_score": c.get("rerank_score"),
+            }
             for c in chunks
         ]
         metadata = {
             "sources": sources,
             "chunks_used": len(chunks),
+            "chunks": chunk_previews,
             "cost_usd": _estimate_cost(self.provider, prompt_tokens, completion_tokens),
             "model": self.model,
             "provider": self.provider,
         }
-        yield f"\n__METADATA__:{json.dumps(metadata)}"
+        yield f"__METADATA__:{json.dumps(metadata)}"

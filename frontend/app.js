@@ -178,7 +178,7 @@ async function sendStreaming(query, controls) {
         try {
           const meta = JSON.parse(token.replace("__METADATA__:", ""));
           renderSources(meta.sources || []);
-          renderChunks([]);
+          renderChunks(meta.chunks || []);
           renderStats({
             latency_ms: Math.round(performance.now() - t0),
             chunks_used: meta.chunks_used,
