@@ -12,7 +12,7 @@ I built this project to show the work behind a real RAG system, not just a chat 
 
 ## Live Demo
 
-- **App (frontend):** `TODO: paste Vercel URL here after deploy`
+- **App (frontend):** <https://rag-engineering-assistant.vercel.app>
 - **API (backend):** <https://rag-engineering-assistant-api.onrender.com> — see [`/docs`](https://rag-engineering-assistant-api.onrender.com/docs) and [`/health`](https://rag-engineering-assistant-api.onrender.com/health)
 
 The deployed demo runs answer generation on **Groq's free tier** (OpenAI-compatible) and keeps embeddings on OpenAI `text-embedding-3-small`, so it serves live answers at effectively zero cost. The Render free tier sleeps after inactivity, so the first request after idle can take ~30–60 s to wake.
@@ -41,7 +41,7 @@ The system is fully implemented and evaluated on a six-document public-domain en
 | Frontend | Complete | Vanilla JS evidence workbench with streaming, citations, retrieval trace, latency, and cost stats |
 | Evaluation set | Complete | 31 hand-labeled queries with verified page-level ground truth |
 | Metrics | Complete | Recall@3 0.923, MRR 0.817, faithfulness 0.928, relevancy 0.960, refusal 1.000 |
-| Deployment | Ready for hosting | Render (API) + Vercel (frontend) config included; production vector store is committed, so the deployed API ships ready to answer |
+| Deployment | **Live** | API on Render + frontend on Vercel (both free tier); committed vector store, Groq free-tier generation |
 
 ## Why I Built It
 
