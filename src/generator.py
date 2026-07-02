@@ -3,7 +3,8 @@ src/generator.py — LLM generation layer for RAG Engineering Assistant.
 
 Responsibilities:
     - Build citation-grounded prompt from retrieved chunks
-    - Call OpenAI GPT-4o-mini (or Ollama Llama 3 via LLM_PROVIDER env var)
+    - Call the configured LLM: Groq (free tier, default), OpenAI GPT-4o-mini,
+      or Ollama Llama 3 — selected via the LLM_PROVIDER env var
     - Stream responses via async generator (SSE-compatible)
     - Track token usage and estimated cost
     - Detect out-of-corpus queries and handle gracefully
@@ -70,26 +71,46 @@ def build_prompt(query: str, chunks: list[dict]) -> str:
 
 
 # ---------------------------------------------------------------------------
-# OpenAI client
+# LLM client — OpenAI and Groq share the same OpenAI-compatible API
 # ---------------------------------------------------------------------------
+#
+# Groq is a drop-in OpenAI-compatible endpoint: identical SDK and request shape,
+# just a different base_url and API key. That lets us swap the (paid) OpenAI
+# generator for Groq's free tier without changing any request/response code.
 
-_openai_client = None
+_GROQ_BASE_URL = "https://api.groq.com/openai/v1"
+
+_llm_clients: dict = {}
 
 
-def _get_openai_client():
-    global _openai_client
-    if _openai_client is None:
+def _get_llm_client(provider: str):
+    """
+    Return a cached OpenAI-compatible client for the given provider.
+
+        "openai" → OpenAI API   (OPENAI_API_KEY)
+        "groq"   → Groq API      (GROQ_API_KEY) — OpenAI-compatible, free tier
+    """
+    if provider not in _llm_clients:
         from openai import OpenAI
-        _openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-    return _openai_client
+        if provider == "groq":
+            _llm_clients[provider] = OpenAI(
+                base_url=_GROQ_BASE_URL,
+                api_key=os.getenv("GROQ_API_KEY"),
+            )
+        else:  # openai
+            _llm_clients[provider] = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    return _llm_clients[provider]
 
 
-# Pricing as of 2026 (gpt-4o-mini)
+# Pricing as of 2026 (gpt-4o-mini). Groq's free tier and local Ollama cost $0,
+# so a dollar estimate is only produced for the OpenAI provider.
 _COST_PER_1M_INPUT = 0.15    # USD
 _COST_PER_1M_OUTPUT = 0.60   # USD
 
 
-def _estimate_cost(prompt_tokens: int, completion_tokens: int) -> float:
+def _estimate_cost(provider: str, prompt_tokens: int, completion_tokens: int) -> float:
+    if provider != "openai":
+        return 0.0
     return (prompt_tokens * _COST_PER_1M_INPUT + completion_tokens * _COST_PER_1M_OUTPUT) / 1_000_000
 
 
@@ -132,14 +153,28 @@ class Generator:
         "ollama"           → Local model via Ollama
     """
 
+    # Default model per provider. Override with the `model` arg or the
+    # matching env var (OPENAI_MODEL / GROQ_MODEL / OLLAMA_MODEL).
+    # Groq model IDs change — check https://console.groq.com/docs/models.
+    _DEFAULT_MODELS = {
+        "openai": "gpt-4o-mini",
+        "groq": "openai/gpt-oss-20b",
+        "ollama": "llama3.1:8b",
+    }
+
     def __init__(
         self,
-        model: str = "gpt-4o-mini",
+        model: str | None = None,
         temperature: float = 0.0,
         max_tokens: int = 1024,
     ):
         self.provider = os.getenv("LLM_PROVIDER", "openai").lower()
-        self.model = model
+        env_model = {
+            "openai": os.getenv("OPENAI_MODEL"),
+            "groq": os.getenv("GROQ_MODEL"),
+            "ollama": os.getenv("OLLAMA_MODEL"),
+        }.get(self.provider)
+        self.model = model or env_model or self._DEFAULT_MODELS.get(self.provider, "gpt-4o-mini")
         self.temperature = temperature
         self.max_tokens = max_tokens
 
@@ -168,7 +203,8 @@ class Generator:
         if self.provider == "ollama":
             result = _generate_ollama(messages)
         else:
-            client = _get_openai_client()
+            # openai + groq share the OpenAI-compatible chat API
+            client = _get_llm_client(self.provider)
             response = client.chat.completions.create(
                 model=self.model,
                 messages=messages,
@@ -176,15 +212,16 @@ class Generator:
                 max_tokens=self.max_tokens,
             )
             answer = response.choices[0].message.content
-            prompt_tokens = response.usage.prompt_tokens
-            completion_tokens = response.usage.completion_tokens
+            usage = response.usage
+            prompt_tokens = usage.prompt_tokens if usage else 0
+            completion_tokens = usage.completion_tokens if usage else 0
             result = {
                 "answer": answer,
                 "prompt_tokens": prompt_tokens,
                 "completion_tokens": completion_tokens,
-                "cost_usd": _estimate_cost(prompt_tokens, completion_tokens),
+                "cost_usd": _estimate_cost(self.provider, prompt_tokens, completion_tokens),
                 "model": self.model,
-                "provider": "openai",
+                "provider": self.provider,
             }
 
         # Extract cited sources from chunks
@@ -223,13 +260,19 @@ class Generator:
             {"role": "user", "content": prompt},
         ]
 
+        prompt_tokens = 0
+        completion_tokens = 0
+
         if self.provider == "ollama":
             # Ollama streaming not implemented — fall back to non-streaming
             result = _generate_ollama(messages)
+            prompt_tokens = result.get("prompt_tokens", 0)
+            completion_tokens = result.get("completion_tokens", 0)
             for word in result["answer"].split(" "):
                 yield word + " "
         else:
-            client = _get_openai_client()
+            # openai + groq share the OpenAI-compatible streaming API
+            client = _get_llm_client(self.provider)
             stream = client.chat.completions.create(
                 model=self.model,
                 messages=messages,
@@ -237,13 +280,13 @@ class Generator:
                 max_tokens=self.max_tokens,
                 stream=True,
             )
-            prompt_tokens = 0
-            completion_tokens = 0
             for chunk in stream:
-                delta = chunk.choices[0].delta
-                if delta.content:
-                    yield delta.content
-                    completion_tokens += 1
+                # The final usage chunk can arrive with an empty choices list
+                if chunk.choices:
+                    delta = chunk.choices[0].delta
+                    if delta.content:
+                        yield delta.content
+                        completion_tokens += 1
                 if chunk.usage:
                     prompt_tokens = chunk.usage.prompt_tokens
                     completion_tokens = chunk.usage.completion_tokens
@@ -256,7 +299,8 @@ class Generator:
         metadata = {
             "sources": sources,
             "chunks_used": len(chunks),
-            "cost_usd": _estimate_cost(prompt_tokens, completion_tokens),
+            "cost_usd": _estimate_cost(self.provider, prompt_tokens, completion_tokens),
             "model": self.model,
+            "provider": self.provider,
         }
         yield f"\n__METADATA__:{json.dumps(metadata)}"

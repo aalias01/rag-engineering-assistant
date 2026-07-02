@@ -5,8 +5,9 @@
 #   New + → Blueprint → connect this repo. Render reads this file and
 #   provisions the service automatically.
 #
-# IMPORTANT: Set OPENAI_API_KEY as a secret environment variable in the
-# Render dashboard (Environment tab) — do NOT hardcode it here.
+# IMPORTANT: Set GROQ_API_KEY and OPENAI_API_KEY as secret environment
+# variables in the Render dashboard (Environment tab) — do NOT hardcode them.
+# Groq (free tier) handles generation; OpenAI handles only query embeddings.
 
 services:
   - type: web
@@ -22,5 +23,23 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.9
+      # Generation via Groq's free tier (OpenAI-compatible). No credit card.
+      # Set GROQ_API_KEY as a secret in the dashboard.
+      - key: LLM_PROVIDER
+        value: groq
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GROQ_MODEL
+        value: openai/gpt-oss-20b
+      # Embeddings stay on OpenAI (text-embedding-3-small). Cost is negligible,
+      # but this key is still required to embed each incoming query.
+      - key: EMBEDDING_PROVIDER
+        value: openai
       - key: OPENAI_API_KEY
         sync: false
+      # Free tier = 512 MB RAM. Keep the torch-heavy reranker OFF (ablation
+      # showed it didn't help). Dense + BM25 hybrid stays on and is lightweight.
+      - key: USE_RERANKER
+        value: "false"
+      - key: USE_HYBRID
+        value: "true"

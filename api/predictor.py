@@ -26,6 +26,14 @@ _collection_size = 0
 _chroma_loaded = False
 
 
+def _env_bool(name: str, default: bool) -> bool:
+    """Parse a boolean environment variable (returns default when unset)."""
+    val = os.getenv(name)
+    if val is None:
+        return default
+    return val.strip().lower() in ("1", "true", "yes", "on")
+
+
 def load_all() -> None:
     """
     Initialise the retriever and generator. Called once at API startup
@@ -48,10 +56,17 @@ def load_all() -> None:
             print("WARNING: ChromaDB collection is empty. Run `python -m src.ingestion` first.")
             return
 
-        _retriever = Retriever(use_hybrid=True, use_reranker=True, top_k=4)
+        use_hybrid = _env_bool("USE_HYBRID", True)
+        use_reranker = _env_bool("USE_RERANKER", True)
+        top_k = int(os.getenv("TOP_K", "4"))
+        _retriever = Retriever(use_hybrid=use_hybrid, use_reranker=use_reranker, top_k=top_k)
         _generator = Generator()
         _chroma_loaded = True
-        print(f"RAG system loaded. Collection: {_collection_size} chunks.")
+        print(
+            f"RAG system loaded. Collection: {_collection_size} chunks. "
+            f"Retriever: hybrid={use_hybrid}, reranker={use_reranker}, top_k={top_k}. "
+            f"LLM provider: {os.getenv('LLM_PROVIDER', 'openai')}."
+        )
 
     except Exception as e:
         print(f"WARNING: Could not load RAG system — API running in degraded mode.\n{e}")
@@ -80,11 +95,23 @@ def query(
         )
 
     from src.retriever import Retriever
-    from src.generator import Generator
 
-    # Allow per-request retriever config (for ablation experiments)
+    # Memory ceiling: on constrained hosts (e.g. Render free tier, 512 MB) the
+    # cross-encoder reranker is disabled via USE_RERANKER=false because it pulls
+    # in torch (~700 MB). Honor that here so a per-request use_reranker=True
+    # can't load torch and OOM the box. (Ablation showed reranking didn't help.)
+    if not _env_bool("USE_RERANKER", True):
+        use_reranker = False
+    if not _env_bool("USE_HYBRID", True):
+        use_hybrid = False
+
+    # Reuse the cached retriever unless the request overrides its config
     retriever = _retriever
-    if use_hybrid != True or use_reranker != True or top_k != 4:
+    if (use_hybrid, use_reranker, top_k) != (
+        _retriever.use_hybrid,
+        _retriever.use_reranker,
+        _retriever.top_k,
+    ):
         retriever = Retriever(use_hybrid=use_hybrid, use_reranker=use_reranker, top_k=top_k)
 
     chunks = retriever.retrieve(q, top_k=top_k)

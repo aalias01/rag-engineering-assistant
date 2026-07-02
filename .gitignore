@@ -10,8 +10,11 @@
 data/documents/
 *.pdf
 
-# ChromaDB vector store — rebuilt from documents via `python -m src.ingestion`
-chroma_db/
+# ChromaDB vector store.
+# The PRODUCTION store (single `engineering_docs` collection, ~40 MB) is COMMITTED
+# on purpose so the deployed instance ships with its vectors — no re-embedding at
+# deploy time. Rebuildable anytime via `python -m src.ingestion`.
+# See docs/deployment_notes.md. (chroma_db/ intentionally NOT ignored.)
 chroma_store/
 
 # LangSmith trace cache

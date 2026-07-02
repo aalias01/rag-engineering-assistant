@@ -19,4 +19,11 @@ pymupdf>=1.24.0
 python-dotenv>=1.0.0
 tiktoken>=0.7.0
 numpy>=1.24.0
-sentence-transformers>=3.0.0
+
+# sentence-transformers>=3.0.0
+#   Left OUT of the default free deploy on purpose. It's only needed for the
+#   cross-encoder reranker (USE_RERANKER=true) or local embeddings
+#   (EMBEDDING_PROVIDER=local) — both OFF in the free config — and it pulls in
+#   torch (~700 MB), which blows the Render free-tier build time and 512 MB RAM.
+#   Local dev installs it via conda (environment.yml). Uncomment only if you
+#   turn the reranker or local embeddings back on (and expect a slower build).
