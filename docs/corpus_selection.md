@@ -9,7 +9,7 @@ Documents in `data/documents/` are chosen against the following rules:
 1. Public or license-compatible. Government publications, NASA Technical Reports, OSHA regulations, and public educational guides are preferred. Paid standards must not be committed.
 2. Text-extractable. Native-text PDFs only. Scanned/image PDFs are out of scope until OCR is added.
 3. Page-numbered. Page numbering must be stable and meaningful so citations are interpretable in the UI.
-4. Discussable. Each document must be one the author can explain in an interview, including its purpose and which retrieval cases it stresses.
+4. Explainable. Each document must have a clear purpose in the corpus and a clear retrieval challenge it helps test.
 5. Domain spread. The corpus should span 2-3 engineering domains so retrieval is not trivially solved by a single document.
 
 ## Target Mix

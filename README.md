@@ -10,6 +10,13 @@ RAG Engineering Assistant is an end-to-end GenAI application for technical engin
 
 I built this project to show the work behind a real RAG system, not just a chat box on top of PDFs. It covers ingestion, vector search, hybrid retrieval, reranking, grounded prompting, evaluation, API serving, deployment planning, and a custom evidence-review interface.
 
+## Live Demo
+
+- **App (frontend):** `TODO: paste Vercel URL here after deploy`
+- **API (backend):** `TODO: paste Render URL here after deploy` — see `/docs` (interactive API) and `/health` (status)
+
+The deployed demo runs answer generation on **Groq's free tier** (OpenAI-compatible) and keeps embeddings on OpenAI `text-embedding-3-small`, so it serves live answers at effectively zero cost. The Render free tier sleeps after inactivity, so the first request after idle can take ~30–60 s to wake.
+
 ## Highlights
 
 - Built a full RAG application over 778 pages of engineering documents from DOE, NASA, OSHA, and the Federal Register.
@@ -29,12 +36,12 @@ The system is fully implemented and evaluated on a six-document public-domain en
 | Corpus | Complete | 6 public-domain documents, 778 pages. See `docs/corpus_selection.md` |
 | Vector store | Complete | ChromaDB persistent collection, 2,091 chunks at chunk size 300 (ablation-selected) |
 | Retrieval | Complete | Dense retrieval, BM25 retrieval, Reciprocal Rank Fusion, optional cross-encoder reranking |
-| Generation | Complete | GPT-4o-mini by default; Ollama local model path supported |
+| Generation | Complete | Groq free tier (deploy default), OpenAI GPT-4o-mini, or local Ollama — selected via `LLM_PROVIDER` |
 | API | Complete | FastAPI `GET /health`, `POST /query`, `GET /query/stream` |
 | Frontend | Complete | Vanilla JS evidence workbench with streaming, citations, retrieval trace, latency, and cost stats |
 | Evaluation set | Complete | 31 hand-labeled queries with verified page-level ground truth |
 | Metrics | Complete | Recall@3 0.923, MRR 0.817, faithfulness 0.928, relevancy 0.960, refusal 1.000 |
-| Deployment | Ready for hosting | Render/Vercel config included; production needs document ingestion or a hosted vector store |
+| Deployment | Ready for hosting | Render (API) + Vercel (frontend) config included; production vector store is committed, so the deployed API ships ready to answer |
 
 ## Why I Built It
 
@@ -114,7 +121,7 @@ Cross-encoder reranker
 Top retrieved excerpts + query
               |
               v
-GPT-4o-mini citation-grounded prompt
+LLM citation-grounded prompt (Groq / OpenAI / Ollama)
               |
               v
 Answer, sources, retrieved chunks, latency, cost estimate
@@ -132,8 +139,9 @@ Answer, sources, retrieved chunks, latency, cost estimate
 | Keyword retrieval | rank-bm25 | Exact-term matching for standards, acronyms, and spec identifiers |
 | Fusion | Reciprocal Rank Fusion | Combine dense and keyword rankings |
 | Reranking | `cross-encoder/ms-marco-MiniLM-L-6-v2` | Improve top-result ordering |
-| LLM | GPT-4o-mini | Grounded answer generation |
-| Local LLM option | Ollama + Llama 3.1 8B | Zero-cost local generation path |
+| LLM (deploy default) | Groq free tier (`openai/gpt-oss-20b`) | Hosted, OpenAI-compatible, zero-cost generation for the live demo |
+| LLM (paid option) | OpenAI GPT-4o-mini | Higher-consistency generation; the model the metrics were measured on |
+| Local LLM option | Ollama + Llama 3.1 8B | Zero-cost local/offline generation path |
 | API | FastAPI | Health checks, JSON queries, SSE streaming |
 | Frontend | HTML, CSS, vanilla JS | Evidence workbench with sources, retrieval trace, and run stats |
 | Evaluation | Custom metrics + Ragas | Recall@k, MRR, faithfulness, answer relevancy |
@@ -279,9 +287,7 @@ rag-engineering-assistant/
 ├── docs/
 │   ├── corpus_selection.md
 │   ├── evaluation_protocol.md
-│   ├── deployment_notes.md
-│   ├── interview_walkthrough.md
-│   └── portfolio_pr_summary.md
+│   └── deployment_notes.md
 ├── LICENSE
 └── src/
     ├── ingestion.py
@@ -292,22 +298,30 @@ rag-engineering-assistant/
 
 ## Deployment
 
+The live demo runs generation on **Groq's free tier** (OpenAI-compatible, no credit card) and keeps embeddings on OpenAI `text-embedding-3-small`. The production vector store (single `engineering_docs` collection, ~40 MB) is committed to the repo, so the deployed API ships ready to answer — no ingestion step at deploy time.
+
 ### Backend on Render
 
 1. Push the repository to GitHub.
-2. Create a Render Blueprint from this repo.
-3. Render reads `render.yaml`.
-4. Add `OPENAI_API_KEY` as a secret environment variable.
-5. Add a production vector-store path: run ingestion at build time from public PDFs, attach a persistent disk, or point the app at a hosted vector database.
-6. After deploy, open `/health` and `/docs`.
+2. On Render: **New → Blueprint**, connect this repo. Render reads `render.yaml` (which sets `LLM_PROVIDER=groq`, `GROQ_MODEL`, `EMBEDDING_PROVIDER=openai`, and `USE_RERANKER=false` for the 512 MB free tier).
+3. Add two secret environment variables: `GROQ_API_KEY` (free, from [console.groq.com](https://console.groq.com)) and `OPENAI_API_KEY` (used only to embed each incoming query).
+4. Deploy, then open `/health` (expect `chroma_loaded: true`, `collection_size: 2091`) and `/docs`.
 
 ### Frontend on Vercel
 
-1. Create a Vercel project from the same repo.
-2. Set the project root to `frontend/`.
-3. Update `API_BASE` in `frontend/config.js` to the Render API URL.
-4. In Render, set `FRONTEND_ORIGIN` to the Vercel URL (CORS is read from env, not hardcoded).
-5. Redeploy the backend.
+1. Create a Vercel project from the same repo, project root `frontend/`.
+2. Point the frontend at the API: set `API_BASE` in `frontend/config.js` to the Render URL (or inject `window.RAG_CONFIG` via Vercel settings).
+3. In Render, set `FRONTEND_ORIGIN` to the Vercel URL (CORS is read from env, not hardcoded) and redeploy.
+
+### Switching generation providers
+
+Generation is swappable with one environment variable — no code change:
+
+- `LLM_PROVIDER=groq` — free hosted default (set `GROQ_MODEL`, e.g. `openai/gpt-oss-20b` or the larger `openai/gpt-oss-120b`).
+- `LLM_PROVIDER=openai` — GPT-4o-mini (the model the metrics were measured on).
+- `LLM_PROVIDER=ollama` — local Llama 3.1 8B for offline/dev.
+
+If you change the *generating* model, re-run `python scripts/run_full_eval.py` before quoting faithfulness/relevancy, since those were measured on GPT-4o-mini.
 
 ## Results
 
@@ -351,16 +365,20 @@ The API still supports hybrid retrieval and reranking per request. For a memory-
 
 ## Cost Notes
 
-Default OpenAI path:
+A RAG query hits a paid API in two places, and they are very unequal: embedding the question costs ~$0.02 per *million* tokens (effectively free), while answer generation is where essentially all the cost lives. The deployment cuts the bill by swapping the generator, not the embedder.
 
-- Embedding ingestion uses `text-embedding-3-small`.
-- Answer generation uses GPT-4o-mini.
-- Per-query cost is estimated from observed prompt and completion token counts.
+Deployed (free) path:
 
-Local path:
+- Generation runs on **Groq's free tier** (`LLM_PROVIDER=groq`) — $0, no credit card.
+- Embeddings stay on OpenAI `text-embedding-3-small`, so each query costs a fraction of a cent; a $5 cap on the OpenAI account is a safe ceiling.
 
-- Set `EMBEDDING_PROVIDER=local` for MiniLM embeddings.
-- Set `LLM_PROVIDER=ollama` and run Ollama locally for zero API-cost generation.
+Paid path (what the metrics used):
+
+- `LLM_PROVIDER=openai` → GPT-4o-mini generation, ~$0.02 per 100 queries.
+
+Fully local path:
+
+- `EMBEDDING_PROVIDER=local` (MiniLM) + `LLM_PROVIDER=ollama` (Llama 3.1 8B) for zero external API calls.
 
 ## Known Limitations
 
