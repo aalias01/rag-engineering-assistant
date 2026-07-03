@@ -12,7 +12,7 @@ I built this project to show the work behind a real RAG system, not just a chat 
 
 ## Live Demo
 
-- **App (frontend):** <https://rag-engineering-assistant.vercel.app>
+- **App (frontend):** <https://rag.alvinalias.com>
 - **API (backend):** <https://rag-engineering-assistant-api.onrender.com> — see [`/docs`](https://rag-engineering-assistant-api.onrender.com/docs) and [`/health`](https://rag-engineering-assistant-api.onrender.com/health)
 
 The deployed demo runs answer generation on **Groq's free tier** (OpenAI-compatible) and keeps embeddings on OpenAI `text-embedding-3-small`, so it serves live answers at effectively zero cost. The Render free tier sleeps after inactivity, so the first request after idle can take ~30–60 s to wake.

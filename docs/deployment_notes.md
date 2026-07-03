@@ -68,7 +68,7 @@ A null/missing value falls back to `http://localhost:8000` so local development 
 
 ## CORS
 
-`api/main.py` reads `FRONTEND_ORIGIN` from the environment and merges it with the localhost dev origins. After deploying the Vercel frontend, set this env var in Render to the production URL (e.g. `https://rag-engineering-assistant.vercel.app`) and redeploy. There is no hardcoded production URL in the source.
+`api/main.py` reads `FRONTEND_ORIGIN` from the environment and merges it with the localhost dev origins. After deploying the Vercel frontend, set this env var in Render to both origins (comma-separated): `FRONTEND_ORIGIN=https://rag.alvinalias.com,https://rag-engineering-assistant.vercel.app`, then redeploy. There is no hardcoded production URL in the source.
 
 ## Cost Ceiling
 

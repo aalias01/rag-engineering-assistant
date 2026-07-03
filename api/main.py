@@ -57,7 +57,8 @@ app = FastAPI(
 #
 # Local dev origins are always allowed. The deployed frontend origin is read from
 # the FRONTEND_ORIGIN env var (comma-separated for multiple). Set this in Render
-# after the frontend is deployed (e.g. FRONTEND_ORIGIN=https://your-app.vercel.app)
+# after the frontend is deployed. Set both origins (comma-separated):
+#   FRONTEND_ORIGIN=https://rag.alvinalias.com,https://rag-engineering-assistant.vercel.app
 # and redeploy. No production URL is hardcoded.
 _DEV_ORIGINS = [
     "http://localhost:3000",
