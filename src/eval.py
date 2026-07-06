@@ -26,7 +26,6 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
-from typing import Optional
 
 
 TEST_QUERIES_PATH = Path("data/eval/test_queries.jsonl")
@@ -150,7 +149,7 @@ def run_retrieval_eval(
         print(f"Recall@{top_k}:  {results['recall_at_k']:.3f}  (target ≥ 0.85)")
         print(f"MRR:      {results['mrr']:.3f}  (target ≥ 0.70)")
         print(f"Queries:  {len(in_corpus)}/{len(queries)} (in_corpus + borderline)")
-        print(f"\nPer-query results:")
+        print("\nPer-query results:")
         for r in per_query:
             status = "✓" if r["recall_at_k"] else "✗"
             print(f"  {status}  RR={r['reciprocal_rank']:.2f}  Top: {r['top_result']}")
@@ -253,7 +252,7 @@ def run_ragas_eval(
 
     if verbose:
         print(f"\n{'='*60}")
-        print(f"Ragas Generation Evaluation")
+        print("Ragas Generation Evaluation")
         print(f"{'='*60}")
         print(f"Faithfulness:      {results['faithfulness']:.3f}  (target ≥ 0.85)")
         print(f"Answer Relevancy:  {results['answer_relevancy']:.3f}  (target ≥ 0.85)")

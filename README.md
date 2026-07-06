@@ -5,15 +5,16 @@
 [![Python](https://img.shields.io/badge/Python-3.11-blue)](https://www.python.org/)
 [![LangChain](https://img.shields.io/badge/LangChain-0.2-green)](https://www.langchain.com/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110-teal)](https://fastapi.tiangolo.com/)
+[![CI](https://github.com/aalias01/rag-engineering-assistant/actions/workflows/ci.yml/badge.svg)](https://github.com/aalias01/rag-engineering-assistant/actions/workflows/ci.yml)
 
 RAG Engineering Assistant is an end-to-end GenAI application for technical engineering documents. It ingests PDF standards, manuals, and reports, retrieves relevant excerpts with hybrid search, reranks candidates, and generates answers with page-level citations.
 
-I built this project to show the work behind a real RAG system, not just a chat box on top of PDFs. It covers ingestion, vector search, hybrid retrieval, reranking, grounded prompting, evaluation, API serving, deployment planning, and a custom evidence-review interface.
+I built this to show the full work behind a real RAG system: ingestion, vector search, hybrid retrieval, reranking, grounded prompting, evaluation, API serving, deployment planning, and a custom evidence-review interface.
 
 ## Live Demo
 
 - **App (frontend):** <https://rag.alvinalias.com>
-- **API (backend):** <https://rag-engineering-assistant-api.onrender.com> — see [`/docs`](https://rag-engineering-assistant-api.onrender.com/docs) and [`/health`](https://rag-engineering-assistant-api.onrender.com/health)
+- **API (backend):** <https://rag-engineering-assistant-api.onrender.com>: see [`/docs`](https://rag-engineering-assistant-api.onrender.com/docs) and [`/health`](https://rag-engineering-assistant-api.onrender.com/health)
 
 The deployed demo runs answer generation on **Groq's free tier** (OpenAI-compatible) and keeps embeddings on OpenAI `text-embedding-3-small`, so it serves live answers at effectively zero cost. The Render free tier sleeps after inactivity, so the first request after idle can take ~30–60 s to wake.
 
@@ -36,12 +37,14 @@ The system is fully implemented and evaluated on a six-document public-domain en
 | Corpus | Complete | 6 public-domain documents, 778 pages. See `docs/corpus_selection.md` |
 | Vector store | Complete | ChromaDB persistent collection, 2,091 chunks at chunk size 300 (ablation-selected) |
 | Retrieval | Complete | Dense retrieval, BM25 retrieval, Reciprocal Rank Fusion, optional cross-encoder reranking |
-| Generation | Complete | Groq free tier (deploy default), OpenAI GPT-4o-mini, or local Ollama — selected via `LLM_PROVIDER` |
+| Generation | Complete | Groq free tier (deploy default), OpenAI GPT-4o-mini, or local Ollama, selected via `LLM_PROVIDER` |
 | API | Complete | FastAPI `GET /health`, `POST /query`, `GET /query/stream` |
-| Frontend | Complete | Vanilla JS evidence workbench with streaming, citations, retrieval trace, latency, and cost stats |
+| Frontend | Complete | Vanilla JS reading-room page with graded questions, citations, stream and blocking paths, shelf, stats, and chunk details |
 | Evaluation set | Complete | 31 hand-labeled queries with verified page-level ground truth |
 | Metrics | Complete | Recall@3 0.923, MRR 0.817, faithfulness 0.928, relevancy 0.960, refusal 1.000 |
 | Deployment | **Live** | API on Render + frontend on Vercel (both free tier); committed vector store, Groq free-tier generation |
+
+See [`docs/SYSTEM_CARD.md`](docs/SYSTEM_CARD.md) for the corpus, pipeline, metrics, refusal policy, providers, cost notes, and limits in one place.
 
 ## Why I Built It
 
@@ -183,6 +186,13 @@ Run a smoke test:
 python scripts/smoke_test.py
 ```
 
+Run the provider-independent tests:
+
+```bash
+python -m pip install -r requirements-dev.txt
+pytest -q
+```
+
 Start the API:
 
 ```bash
@@ -195,7 +205,7 @@ Open:
 - Health check: `http://localhost:8000/health`
 - Frontend: serve `frontend/` with a static server, then open the local URL
 
-The frontend reads its API base URL from `frontend/config.js` (`window.RAG_CONFIG.API_BASE`). It defaults to `http://localhost:8000`. Change `config.js` or inject `window.RAG_CONFIG` via Vercel settings when pointing at a deployed backend. No edit to `frontend/app.js` is needed.
+The frontend is the AA-2026-03 reading-room page: a graded-question run, manual query path, evidence rail, shelf, run stats, and retrieved passages. It reads its API base URL from `frontend/config.js` (`window.RAG_CONFIG.API_BASE`), which defaults to `http://localhost:8000` locally and the Render API in deployment.
 
 ## API
 
@@ -230,7 +240,8 @@ Example response shape:
   "cost_usd": 0.00029,
   "latency_ms": 2400,
   "model": "gpt-4o-mini",
-  "provider": "openai"
+  "provider": "openai",
+  "refused": false
 }
 ```
 
@@ -239,7 +250,7 @@ Example response shape:
 Streams answer tokens with Server-Sent Events:
 
 ```text
-/query/stream?q=your%20question&top_k=4
+/query/stream?q=your%20question&top_k=4&use_hybrid=true&use_reranker=true
 ```
 
 ## Evaluation
@@ -298,12 +309,12 @@ rag-engineering-assistant/
 
 ## Deployment
 
-The live demo runs generation on **Groq's free tier** (OpenAI-compatible, no credit card) and keeps embeddings on OpenAI `text-embedding-3-small`. The production vector store (single `engineering_docs` collection, ~40 MB) is committed to the repo, so the deployed API ships ready to answer — no ingestion step at deploy time.
+The live demo runs generation on **Groq's free tier** (OpenAI-compatible, no credit card) and keeps embeddings on OpenAI `text-embedding-3-small`. The production vector store (single `engineering_docs` collection, ~40 MB) is committed to the repo, so the deployed API ships ready to answer, with no ingestion step at deploy time.
 
 ### Backend on Render
 
 1. Push the repository to GitHub.
-2. On Render: **New → Blueprint**, connect this repo. Render reads `render.yaml` (which sets `LLM_PROVIDER=groq`, `GROQ_MODEL`, `EMBEDDING_PROVIDER=openai`, and `USE_RERANKER=false` for the 512 MB free tier).
+2. On Render: **New > Blueprint**, connect this repo. Render reads `render.yaml` (which sets `LLM_PROVIDER=groq`, `GROQ_MODEL`, `EMBEDDING_PROVIDER=openai`, and `USE_RERANKER=false` for the 512 MB free tier).
 3. Add two secret environment variables: `GROQ_API_KEY` (free, from [console.groq.com](https://console.groq.com)) and `OPENAI_API_KEY` (used only to embed each incoming query).
 4. Deploy, then open `/health` (expect `chroma_loaded: true`, `collection_size: 2091`) and `/docs`.
 
@@ -315,11 +326,11 @@ The live demo runs generation on **Groq's free tier** (OpenAI-compatible, no cre
 
 ### Switching generation providers
 
-Generation is swappable with one environment variable — no code change:
+Generation is swappable with one environment variable, no code change:
 
-- `LLM_PROVIDER=groq` — free hosted default (set `GROQ_MODEL`, e.g. `openai/gpt-oss-20b` or the larger `openai/gpt-oss-120b`).
-- `LLM_PROVIDER=openai` — GPT-4o-mini (the model the metrics were measured on).
-- `LLM_PROVIDER=ollama` — local Llama 3.1 8B for offline/dev.
+- `LLM_PROVIDER=groq`: free hosted default (set `GROQ_MODEL`, e.g. `openai/gpt-oss-20b` or the larger `openai/gpt-oss-120b`).
+- `LLM_PROVIDER=openai`: GPT-4o-mini (the model the metrics were measured on).
+- `LLM_PROVIDER=ollama`: local Llama 3.1 8B for offline/dev.
 
 If you change the *generating* model, re-run `python scripts/run_full_eval.py` before quoting faithfulness/relevancy, since those were measured on GPT-4o-mini.
 
@@ -329,12 +340,12 @@ All metrics measured on the 31-query evaluation set against the 6-document corpu
 
 | Metric | Value | Target | Status |
 |--------|-------|--------|--------|
-| Retrieval Recall@3 | **0.923** | ≥ 0.85 | ✅ |
-| Retrieval MRR | **0.817** (dense) / 0.741 (hybrid+reranker) | ≥ 0.70 | ✅ |
-| Ragas faithfulness | **0.928** | ≥ 0.85 | ✅ |
-| Ragas answer relevancy | **0.960** | ≥ 0.85 | ✅ |
-| Refusal accuracy | **1.000** (5/5 out-of-corpus refused) | ≥ 0.80 | ✅ |
-| Median end-to-end latency | **~2.3 s** | ≤ 3 s | ✅ |
+| Retrieval Recall@3 | **0.923** | ≥ 0.85 | met |
+| Retrieval MRR | **0.817** dense / 0.741 hybrid+reranker | ≥ 0.70 | met |
+| Ragas faithfulness | **0.928** | ≥ 0.85 | met |
+| Ragas answer relevancy | **0.960** | ≥ 0.85 | met |
+| Refusal accuracy | **1.000** (5/5 out-of-corpus refused) | ≥ 0.80 | met |
+| Median end-to-end latency | **~2.3 s** | ≤ 3 s | met |
 | Cost per 100 queries | **~$0.02** | n/a | gpt-4o-mini + text-embedding-3-small |
 
 ### Retrieval ablation (k=3, chunk size 300)
@@ -369,12 +380,12 @@ A RAG query hits a paid API in two places, and they are very unequal: embedding 
 
 Deployed (free) path:
 
-- Generation runs on **Groq's free tier** (`LLM_PROVIDER=groq`) — $0, no credit card.
+- Generation runs on **Groq's free tier** (`LLM_PROVIDER=groq`): $0, no credit card.
 - Embeddings stay on OpenAI `text-embedding-3-small`, so each query costs a fraction of a cent; a $5 cap on the OpenAI account is a safe ceiling.
 
 Paid path (what the metrics used):
 
-- `LLM_PROVIDER=openai` → GPT-4o-mini generation, ~$0.02 per 100 queries.
+- `LLM_PROVIDER=openai`: GPT-4o-mini generation, ~$0.02 per 100 queries.
 
 Fully local path:
 

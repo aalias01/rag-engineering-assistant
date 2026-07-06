@@ -1,0 +1,84 @@
+{
+  "note": "Subset of data/eval/test_queries.jsonl (the 31-query labeled set). For in_corpus: after the answer, print labeled source vs cited pages, hit or miss. For out_of_corpus: the known answer is a decline. Ship in rag_engineering_assistant/frontend/.",
+  "queries": [
+    {
+      "query": "What is the First Law of Thermodynamics and what principle is it referred to as?",
+      "query_type": "in_corpus",
+      "expected_source_doc": "doe_hdbk_1012_v1_thermodynamics.pdf",
+      "expected_source_pages": [
+        80,
+        81
+      ]
+    },
+    {
+      "query": "Why is enthalpy given with respect to a reference value, and what reference is used for water?",
+      "query_type": "in_corpus",
+      "expected_source_doc": "doe_hdbk_1012_v1_thermodynamics.pdf",
+      "expected_source_pages": [
+        45
+      ]
+    },
+    {
+      "query": "What is the log mean temperature difference and why is it used in heat exchanger calculations?",
+      "query_type": "in_corpus",
+      "expected_source_doc": "doe_hdbk_1012_v2_heat_transfer.pdf",
+      "expected_source_pages": [
+        25
+      ]
+    },
+    {
+      "query": "What type of motion does a gate valve use and why is pressure drop low across an open gate valve?",
+      "query_type": "in_corpus",
+      "expected_source_doc": "doe_hdbk_1018_v2_mechanical_science.pdf",
+      "expected_source_pages": [
+        28
+      ]
+    },
+    {
+      "query": "What is the difference between a relief valve and a safety valve?",
+      "query_type": "in_corpus",
+      "expected_source_doc": "doe_hdbk_1018_v2_mechanical_science.pdf",
+      "expected_source_pages": [
+        61
+      ]
+    },
+    {
+      "query": "What is the purpose of the Critical Design Review according to the NASA Systems Engineering Handbook?",
+      "query_type": "in_corpus",
+      "expected_source_doc": "nasa_systems_engineering_handbook.pdf",
+      "expected_source_pages": [
+        189
+      ]
+    },
+    {
+      "query": "What must a hot work permit document under the PSM standard?",
+      "query_type": "in_corpus",
+      "expected_source_doc": "osha_3132_process_safety_management.pdf",
+      "expected_source_pages": [
+        25
+      ]
+    },
+    {
+      "query": "When did compliance with the amended energy conservation standards for residential central air conditioners become required?",
+      "query_type": "in_corpus",
+      "expected_source_doc": "doe_final_rule_2017_cac_hp_efficiency.pdf",
+      "expected_source_pages": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "query": "What minimum outdoor air ventilation rates does ASHRAE Standard 62.1 require for office spaces?",
+      "query_type": "out_of_corpus",
+      "expected_source_doc": "N/A",
+      "expected_source_pages": []
+    },
+    {
+      "query": "What is the global warming potential of R-410A and when does the EPA HFC phasedown restrict it in new residential systems?",
+      "query_type": "out_of_corpus",
+      "expected_source_doc": "N/A",
+      "expected_source_pages": []
+    }
+  ]
+}

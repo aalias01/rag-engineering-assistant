@@ -6,9 +6,8 @@
 # held at the 0.3 era here. The src/ code is compatible with both eras.
 -r requirements.txt
 ragas==0.2.15
-datasets>=2.19.0
-langchain<0.4
-langchain-core>=0.3,<0.4
-langchain-community>=0.3,<0.4
-langchain-openai>=0.2,<0.3
-langchain-text-splitters<0.4
+datasets==5.0.0
+langchain==0.3.30
+langchain-core==0.3.86
+pytest==8.4.2
+ruff==0.8.6

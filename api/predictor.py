@@ -76,6 +76,33 @@ def is_ready() -> bool:
     return _chroma_loaded and _retriever is not None and _generator is not None
 
 
+def _request_retriever(
+    top_k: int,
+    use_hybrid: bool,
+    use_reranker: bool,
+):
+    from src.retriever import Retriever
+
+    # Memory ceiling: on constrained hosts (e.g. Render free tier, 512 MB) the
+    # cross-encoder reranker is disabled via USE_RERANKER=false because it pulls
+    # in torch (~700 MB). Honor that here so a per-request use_reranker=True
+    # can't load torch and OOM the box. (Ablation showed reranking didn't help.)
+    if not _env_bool("USE_RERANKER", True):
+        use_reranker = False
+    if not _env_bool("USE_HYBRID", True):
+        use_hybrid = False
+
+    # Reuse the cached retriever unless the request overrides its config.
+    if (use_hybrid, use_reranker, top_k) == (
+        _retriever.use_hybrid,
+        _retriever.use_reranker,
+        _retriever.top_k,
+    ):
+        return _retriever
+
+    return Retriever(use_hybrid=use_hybrid, use_reranker=use_reranker, top_k=top_k)
+
+
 def query(
     q: str,
     top_k: int = 4,
@@ -94,33 +121,19 @@ def query(
             "Run `python -m src.ingestion` to ingest PDFs into ChromaDB."
         )
 
-    from src.retriever import Retriever
-
-    # Memory ceiling: on constrained hosts (e.g. Render free tier, 512 MB) the
-    # cross-encoder reranker is disabled via USE_RERANKER=false because it pulls
-    # in torch (~700 MB). Honor that here so a per-request use_reranker=True
-    # can't load torch and OOM the box. (Ablation showed reranking didn't help.)
-    if not _env_bool("USE_RERANKER", True):
-        use_reranker = False
-    if not _env_bool("USE_HYBRID", True):
-        use_hybrid = False
-
-    # Reuse the cached retriever unless the request overrides its config
-    retriever = _retriever
-    if (use_hybrid, use_reranker, top_k) != (
-        _retriever.use_hybrid,
-        _retriever.use_reranker,
-        _retriever.top_k,
-    ):
-        retriever = Retriever(use_hybrid=use_hybrid, use_reranker=use_reranker, top_k=top_k)
-
+    retriever = _request_retriever(top_k, use_hybrid, use_reranker)
     chunks = retriever.retrieve(q, top_k=top_k)
     result = _generator.generate(q, chunks)
     result["chunks"] = chunks
     return result
 
 
-async def stream_query(q: str, top_k: int = 4):
+async def stream_query(
+    q: str,
+    top_k: int = 4,
+    use_hybrid: bool = True,
+    use_reranker: bool = True,
+):
     """
     Async generator for streaming responses (SSE).
 
@@ -135,7 +148,8 @@ async def stream_query(q: str, top_k: int = 4):
         yield "data: ERROR: RAG system not ready. Run ingestion first.\n\n"
         return
 
-    chunks = _retriever.retrieve(q, top_k=top_k)
+    retriever = _request_retriever(top_k, use_hybrid, use_reranker)
+    chunks = retriever.retrieve(q, top_k=top_k)
     async for token in _generator.stream(q, chunks):
         yield token
 

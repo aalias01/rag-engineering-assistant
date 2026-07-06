@@ -153,7 +153,6 @@ def get_chroma_client():
 
 
 def get_or_create_collection(client, reset: bool = False):
-    import chromadb
     if reset:
         try:
             client.delete_collection(COLLECTION_NAME)

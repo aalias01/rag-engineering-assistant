@@ -55,6 +55,14 @@ class QueryResponse(BaseModel):
     latency_ms: int
     model: str
     provider: str
+    refused: bool = Field(
+        ...,
+        description=(
+            "True when the generated answer contains the instructed refusal phrase. "
+            "This is a heuristic because the model could phrase a decline differently; "
+            "the eval set's 5 of 5 refusals used the instructed phrase."
+        ),
+    )
 
 
 # ---------------------------------------------------------------------------

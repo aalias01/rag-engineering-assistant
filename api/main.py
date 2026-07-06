@@ -13,6 +13,8 @@ OPENAI_API_KEY must be set as a secret environment variable on Render.
 
 from __future__ import annotations
 
+import json
+import logging
 import os
 import time
 from contextlib import asynccontextmanager
@@ -23,6 +25,9 @@ from fastapi.responses import StreamingResponse
 
 from api import predictor
 from api.schemas import HealthResponse, QueryRequest, QueryResponse, SourceCitation, ChunkPreview
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("rag_engineering_assistant.api")
 
 
 # ---------------------------------------------------------------------------
@@ -63,6 +68,7 @@ app = FastAPI(
 _DEV_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:8080",
+    "http://127.0.0.1:8080",
     "http://127.0.0.1:5500",
     "http://localhost:5500",
 ]
@@ -73,9 +79,9 @@ _ALLOWED_ORIGINS = _DEV_ORIGINS + _extra_origins
 app.add_middleware(
     CORSMiddleware,
     allow_origins=_ALLOWED_ORIGINS,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_credentials=False,
+    allow_methods=["GET", "POST"],
+    allow_headers=["Content-Type"],
 )
 
 
@@ -124,6 +130,7 @@ def query_endpoint(request: QueryRequest):
     (for transparency), token counts, and cost estimate.
     """
     if not predictor.is_ready():
+        logger.info("route=/query status=503 latency_ms=0 chunks_used=0 cost_usd=0")
         raise HTTPException(
             status_code=503,
             detail=(
@@ -141,9 +148,20 @@ def query_endpoint(request: QueryRequest):
             use_reranker=request.use_reranker,
         )
     except Exception as e:
+        latency_ms = int((time.time() - t0) * 1000)
+        logger.info(
+            "route=/query status=500 latency_ms=%s chunks_used=0 cost_usd=0",
+            latency_ms,
+        )
         raise HTTPException(status_code=500, detail=f"Query failed: {str(e)}")
 
     latency_ms = int((time.time() - t0) * 1000)
+    logger.info(
+        "route=/query status=200 latency_ms=%s chunks_used=%s cost_usd=%s",
+        latency_ms,
+        result.get("chunks_used", 0),
+        result.get("cost_usd", 0.0),
+    )
 
     # Build response
     sources = [SourceCitation(source=s["source"], page=s["page"]) for s in result["sources"]]
@@ -171,6 +189,7 @@ def query_endpoint(request: QueryRequest):
         latency_ms=latency_ms,
         model=result.get("model", ""),
         provider=result.get("provider", ""),
+        refused=result.get("refused", False),
     )
 
 
@@ -182,6 +201,8 @@ def query_endpoint(request: QueryRequest):
 async def query_stream(
     q: str = Query(..., min_length=5, description="Engineering question"),
     top_k: int = Query(default=4, ge=1, le=10),
+    use_hybrid: bool = Query(default=True, description="Use hybrid dense+BM25 retrieval"),
+    use_reranker: bool = Query(default=True, description="Apply cross-encoder reranker"),
 ):
     """
     Stream the answer token-by-token via Server-Sent Events (SSE).
@@ -195,13 +216,43 @@ async def query_stream(
     """
     if not predictor.is_ready():
         async def error_stream():
+            logger.info("route=/query/stream status=503 latency_ms=0 chunks_used=0 cost_usd=0")
             yield "data: ERROR: RAG system not ready. Run ingestion first.\n\n"
         return StreamingResponse(error_stream(), media_type="text/event-stream")
 
     async def event_stream():
-        async for token in predictor.stream_query(q, top_k=top_k):
-            # SSE format: "data: <content>\n\n"
-            yield f"data: {token}\n\n"
+        t0 = time.time()
+        status_code = 200
+        chunks_used = 0
+        cost_usd = 0.0
+        try:
+            async for token in predictor.stream_query(
+                q,
+                top_k=top_k,
+                use_hybrid=use_hybrid,
+                use_reranker=use_reranker,
+            ):
+                if token.startswith("__METADATA__:"):
+                    try:
+                        meta = json.loads(token.replace("__METADATA__:", "", 1))
+                        chunks_used = meta.get("chunks_used", 0)
+                        cost_usd = meta.get("cost_usd", 0.0)
+                    except json.JSONDecodeError:
+                        pass
+                # SSE format: "data: <content>\n\n"
+                yield f"data: {token}\n\n"
+        except Exception as e:
+            status_code = 500
+            yield f"data: ERROR: Stream failed: {str(e)}\n\n"
+        finally:
+            latency_ms = int((time.time() - t0) * 1000)
+            logger.info(
+                "route=/query/stream status=%s latency_ms=%s chunks_used=%s cost_usd=%s",
+                status_code,
+                latency_ms,
+                chunks_used,
+                cost_usd,
+            )
 
     return StreamingResponse(
         event_stream(),

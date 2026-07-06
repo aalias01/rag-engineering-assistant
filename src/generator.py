@@ -25,7 +25,7 @@ Usage:
 from __future__ import annotations
 
 import os
-from typing import AsyncIterator, Optional
+from typing import AsyncIterator
 
 from dotenv import load_dotenv
 
@@ -35,18 +35,24 @@ load_dotenv()
 # Prompts
 # ---------------------------------------------------------------------------
 
-SYSTEM_PROMPT = """You are a technical assistant for engineers. Your job is to answer
+REFUSAL_PHRASE = "I don't have information on that in the provided documents."
+
+SYSTEM_PROMPT = f"""You are a technical assistant for engineers. Your job is to answer
 questions accurately and concisely based ONLY on the document excerpts provided.
 
 Rules:
 1. Answer ONLY from the provided document excerpts. Do not use outside knowledge.
-2. If the answer is not in the excerpts, say clearly: "I don't have information
-   on that in the provided documents." Do not guess.
-3. Always cite your source using this format: [Source: {document_name}, Page {page}]
+2. If the answer is not in the excerpts, say clearly: "{REFUSAL_PHRASE}" Do not guess.
+3. Always cite your source using this format: [Source: {{document_name}}, Page {{page}}]
 4. If multiple excerpts support the answer, cite all of them.
 5. Keep answers concise but complete. Use numbered lists for multi-step answers.
 6. For numerical specifications (dimensions, pressures, temperatures), be exact.
    Do not round or paraphrase numbers."""
+
+
+def is_refusal(answer: str) -> bool:
+    """Return True when the answer contains the instructed refusal phrase."""
+    return REFUSAL_PHRASE.lower() in (answer or "").lower()
 
 
 def build_prompt(query: str, chunks: list[dict]) -> str:
@@ -231,6 +237,7 @@ class Generator:
         ]
         result["sources"] = sources
         result["chunks_used"] = len(chunks)
+        result["refused"] = is_refusal(result.get("answer", ""))
         return result
 
     async def stream(
@@ -262,12 +269,14 @@ class Generator:
 
         prompt_tokens = 0
         completion_tokens = 0
+        answer_parts: list[str] = []
 
         if self.provider == "ollama":
             # Ollama streaming not implemented — fall back to non-streaming
             result = _generate_ollama(messages)
             prompt_tokens = result.get("prompt_tokens", 0)
             completion_tokens = result.get("completion_tokens", 0)
+            answer_parts.append(result["answer"])
             for word in result["answer"].split(" "):
                 yield word + " "
         else:
@@ -285,6 +294,7 @@ class Generator:
                 if chunk.choices:
                     delta = chunk.choices[0].delta
                     if delta.content:
+                        answer_parts.append(delta.content)
                         yield delta.content
                         completion_tokens += 1
                 if chunk.usage:
@@ -315,8 +325,11 @@ class Generator:
             "sources": sources,
             "chunks_used": len(chunks),
             "chunks": chunk_previews,
+            "prompt_tokens": prompt_tokens,
+            "completion_tokens": completion_tokens,
             "cost_usd": _estimate_cost(self.provider, prompt_tokens, completion_tokens),
             "model": self.model,
             "provider": self.provider,
+            "refused": is_refusal("".join(answer_parts)),
         }
         yield f"__METADATA__:{json.dumps(metadata)}"

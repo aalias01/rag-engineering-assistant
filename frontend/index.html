@@ -3,213 +3,177 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RAG Engineering Assistant</title>
-  <link rel="stylesheet" href="style.css?v=2" />
+  <title>Standards question · grounded answers with page citations</title>
+  <script>
+    (function () {
+      var match = document.cookie.match(/(?:^|; )mode=(light|dark)/);
+      var stored = match ? match[1] : localStorage.getItem("mode");
+      var theme = stored === "dark" ? "night" : stored === "light" ? "day" : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "night" : "day");
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=B612:wght@400;700&family=B612+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=3" />
 </head>
 <body>
-  <div class="app-shell">
-    <header class="topbar">
-      <div class="brand-block">
-        <div class="brand-mark" aria-hidden="true">RA</div>
-        <div>
-          <p class="eyebrow">RAG Engineering Assistant</p>
-          <h1>Engineering Evidence Workbench</h1>
-        </div>
+  <div class="page-shell">
+    <header class="nameplate" aria-label="Instrument nameplate">
+      <div class="nameplate-copy">
+        <h1>Standards question</h1>
+        <p>Ask engineering standards in plain language; every answer cites document and page. Built by Alvin Alias.</p>
       </div>
 
-      <div class="system-strip" aria-label="System status">
-        <div class="system-item">
-          <span>Corpus</span>
-          <strong id="status-badge" class="badge badge-loading">Connecting...</strong>
-        </div>
-        <div class="system-item">
-          <span>Evaluation</span>
-          <strong>Recall@3 0.923</strong>
-        </div>
-        <div class="system-item">
-          <span>Refusal</span>
-          <strong>5/5 traps</strong>
-        </div>
+      <div class="governing">
+        <strong title="README results table">Recall@3 0.923 / faithfulness 0.928</strong>
+        <span>graded on 31 labeled queries · 778 pages</span>
       </div>
+
+      <nav class="nameplate-links" aria-label="Project links">
+        <a href="https://github.com/aalias01/rag-engineering-assistant">GitHub</a>
+        <a href="https://rag-engineering-assistant-api.onrender.com/docs">API docs</a>
+        <a href="https://alvinalias.com/notes/posts/grading-a-rag.html">Write-up</a>
+      </nav>
+
+      <div class="status-cluster">
+        <p id="status-line">server unreachable right now</p>
+        <p class="series-token">AA-2026-03</p>
+        <div id="status-warm-meter" class="warm-host warm-compact" hidden></div>
+      </div>
+
+      <button id="mode-toggle" class="mode-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
+        <span class="mode-track" aria-hidden="true">
+          <span class="mode-knob">
+            <svg viewBox="0 0 16 16" role="img" aria-hidden="true">
+              <circle cx="8" cy="8" r="5"></circle>
+            </svg>
+          </span>
+        </span>
+      </button>
     </header>
 
-    <main class="workbench">
-      <aside class="corpus-panel" aria-label="Corpus inventory">
-        <div class="panel-head">
-          <p class="eyebrow">Corpus</p>
-          <h2>778 pages, 2,091 retrieval chunks</h2>
+    <main class="faceplate" aria-label="Standards question instrument">
+      <section class="conversation-panel" aria-label="Question and answer">
+        <div class="question-row">
+          <span aria-hidden="true">Q</span>
+          <p id="question-text">Ask about valves, heat transfer, NASA reviews, process safety, or DOE efficiency rules</p>
         </div>
 
-        <div class="metric-grid" aria-label="Portfolio metrics">
-          <div>
-            <span>Faithfulness</span>
-            <strong>0.928</strong>
-          </div>
-          <div>
-            <span>MRR</span>
-            <strong>0.817</strong>
-          </div>
+        <article class="answer-block" aria-live="polite">
+          <div class="citation-rule" aria-hidden="true"></div>
+          <p id="answer-text"></p>
+        </article>
+
+        <p id="graded-line" class="graded-line"></p>
+        <div id="reading-error" class="error-block" hidden></div>
+        <div id="run-warm-meter" class="warm-host warm-full" hidden></div>
+
+        <div class="known-run">
+          <button id="graded-button" class="primary-run" type="button">Ask a graded question</button>
+          <p>Rotates questions from this system's own graded exam. The labeled source prints next to whatever the answer cites. Two of them it should refuse.</p>
         </div>
 
-        <div class="doc-list" aria-label="Documents">
-          <button class="doc-row active" type="button">
-            <span>DOE 1012-1</span>
-            <strong>Thermodynamics</strong>
-            <small>139 pages</small>
-          </button>
-          <button class="doc-row" type="button">
-            <span>DOE 1012-2</span>
-            <strong>Heat Transfer</strong>
-            <small>80 pages</small>
-          </button>
-          <button class="doc-row" type="button">
-            <span>DOE 1018-2</span>
-            <strong>Mechanical Components</strong>
-            <small>130 pages</small>
-          </button>
-          <button class="doc-row" type="button">
-            <span>NASA SP-2016</span>
-            <strong>Systems Engineering</strong>
-            <small>297 pages</small>
-          </button>
-          <button class="doc-row" type="button">
-            <span>OSHA 3132</span>
-            <strong>Process Safety</strong>
-            <small>59 pages</small>
-          </button>
-          <button class="doc-row" type="button">
-            <span>82 FR 1786</span>
-            <strong>CAC/HP Efficiency Rule</strong>
-            <small>73 pages</small>
-          </button>
-        </div>
+        <div class="manual-run" aria-label="Ask your own question">
+          <label class="visually-hidden" for="query-input">Ask your own question</label>
+          <textarea id="query-input" rows="3" maxlength="1000" placeholder="Ask about valves, heat transfer, NASA reviews, process safety, or DOE efficiency rules"></textarea>
 
-        <div class="query-bank" aria-label="Example queries">
-          <p class="eyebrow">Query Bank</p>
-          <button class="example-btn" type="button" data-query="What is the difference between a relief valve and a safety valve?">
-            Relief valve vs safety valve
-          </button>
-          <button class="example-btn" type="button" data-query="How often must a process hazard analysis be updated and revalidated under the PSM standard?">
-            PSM revalidation interval
-          </button>
-          <button class="example-btn" type="button" data-query="What SEER level did the 2017 DOE final rule set for split-system air conditioners under 45,000 Btu/h in the Southeast region?">
-            DOE Southeast SEER rule
-          </button>
-          <button class="example-btn" type="button" data-query="What SEER2 efficiency standards will apply to residential central air conditioners in 2029?">
-            Out-of-corpus refusal trap
-          </button>
-        </div>
-      </aside>
-
-      <section class="answer-panel" aria-label="Answer trace">
-        <div class="stage-toolbar">
-          <div>
-            <p class="eyebrow">Answer Trace</p>
-            <h2>Grounded response</h2>
-          </div>
-
-          <div class="mode-controls" aria-label="Run controls">
-            <label class="control-check">
-              <input type="checkbox" id="stream-toggle" checked />
+          <div class="run-controls" aria-label="Run controls">
+            <label>
+              <input id="stream-toggle" type="checkbox" checked />
               <span>Stream</span>
             </label>
-            <label class="control-check">
-              <input type="checkbox" id="hybrid-toggle" checked />
+            <label>
+              <input id="hybrid-toggle" type="checkbox" checked />
               <span>Hybrid</span>
             </label>
-            <label class="control-check">
-              <input type="checkbox" id="reranker-toggle" checked />
+            <label>
+              <input id="reranker-toggle" type="checkbox" />
               <span>Rerank</span>
             </label>
-            <label class="topk-control">
+            <label>
               <span>Top K</span>
-              <select id="top-k-select">
-                <option value="3">3</option>
-                <option value="4" selected>4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-              </select>
+              <input id="top-k" type="number" min="1" max="10" value="4" inputmode="numeric" />
             </label>
           </div>
+
+          <button id="query-button" class="secondary-run" type="button">Run query</button>
         </div>
 
-        <div id="conversation" class="conversation">
-          <div class="welcome-message">
-            <div class="empty-state">
-              <p class="eyebrow">Ready</p>
-              <h2>Select a query or enter an engineering question.</h2>
-              <div class="empty-grid">
-                <div>
-                  <span>Retrieval</span>
-                  <strong>Dense + BM25 + RRF</strong>
-                </div>
-                <div>
-                  <span>Generation</span>
-                  <strong>Citation constrained</strong>
-                </div>
-                <div>
-                  <span>Evaluation</span>
-                  <strong>31 labeled queries</strong>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="input-area">
-          <textarea
-            id="query-input"
-            placeholder="Ask about valves, heat transfer, NASA reviews, PSM, or DOE efficiency rules"
-            rows="3"
-            maxlength="1000"
-          ></textarea>
-          <div class="input-footer">
-            <span id="char-count" class="char-count">0 / 1000</span>
-            <button id="send-btn" type="button">Run Query</button>
-          </div>
-        </div>
+        <div id="run-log" class="run-log" aria-live="polite"></div>
       </section>
 
-      <aside class="trace-panel" aria-label="Run evidence">
-        <section class="trace-block">
-          <div class="trace-heading">
-            <p class="eyebrow">Run Stats</p>
-            <h2>Execution</h2>
-          </div>
-          <div id="stats-panel" class="stats-panel">
-            <div class="stat-row"><span>Latency</span><strong id="stat-latency">-</strong></div>
-            <div class="stat-row"><span>Chunks</span><strong id="stat-chunks">-</strong></div>
-            <div class="stat-row"><span>Prompt tokens</span><strong id="stat-prompt-tokens">-</strong></div>
-            <div class="stat-row"><span>Completion</span><strong id="stat-completion-tokens">-</strong></div>
-            <div class="stat-row"><span>Cost</span><strong id="stat-cost">-</strong></div>
-            <div class="stat-row"><span>Model</span><strong id="stat-model">-</strong></div>
+      <aside class="evidence-rail" aria-label="Evidence">
+        <section class="rail-section">
+          <h2>Evidence</h2>
+          <div id="citation-list" class="citation-list" aria-live="polite"></div>
+        </section>
+
+        <section class="rail-section">
+          <dl class="run-stats">
+            <div><dt>Latency</dt><dd id="stat-latency"></dd></div>
+            <div><dt>Chunks used</dt><dd id="stat-chunks"></dd></div>
+            <div><dt>Prompt tokens</dt><dd id="stat-prompt"></dd></div>
+            <div><dt>Completion tokens</dt><dd id="stat-completion"></dd></div>
+            <div><dt>Cost</dt><dd id="stat-cost"></dd></div>
+            <div><dt>Model</dt><dd id="stat-model"></dd></div>
+          </dl>
+        </section>
+
+        <section class="rail-section shelf-section">
+          <h2>The shelf · six public documents, 778 pages</h2>
+          <div class="shelf-table" role="table" aria-label="The shelf">
+            <div role="row"><span role="cell">DOE 1012-1</span><span role="cell">Thermodynamics</span><span role="cell">139 pages</span></div>
+            <div role="row"><span role="cell">DOE 1012-2</span><span role="cell">Heat transfer</span><span role="cell">80 pages</span></div>
+            <div role="row"><span role="cell">DOE 1018-2</span><span role="cell">Mechanical components</span><span role="cell">130 pages</span></div>
+            <div role="row"><span role="cell">NASA SP-2016</span><span role="cell">Systems engineering</span><span role="cell">297 pages</span></div>
+            <div role="row"><span role="cell">OSHA 3132</span><span role="cell">Process safety</span><span role="cell">59 pages</span></div>
+            <div role="row"><span role="cell">82 FR 1786</span><span role="cell">The efficiency rule I helped comply with at Rheem</span><span role="cell">73 pages</span></div>
           </div>
         </section>
 
-        <section class="trace-block">
-          <div class="trace-heading">
-            <p class="eyebrow">Citations</p>
-            <h2>Page anchors</h2>
-          </div>
-          <div id="sources-list" class="citation-list">
-            <p class="placeholder-text">No citations yet.</p>
-          </div>
-        </section>
-
-        <section class="trace-block evidence-block">
-          <div class="trace-heading">
-            <p class="eyebrow">Retrieved Evidence</p>
-            <h2>Chunk dossier</h2>
-          </div>
-          <div id="chunks-list" class="chunks-list">
-            <p class="placeholder-text">No retrieved chunks yet.</p>
-          </div>
+        <section class="rail-section chunks-section">
+          <h2>Retrieved passages</h2>
+          <div id="chunks-list" class="chunks-list" aria-live="polite"></div>
         </section>
       </aside>
     </main>
+
+    <section class="fold-rows" aria-label="Records">
+      <details>
+        <summary>Calibration record · retrieval and generation graded separately</summary>
+        <div class="calibration-table" role="table">
+          <div role="row"><span role="cell">Recall@3 0.923 · retrieval, 31 labeled queries</span></div>
+          <div role="row"><span role="cell">MRR 0.817</span></div>
+          <div role="row"><span role="cell">Faithfulness 0.928 · generation graded against retrieved text</span></div>
+          <div role="row"><span role="cell">Relevancy 0.960</span></div>
+          <div role="row"><span role="cell">Refusal 5 of 5 out-of-corpus traps declined</span></div>
+          <div role="row"><span role="cell">2,091 chunks at size 300, chosen by ablation</span></div>
+        </div>
+      </details>
+
+      <details>
+        <summary>How it works · hybrid retrieval, rerank, citation-constrained answers</summary>
+        <p>dense and BM25 retrieval fused with RRF because engineering acronyms defeat dense search alone; optional cross-encoder rerank; the generator is constrained to retrieved excerpts and every response carries document and page; retrieval and generation are graded separately because a fluent answer can still be ungrounded.</p>
+      </details>
+
+      <details>
+        <summary>Notes · when it declines, and what it costs</summary>
+        <ol>
+          <li>This runs on a free tier that sleeps between visitors. First start takes 30 to 60 seconds; runs after that are quick.</li>
+          <li>It answers only from the six documents on the shelf and is graded on declining everything else; a refusal on an off-shelf question is the system working.</li>
+          <li>Generation runs on a free tier; the cost figure printed per run is the real one.</li>
+          <li>Graded questions come from the same 31-query set the published metrics use.</li>
+        </ol>
+      </details>
+    </section>
+
+    <footer>
+      <p>Built by Alvin Alias · 2026 · AA-2026-03 · <a href="https://github.com/aalias01/rag-engineering-assistant">GitHub</a> · <a href="https://rag-engineering-assistant-api.onrender.com/docs">API docs</a></p>
+    </footer>
   </div>
 
   <script src="config.js"></script>
-  <script src="app.js?v=2"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>

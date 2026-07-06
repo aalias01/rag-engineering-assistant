@@ -73,7 +73,7 @@ def run_smoke_test(queries: list[str]) -> None:
         elapsed = time.time() - t0
 
         print(f"\nAnswer: {result['answer'][:400]}{'...' if len(result['answer']) > 400 else ''}")
-        print(f"\nSources:")
+        print("\nSources:")
         for s in result.get("sources", [])[:3]:
             print(f"  {s['source']}  p.{s['page']}")
         print(f"\nStats: chunks={result['chunks_used']}, latency={elapsed:.1f}s, cost=${result.get('cost_usd', 0):.5f}")

@@ -38,7 +38,10 @@ def main():
 
     final = {"chunk_size": 300, "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")}
     final["retrieval_ablations"] = run_retrieval_ablations(queries)
-    json_save = lambda: out_path.write_text(json.dumps(results, indent=2, default=str))
+
+    def json_save():
+        out_path.write_text(json.dumps(results, indent=2, default=str))
+
     results["final_config_chunk300"] = final
     json_save()
 

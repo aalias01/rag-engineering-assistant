@@ -4,23 +4,22 @@
 # a 512 MB RAM limit — if memory is tight, disable the cross-encoder reranker
 # in api/predictor.py and use dense-only retrieval for the deployed version.
 
-fastapi>=0.110.0
-uvicorn[standard]>=0.27.0
-pydantic>=2.0.0
-python-multipart>=0.0.9
-langchain>=0.2.0
-langchain-openai>=0.1.0
-langchain-community>=0.2.0
-langchain-chroma>=0.1.0
-openai>=1.30.0
-chromadb>=0.5.0
-rank-bm25>=0.2.2
-pymupdf>=1.24.0
-python-dotenv>=1.0.0
-tiktoken>=0.7.0
-numpy>=1.24.0
+fastapi==0.136.3
+uvicorn[standard]==0.49.0
+pydantic==2.13.4
+langchain-openai==0.2.14
+langchain-community==0.3.31
+langchain-chroma==0.2.6
+langchain-text-splitters==0.3.11
+openai==1.109.1
+chromadb==1.5.9
+rank-bm25==0.2.2
+pymupdf==1.27.2.3
+python-dotenv==1.2.2
+tiktoken==0.13.0
+numpy==2.4.6
 
-# sentence-transformers>=3.0.0
+# sentence-transformers==5.5.1
 #   Left OUT of the default free deploy on purpose. It's only needed for the
 #   cross-encoder reranker (USE_RERANKER=true) or local embeddings
 #   (EMBEDDING_PROVIDER=local) — both OFF in the free config — and it pulls in
