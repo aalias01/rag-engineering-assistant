@@ -234,9 +234,52 @@ a:hover {
 #answer-text {
   margin: 0;
   max-width: 68ch;
-  white-space: pre-wrap;
   font-size: 17px;
-  line-height: 1.7;
+  line-height: 1.62;
+}
+
+#answer-text p {
+  margin: 0 0 14px;
+}
+
+#answer-text p:last-child {
+  margin-bottom: 0;
+}
+
+#answer-text ol,
+#answer-text ul {
+  margin: 0;
+  padding-left: 1.35rem;
+}
+
+#answer-text ol {
+  display: grid;
+  gap: 16px;
+}
+
+#answer-text ul {
+  display: grid;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+#answer-text li {
+  padding-left: 0.1rem;
+}
+
+#answer-text strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.answer-source {
+  display: block;
+  margin-top: 8px;
+  color: var(--ink-2);
+  font-family: "B612 Mono", monospace;
+  font-size: 12.5px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
 }
 
 .graded-line {

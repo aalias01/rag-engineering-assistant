@@ -30,7 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function cacheElements() {
   els.statusLine = document.getElementById("status-line");
-  els.statusWarm = document.getElementById("status-warm-meter");
   els.modeToggle = document.getElementById("mode-toggle");
   els.questionText = document.getElementById("question-text");
   els.answerText = document.getElementById("answer-text");
@@ -52,7 +51,6 @@ function cacheElements() {
     chunks: document.getElementById("stat-chunks"),
     prompt: document.getElementById("stat-prompt"),
     completion: document.getElementById("stat-completion"),
-    cost: document.getElementById("stat-cost"),
     model: document.getElementById("stat-model"),
   };
 }
@@ -121,17 +119,11 @@ function shuffle(items) {
 }
 
 async function checkHealth() {
-  const warm = startWarmMeter(els.statusWarm, {
-    compact: true,
-    onShow: () => {
-      els.statusLine.textContent = "model waking, first run may take up to a minute";
-    },
-  });
+  els.statusLine.textContent = "checking server";
 
   try {
     const response = await fetch(`${API_BASE}/health`, { signal: timeoutSignal(70000) });
     const data = await response.json();
-    warm.ready();
 
     if (response.ok && data.chroma_loaded) {
       els.statusLine.textContent = `${data.collection_size} chunks loaded`;
@@ -139,7 +131,6 @@ async function checkHealth() {
       els.statusLine.textContent = "no vector store loaded";
     }
   } catch {
-    warm.stop();
     els.statusLine.textContent = "server unreachable right now";
   }
 }
@@ -252,7 +243,7 @@ async function runBlocking(query, controls, warm) {
       return null;
     }
 
-    els.answerText.textContent = data.answer || "";
+    renderAnswer(data.answer || "");
     renderEvidence(data.sources || [], data.chunks || []);
     renderChunks(data.chunks || []);
     renderStats(data);
@@ -318,7 +309,7 @@ function runStreaming(query, controls, warm, startedAt) {
       }
 
       answer += token;
-      els.answerText.textContent = answer;
+      renderAnswer(answer);
     };
 
     source.onerror = () => {
@@ -448,8 +439,92 @@ function renderStats(data) {
   els.stats.chunks.textContent = data.chunks_used ?? "";
   els.stats.prompt.textContent = data.prompt_tokens ?? "";
   els.stats.completion.textContent = data.completion_tokens ?? "";
-  els.stats.cost.textContent = data.cost_usd != null ? `$${Number(data.cost_usd).toFixed(5)}` : "";
   els.stats.model.textContent = data.model || "";
+}
+
+function renderAnswer(answer) {
+  els.answerText.innerHTML = formatAnswer(answer);
+}
+
+function formatAnswer(answer) {
+  const text = normalizeAnswer(answer);
+  if (!text) return "";
+
+  const blocks = text.split(/\n{2,}/).map((block) => block.trim()).filter(Boolean);
+  let html = "";
+  let inOrderedList = false;
+
+  blocks.forEach((block) => {
+    const numbered = block.match(/^(\d+)\.\s+([\s\S]*)$/);
+    if (numbered) {
+      if (!inOrderedList) {
+        html += "<ol>";
+        inOrderedList = true;
+      }
+      html += `<li>${formatBlockContent(numbered[2])}</li>`;
+      return;
+    }
+
+    if (inOrderedList) {
+      html += "</ol>";
+      inOrderedList = false;
+    }
+
+    html += `<p>${formatBlockContent(block)}</p>`;
+  });
+
+  if (inOrderedList) {
+    html += "</ol>";
+  }
+
+  return html;
+}
+
+function normalizeAnswer(answer) {
+  return String(answer || "")
+    .trim()
+    .replace(/\r\n/g, "\n")
+    .replace(/\]\s*(?=\d+\.\s+\*\*)/g, "]\n\n")
+    .replace(/(\*\*[^*\n][^*]*\*\*)\s*(?=\d+\.\s+\*\*)/g, "$1\n\n")
+    .replace(/([.!?])\s+(?=\d+\.\s+\*\*)/g, "$1\n\n")
+    .replace(/\s+\*\s+(?=[A-Z][A-Za-z /&-]+:)/g, "\n- ")
+    .replace(/\s+\[Source:/g, "\n[Source:");
+}
+
+function formatBlockContent(block) {
+  const lines = block.split(/\n+/).map((line) => line.trim()).filter(Boolean);
+  const parts = [];
+  let bullets = [];
+
+  function flushBullets() {
+    if (!bullets.length) return;
+    parts.push(`<ul>${bullets.map((item) => `<li>${formatInline(item)}</li>`).join("")}</ul>`);
+    bullets = [];
+  }
+
+  lines.forEach((line) => {
+    const bullet = line.match(/^[-*]\s+(.+)$/);
+    if (bullet) {
+      bullets.push(bullet[1]);
+      return;
+    }
+
+    flushBullets();
+    const formatted = formatInline(line);
+    if (line.startsWith("[Source:")) {
+      parts.push(`<span class="answer-source">${formatted}</span>`);
+    } else {
+      parts.push(formatted);
+    }
+  });
+
+  flushBullets();
+  return parts.join("<br>");
+}
+
+function formatInline(value) {
+  return escapeHtml(value)
+    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
 }
 
 function setGradedLine(text, isMiss) {
@@ -469,7 +544,7 @@ function showError(message, detail = "") {
 }
 
 function clearRunSurface() {
-  els.answerText.textContent = "";
+  els.answerText.innerHTML = "";
   els.gradedLine.textContent = "";
   els.gradedLine.classList.remove("miss");
   els.error.hidden = true;

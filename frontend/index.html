@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=B612:wght@400;700&family=B612+Mono:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=3" />
+  <link rel="stylesheet" href="style.css?v=4" />
 </head>
 <body>
   <div class="page-shell">
@@ -39,7 +39,6 @@
       <div class="status-cluster">
         <p id="status-line">server unreachable right now</p>
         <p class="series-token">AA-2026-03</p>
-        <div id="status-warm-meter" class="warm-host warm-compact" hidden></div>
       </div>
 
       <button id="mode-toggle" class="mode-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
@@ -62,7 +61,7 @@
 
         <article class="answer-block" aria-live="polite">
           <div class="citation-rule" aria-hidden="true"></div>
-          <p id="answer-text"></p>
+          <div id="answer-text" class="answer-text"></div>
         </article>
 
         <p id="graded-line" class="graded-line"></p>
@@ -115,7 +114,6 @@
             <div><dt>Chunks used</dt><dd id="stat-chunks"></dd></div>
             <div><dt>Prompt tokens</dt><dd id="stat-prompt"></dd></div>
             <div><dt>Completion tokens</dt><dd id="stat-completion"></dd></div>
-            <div><dt>Cost</dt><dd id="stat-cost"></dd></div>
             <div><dt>Model</dt><dd id="stat-model"></dd></div>
           </dl>
         </section>
@@ -158,11 +156,10 @@
       </details>
 
       <details>
-        <summary>Notes · when it declines, and what it costs</summary>
+        <summary>Notes · when it declines and why first run may wait</summary>
         <ol>
           <li>This runs on a free tier that sleeps between visitors. First start takes 30 to 60 seconds; runs after that are quick.</li>
           <li>It answers only from the six documents on the shelf and is graded on declining everything else; a refusal on an off-shelf question is the system working.</li>
-          <li>Generation runs on a free tier; the cost figure printed per run is the real one.</li>
           <li>Graded questions come from the same 31-query set the published metrics use.</li>
         </ol>
       </details>
@@ -174,6 +171,6 @@
   </div>
 
   <script src="config.js"></script>
-  <script src="app.js?v=3"></script>
+  <script src="app.js?v=4"></script>
 </body>
 </html>
