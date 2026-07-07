@@ -613,7 +613,7 @@ function startWarmMeter(host, options) {
     if (!number || !labelNode || !marker) return;
 
     const markerSeconds = overrun ? 0 : value;
-    const x = 20 + ((60 - markerSeconds) / 60) * 280;
+    const x = 20 + (markerSeconds / 60) * 280;
     number.textContent = String(value);
     labelNode.textContent = label;
     marker.setAttribute("points", `${x},7 ${x - 6},19 ${x + 6},19`);
