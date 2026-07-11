@@ -1,15 +1,13 @@
 # RAG Engineering Assistant
 
-> Query engineering standards in natural language and receive grounded answers with page-level source citations.
+Ask a question across 778 pages of engineering standards, manuals, and reports. The system combines dense retrieval with BM25, reranks the results, and answers with page-level citations. On 31 hand-labeled questions, it reached 0.923 Recall@3, 0.928 faithfulness, and 100% refusal accuracy.
+
+I built the full path from PDF ingestion to a custom evidence-review interface, including retrieval, grounded generation, separate retrieval and answer evaluation, API serving, and deployment.
 
 [![Python](https://img.shields.io/badge/Python-3.11-blue)](https://www.python.org/)
 [![LangChain](https://img.shields.io/badge/LangChain-0.2-green)](https://www.langchain.com/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110-teal)](https://fastapi.tiangolo.com/)
 [![CI](https://github.com/aalias01/rag-engineering-assistant/actions/workflows/ci.yml/badge.svg)](https://github.com/aalias01/rag-engineering-assistant/actions/workflows/ci.yml)
-
-RAG Engineering Assistant is an end-to-end GenAI application for technical engineering documents. It ingests PDF standards, manuals, and reports, retrieves relevant excerpts with hybrid search, reranks candidates, and generates answers with page-level citations.
-
-I built this to show the full work behind a real RAG system: ingestion, vector search, hybrid retrieval, reranking, grounded prompting, evaluation, API serving, deployment planning, and a custom evidence-review interface.
 
 ## Live Demo
 
