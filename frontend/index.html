@@ -85,67 +85,80 @@
           <p>Rotates questions from this system's own graded exam. The labeled source prints next to whatever the answer cites. Two of them it should refuse.</p>
         </div>
 
-        <div class="manual-run" aria-label="Ask your own question">
-          <label class="visually-hidden" for="query-input">Ask your own question</label>
-          <textarea id="query-input" rows="3" maxlength="1000" placeholder="Ask about valves, heat transfer, NASA reviews, process safety, or DOE efficiency rules"></textarea>
+        <details class="manual-run mobile-disclosure" data-mobile-disclosure open>
+          <summary>Ask your own question</summary>
+          <div class="mobile-disclosure__body" aria-label="Ask your own question">
+            <label class="visually-hidden" for="query-input">Ask your own question</label>
+            <textarea id="query-input" rows="3" maxlength="1000" placeholder="Ask about valves, heat transfer, NASA reviews, process safety, or DOE efficiency rules"></textarea>
 
-          <div class="run-controls" aria-label="Run controls">
-            <label>
-              <input id="stream-toggle" type="checkbox" checked />
-              <span>Stream</span>
-            </label>
-            <label>
-              <input id="hybrid-toggle" type="checkbox" checked />
-              <span>Hybrid</span>
-            </label>
-            <label>
-              <input id="reranker-toggle" type="checkbox" />
-              <span>Rerank</span>
-            </label>
-            <label>
-              <span>Top K</span>
-              <input id="top-k" type="number" min="1" max="10" value="4" inputmode="numeric" />
-            </label>
+            <div class="run-controls" aria-label="Run controls">
+              <label>
+                <input id="stream-toggle" type="checkbox" checked />
+                <span>Stream</span>
+              </label>
+              <label>
+                <input id="hybrid-toggle" type="checkbox" checked />
+                <span>Hybrid</span>
+              </label>
+              <label>
+                <input id="reranker-toggle" type="checkbox" />
+                <span>Rerank</span>
+              </label>
+              <label>
+                <span>Top K</span>
+                <input id="top-k" type="number" min="1" max="10" value="4" inputmode="numeric" />
+              </label>
+            </div>
+
+            <button id="query-button" class="secondary-run" type="button">Run query</button>
           </div>
-
-          <button id="query-button" class="secondary-run" type="button">Run query</button>
-        </div>
+        </details>
 
         <div id="run-log" class="run-log" aria-live="polite"></div>
       </section>
 
       <aside class="evidence-rail" aria-label="Evidence">
-        <section class="rail-section">
-          <h2>Evidence</h2>
-          <div id="citation-list" class="citation-list" aria-live="polite"></div>
-        </section>
+        <details class="rail-section mobile-disclosure" data-mobile-disclosure open>
+          <summary>Evidence and citations</summary>
+          <section class="mobile-disclosure__body">
+            <h2>Evidence</h2>
+            <div id="citation-list" class="citation-list" aria-live="polite"></div>
+          </section>
+        </details>
 
-        <section class="rail-section">
-          <dl class="run-stats">
+        <details class="rail-section mobile-disclosure" data-mobile-disclosure open>
+          <summary>Run details</summary>
+          <dl class="mobile-disclosure__body run-stats">
             <div><dt>Latency</dt><dd id="stat-latency"></dd></div>
             <div><dt>Chunks used</dt><dd id="stat-chunks"></dd></div>
             <div><dt>Prompt tokens</dt><dd id="stat-prompt"></dd></div>
             <div><dt>Completion tokens</dt><dd id="stat-completion"></dd></div>
             <div><dt>Model</dt><dd id="stat-model"></dd></div>
           </dl>
-        </section>
+        </details>
 
-        <section class="rail-section shelf-section">
-          <h2>The shelf · six public documents, 778 pages</h2>
-          <div class="shelf-table" role="table" aria-label="The shelf">
-            <div role="row"><span role="cell">DOE 1012-1</span><span role="cell">Thermodynamics</span><span role="cell">139 pages</span></div>
-            <div role="row"><span role="cell">DOE 1012-2</span><span role="cell">Heat transfer</span><span role="cell">80 pages</span></div>
-            <div role="row"><span role="cell">DOE 1018-2</span><span role="cell">Mechanical components</span><span role="cell">130 pages</span></div>
-            <div role="row"><span role="cell">NASA SP-2016</span><span role="cell">Systems engineering</span><span role="cell">297 pages</span></div>
-            <div role="row"><span role="cell">OSHA 3132</span><span role="cell">Process safety</span><span role="cell">59 pages</span></div>
-            <div role="row"><span role="cell">82 FR 1786</span><span role="cell">The efficiency rule I helped comply with at Rheem</span><span role="cell">73 pages</span></div>
-          </div>
-        </section>
+        <details class="rail-section shelf-section mobile-disclosure" data-mobile-disclosure open>
+          <summary>Document shelf · 778 pages</summary>
+          <section class="mobile-disclosure__body">
+            <h2>The shelf · six public documents, 778 pages</h2>
+            <div class="shelf-table" role="table" aria-label="The shelf">
+              <div role="row"><span role="cell">DOE 1012-1</span><span role="cell">Thermodynamics</span><span role="cell">139 pages</span></div>
+              <div role="row"><span role="cell">DOE 1012-2</span><span role="cell">Heat transfer</span><span role="cell">80 pages</span></div>
+              <div role="row"><span role="cell">DOE 1018-2</span><span role="cell">Mechanical components</span><span role="cell">130 pages</span></div>
+              <div role="row"><span role="cell">NASA SP-2016</span><span role="cell">Systems engineering</span><span role="cell">297 pages</span></div>
+              <div role="row"><span role="cell">OSHA 3132</span><span role="cell">Process safety</span><span role="cell">59 pages</span></div>
+              <div role="row"><span role="cell">82 FR 1786</span><span role="cell">The efficiency rule I helped comply with at Rheem</span><span role="cell">73 pages</span></div>
+            </div>
+          </section>
+        </details>
 
-        <section class="rail-section chunks-section">
-          <h2>Retrieved passages</h2>
-          <div id="chunks-list" class="chunks-list" aria-live="polite"></div>
-        </section>
+        <details class="rail-section chunks-section mobile-disclosure" data-mobile-disclosure open>
+          <summary>Retrieved passages</summary>
+          <section class="mobile-disclosure__body">
+            <h2>Retrieved passages</h2>
+            <div id="chunks-list" class="chunks-list" aria-live="polite"></div>
+          </section>
+        </details>
       </aside>
     </main>
 
@@ -183,6 +196,7 @@
   </div>
 
   <script src="config.js"></script>
+  <script src="mobile-disclosures.js"></script>
   <script src="app.js?v=7"></script>
 </body>
 </html>
