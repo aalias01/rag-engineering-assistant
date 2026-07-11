@@ -8,7 +8,7 @@ Endpoints:
   GET  /query/stream  — SSE streaming response (query via ?q=... param)
 
 Deployment: Render (free tier) via render.yaml Blueprint.
-OPENAI_API_KEY must be set as a secret environment variable on Render.
+GROQ_API_KEY and OPENAI_API_KEY must be set as secret variables on Render.
 """
 
 from __future__ import annotations
@@ -24,10 +24,28 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 
 from api import predictor
-from api.schemas import HealthResponse, QueryRequest, QueryResponse, SourceCitation, ChunkPreview
+from api.schemas import (
+    ChunkPreview,
+    HealthResponse,
+    QueryRequest,
+    QueryResponse,
+    SourceCitation,
+    ValidationReport,
+)
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("rag_engineering_assistant.api")
+
+
+def _sse_event(data: str) -> str:
+    """Frame one SSE message without dropping embedded newlines.
+
+    The SSE protocol requires every physical line in an event payload to have
+    its own ``data:`` prefix. Browsers otherwise interpret a line such as
+    ``Source text: ...`` as an unknown SSE field and discard it.
+    """
+    lines = str(data).split("\n")
+    return "".join(f"data: {line}\n" for line in lines) + "\n"
 
 
 # ---------------------------------------------------------------------------
@@ -52,9 +70,9 @@ app = FastAPI(
     description=(
         "Query engineering technical documents (ASHRAE, NASA, OSHA, ASME) in natural language. "
         "Hybrid retrieval (dense + BM25 + RRF) with cross-encoder reranking. "
-        "Grounded answers with source citations — no hallucination."
+        "Intent-routed answers with source citations and deterministic validation."
     ),
-    version="1.0.0",
+    version="2.0.0",
     lifespan=lifespan,
 )
 
@@ -114,6 +132,9 @@ def health():
         chroma_loaded=status["chroma_loaded"],
         collection_size=status["collection_size"],
         llm_provider=status["llm_provider"],
+        router_enabled=status.get("router_enabled", False),
+        intent_classifier=status.get("intent_classifier"),
+        facts_loaded=status.get("facts_loaded", 0),
     )
 
 
@@ -177,6 +198,7 @@ def query_endpoint(request: QueryRequest):
         for c in result.get("chunks", [])
     ]
 
+    validation = result.get("validation")
     return QueryResponse(
         query=request.query,
         answer=result["answer"],
@@ -190,6 +212,13 @@ def query_endpoint(request: QueryRequest):
         model=result.get("model", ""),
         provider=result.get("provider", ""),
         refused=result.get("refused", False),
+        route=result.get("route", "synthesized"),
+        intent=result.get("intent"),
+        intent_method=result.get("intent_method"),
+        fact_id=result.get("fact_id"),
+        fact_status=result.get("fact_status"),
+        validation=ValidationReport(**validation) if validation else None,
+        clarification=result.get("clarification"),
     )
 
 
@@ -239,8 +268,7 @@ async def query_stream(
                         cost_usd = meta.get("cost_usd", 0.0)
                     except json.JSONDecodeError:
                         pass
-                # SSE format: "data: <content>\n\n"
-                yield f"data: {token}\n\n"
+                yield _sse_event(token)
         except Exception as e:
             status_code = 500
             yield f"data: ERROR: Stream failed: {str(e)}\n\n"

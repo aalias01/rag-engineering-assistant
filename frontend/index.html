@@ -4,6 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Standards question · grounded answers with page citations</title>
+  <meta name="description" content="Ask engineering standards in plain language and inspect the cited pages, retrieved evidence, route, and validation result." />
+  <link rel="canonical" href="https://rag.alvinalias.com/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Standards question · grounded engineering answers" />
+  <meta property="og:description" content="A citation-first RAG system over 778 pages of public engineering documents." />
+  <meta property="og:url" content="https://rag.alvinalias.com/" />
+  <meta property="og:image" content="https://rag.alvinalias.com/og-image.png" />
+  <meta property="og:image:width" content="1280" />
+  <meta property="og:image:height" content="720" />
+  <meta name="twitter:card" content="summary_large_image" />
   <script>
     (function () {
       var match = document.cookie.match(/(?:^|; )mode=(light|dark)/);
@@ -33,11 +43,11 @@
       <nav class="nameplate-links" aria-label="Project links">
         <a href="https://github.com/aalias01/rag-engineering-assistant">GitHub</a>
         <a href="https://rag-engineering-assistant-api.onrender.com/docs">API docs</a>
-        <a href="https://alvinalias.com/notes/posts/grading-a-rag.html">Write-up</a>
+        <a href="https://alvinalias.com/notes/posts/not-every-rag-query-needs-an-llm.html">Write-up</a>
       </nav>
 
       <div class="status-cluster">
-        <p id="status-line">server unreachable right now</p>
+        <p id="status-line">checking server</p>
         <p class="series-token">AA-2026-03</p>
       </div>
 
@@ -58,6 +68,8 @@
           <span aria-hidden="true">Q</span>
           <p id="question-text">Ask about valves, heat transfer, NASA reviews, process safety, or DOE efficiency rules</p>
         </div>
+
+        <p id="route-badge" class="route-badge" hidden></p>
 
         <article class="answer-block" aria-live="polite">
           <div class="citation-rule" aria-hidden="true"></div>
@@ -171,6 +183,6 @@
   </div>
 
   <script src="config.js"></script>
-  <script src="app.js?v=5"></script>
+  <script src="app.js?v=7"></script>
 </body>
 </html>

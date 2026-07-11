@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+  <title id="title">Retrieval and generation evaluation results</title>
+  <desc id="desc">Horizontal bars show Recall at 3 of 0.923, mean reciprocal rank of 0.817, faithfulness of 0.928, answer relevancy of 0.960, and refusal accuracy of 1.000.</desc>
+  <rect width="1200" height="560" fill="#f7f5ef"/>
+  <style>
+    .title { font: 700 30px ui-sans-serif, system-ui, sans-serif; fill: #202522; }
+    .subtitle { font: 400 17px ui-sans-serif, system-ui, sans-serif; fill: #59615c; }
+    .group { font: 700 16px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 1.5px; fill: #59615c; }
+    .label { font: 500 19px ui-sans-serif, system-ui, sans-serif; fill: #202522; }
+    .value { font: 700 18px ui-monospace, SFMono-Regular, Menlo, monospace; fill: #202522; }
+    .tick { font: 400 14px ui-monospace, SFMono-Regular, Menlo, monospace; fill: #707871; }
+    .note { font: 400 15px ui-sans-serif, system-ui, sans-serif; fill: #59615c; }
+    .grid { stroke: #d7d8d2; stroke-width: 1; }
+  </style>
+
+  <text class="title" x="48" y="54">Retrieval and generation, graded separately</text>
+  <text class="subtitle" x="48" y="84">31 hand-labeled queries · six documents · 778 pages</text>
+
+  <line class="grid" x1="310" y1="116" x2="310" y2="490"/>
+  <line class="grid" x1="510" y1="116" x2="510" y2="490"/>
+  <line class="grid" x1="710" y1="116" x2="710" y2="490"/>
+  <line class="grid" x1="910" y1="116" x2="910" y2="490"/>
+  <line class="grid" x1="1110" y1="116" x2="1110" y2="490"/>
+  <text class="tick" x="310" y="514" text-anchor="middle">0.00</text>
+  <text class="tick" x="510" y="514" text-anchor="middle">0.25</text>
+  <text class="tick" x="710" y="514" text-anchor="middle">0.50</text>
+  <text class="tick" x="910" y="514" text-anchor="middle">0.75</text>
+  <text class="tick" x="1110" y="514" text-anchor="middle">1.00</text>
+
+  <text class="group" x="48" y="137">RETRIEVAL</text>
+  <text class="label" x="48" y="181">Recall@3</text>
+  <rect x="310" y="153" width="800" height="40" rx="4" fill="#e1e5e5"/>
+  <rect x="310" y="153" width="738.4" height="40" rx="4" fill="#2c6e91"/>
+  <text class="value" x="1064" y="180">0.923</text>
+
+  <text class="label" x="48" y="237">MRR</text>
+  <rect x="310" y="209" width="800" height="40" rx="4" fill="#e1e5e5"/>
+  <rect x="310" y="209" width="653.6" height="40" rx="4" fill="#2c6e91"/>
+  <text class="value" x="979" y="236">0.817</text>
+
+  <text class="group" x="48" y="309">GENERATION</text>
+  <text class="label" x="48" y="353">Faithfulness</text>
+  <rect x="310" y="325" width="800" height="40" rx="4" fill="#e1e5e5"/>
+  <rect x="310" y="325" width="742.4" height="40" rx="4" fill="#427a5b"/>
+  <text class="value" x="1068" y="352">0.928</text>
+
+  <text class="label" x="48" y="409">Answer relevancy</text>
+  <rect x="310" y="381" width="800" height="40" rx="4" fill="#e1e5e5"/>
+  <rect x="310" y="381" width="768" height="40" rx="4" fill="#427a5b"/>
+  <text class="value" x="1094" y="408">0.960</text>
+
+  <text class="label" x="48" y="465">Refusal accuracy</text>
+  <rect x="310" y="437" width="800" height="40" rx="4" fill="#e1e5e5"/>
+  <rect x="310" y="437" width="800" height="40" rx="4" fill="#427a5b"/>
+  <text class="value" x="1094" y="464" text-anchor="end">1.000</text>
+
+  <circle cx="48" cy="538" r="5" fill="#2c6e91"/>
+  <text class="note" x="61" y="543">Retrieval</text>
+  <circle cx="151" cy="538" r="5" fill="#427a5b"/>
+  <text class="note" x="164" y="543">Generation</text>
+  <text class="note" x="1110" y="543" text-anchor="end">Source: eval_results/full_results.json</text>
+</svg>

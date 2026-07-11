@@ -1,0 +1,31 @@
+{
+  "base_model": "distilbert-base-uncased",
+  "method": "LoRA r=8 alpha=16 on q_lin/v_lin, merged",
+  "epochs": 8,
+  "train_n": 135,
+  "holdout_n": 33,
+  "holdout_correct": 27,
+  "confusion": {
+    "clarify": {
+      "clarify": 7,
+      "interpret": 0,
+      "lookup": 1
+    },
+    "interpret": {
+      "clarify": 0,
+      "interpret": 12,
+      "lookup": 2
+    },
+    "lookup": {
+      "clarify": 0,
+      "interpret": 3,
+      "lookup": 8
+    }
+  },
+  "labels": [
+    "clarify",
+    "interpret",
+    "lookup"
+  ],
+  "seed": 558
+}

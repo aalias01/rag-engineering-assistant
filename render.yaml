@@ -1,4 +1,4 @@
-# Render deployment manifest — RAG Engineering Assistant API
+# Render deployment manifest: RAG Engineering Assistant API
 # Docs: https://render.com/docs/blueprint-spec
 #
 # To deploy: push this repo to GitHub, then on Render dashboard:
@@ -6,8 +6,9 @@
 #   provisions the service automatically.
 #
 # IMPORTANT: Set GROQ_API_KEY and OPENAI_API_KEY as secret environment
-# variables in the Render dashboard (Environment tab) — do NOT hardcode them.
-# Groq (free tier) handles generation; OpenAI handles only query embeddings.
+# variables in the Render dashboard (Environment tab). Do NOT hardcode them.
+# Groq handles intent classification and generation. OpenAI embeds only
+# interpretation queries that enter retrieval.
 
 services:
   - type: web
@@ -32,7 +33,7 @@ services:
       - key: GROQ_MODEL
         value: openai/gpt-oss-20b
       # Embeddings stay on OpenAI (text-embedding-3-small). Cost is negligible,
-      # but this key is still required to embed each incoming query.
+      # but this key is still required for synthesized-path query embeddings.
       - key: EMBEDDING_PROVIDER
         value: openai
       - key: OPENAI_API_KEY
@@ -43,3 +44,15 @@ services:
         value: "false"
       - key: USE_HYBRID
         value: "true"
+      # V2 routing. Groq won the production cost/quality tradeoff on the
+      # reviewed holdout, so GPT-4o-mini remains a benchmarked alternative.
+      - key: ROUTER_ENABLED
+        value: "true"
+      - key: INTENT_CLASSIFIER
+        value: zero_shot
+      - key: INTENT_PROVIDER
+        value: groq
+      - key: FACTS_DIR
+        value: ./data/facts
+      - key: VALIDATOR_MODE
+        value: flag

@@ -49,3 +49,8 @@ Thumbs.db
 
 # Ingestion hash store — local state, rebuilt on ingest
 data/eval/ingested_hashes.json
+
+# v2 — local intent classifier (train with scripts/train_intent_classifier.py)
+models/
+# Inspect AI eval logs (.eval files land here when running `inspect eval`)
+logs/

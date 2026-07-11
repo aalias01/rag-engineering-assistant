@@ -10,4 +10,5 @@ datasets==5.0.0
 langchain==0.3.30
 langchain-core==0.3.86
 pytest==8.4.2
+inspect-ai==0.3.246   # v2 eval substrate (evals/*.py)
 ruff==0.8.6

@@ -18,6 +18,14 @@ pymupdf==1.27.2.3
 python-dotenv==1.2.2
 tiktoken==0.13.0
 numpy==2.4.6
+jsonschema==4.23.0
+# ^ v2: validates data/facts/*.json at load (pure Python, tiny)
+
+# v2 note: the LOCAL intent classifier (DistilBERT + LoRA) needs
+# torch/transformers/peft and is deliberately NOT listed here -- it's a local
+# training option (scripts/train_intent_classifier.py). The deploy default is
+# INTENT_CLASSIFIER=zero_shot (Groq free tier) with a rules fallback, which
+# needs nothing beyond this file.
 
 # sentence-transformers==5.5.1
 #   Left OUT of the default free deploy on purpose. It's only needed for the

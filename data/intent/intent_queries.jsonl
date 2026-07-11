@@ -1,0 +1,168 @@
+{"query": "Explain what net positive suction head means.", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "What is the threshold quantity for Chlorine?", "intent": "lookup", "source": "fact_derived", "fact_id": "osha_psm_tq_chlorine", "split": "train"}
+{"query": "How does the EPA regulate refrigerant phase-outs under the AIM Act?", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "How often is PHA revalidation required under PSM?", "intent": "lookup", "source": "hand_written", "split": "train"}
+{"query": "How does NASA define verification versus validation?", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "What is the First Law of Thermodynamics and what principle is it referred to as?", "intent": "interpret", "source": "eval_set", "split": "holdout"}
+{"query": "What must a hot work permit document under the PSM standard?", "intent": "interpret", "source": "eval_set", "split": "train"}
+{"query": "Explain why regional standards exist for central air conditioners.", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "What is the threshold quantity?", "intent": "clarify", "source": "hand_written", "split": "train"}
+{"query": "What should an emergency action plan under PSM contain?", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "Which states are in the Southeast region for AC standards?", "intent": "lookup", "source": "hand_written", "split": "train"}
+{"query": "What's the revalidation schedule?", "intent": "clarify", "source": "hand_written", "split": "train"}
+{"query": "What is the minimum EER2 for split-system air conditioners with certified cooling capacity at least 45,000 btu/h in the Southwest?", "intent": "lookup", "source": "fact_derived", "fact_id": "doe2017_ss_ac_ge45_southwest_eer2", "split": "train"}
+{"query": "Explain the difference between a relief valve and a safety valve.", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "Which states make up the Southwest region under the DOE rule?", "intent": "lookup", "source": "hand_written", "split": "train"}
+{"query": "How long do we have to keep them?", "intent": "clarify", "source": "hand_written", "split": "holdout"}
+{"query": "Explain the purpose of a preliminary design review.", "intent": "interpret", "source": "hand_written", "split": "holdout"}
+{"query": "Why are swing check valves usually installed in conjunction with gate valves?", "intent": "interpret", "source": "eval_set", "split": "train"}
+{"query": "What's the frequency for that?", "intent": "clarify", "source": "hand_written", "split": "holdout"}
+{"query": "What is a globe valve used for?", "intent": "interpret", "source": "eval_set", "split": "train"}
+{"query": "When did compliance with the amended energy conservation standards for residential central air conditioners become required?", "intent": "lookup", "source": "eval_set", "split": "train"}
+{"query": "What do I need to comply with?", "intent": "clarify", "source": "hand_written", "split": "train"}
+{"query": "What about heat pumps?", "intent": "clarify", "source": "hand_written", "split": "train"}
+{"query": "What is the minimum SEER for small-duct high-velocity systems?", "intent": "lookup", "source": "fact_derived", "fact_id": "doe2017_sdhv_national_seer", "split": "train"}
+{"query": "Minimum HSPF for single-package heat pumps?", "intent": "lookup", "source": "fact_derived", "fact_id": "doe2017_sp_hp_national_hspf", "split": "train"}
+{"query": "What are the design requirements for subsea wellhead connectors under API 17D?", "intent": "interpret", "source": "eval_set", "split": "train"}
+{"query": "What type of motion does a gate valve use and why is pressure drop low across an open gate valve?", "intent": "interpret", "source": "eval_set", "split": "train"}
+{"query": "How many chemicals are on the PSM highly hazardous chemicals list?", "intent": "lookup", "source": "hand_written", "split": "train"}
+{"query": "Explain the employee participation requirements of the PSM standard.", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "What's the minimum for the North?", "intent": "clarify", "source": "hand_written", "split": "train"}
+{"query": "How many pounds of Oleum put a process under PSM coverage?", "intent": "lookup", "source": "fact_derived", "fact_id": "osha_psm_tq_oleum", "split": "train"}
+{"query": "What role do contractors play in process safety management?", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "How are stakeholder expectations captured in NASA systems engineering?", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "Minimum HSPF2 for single-package heat pumps?", "intent": "lookup", "source": "fact_derived", "fact_id": "doe2017_sp_hp_national_hspf2", "split": "train"}
+{"query": "How does NASA define systems engineering?", "intent": "interpret", "source": "eval_set", "split": "train"}
+{"query": "What efficiency do we need to hit?", "intent": "clarify", "source": "hand_written", "split": "train"}
+{"query": "When do the amended central air conditioner standards take effect?", "intent": "lookup", "source": "hand_written", "split": "train"}
+{"query": "What is the minimum SEER2 for split-system air conditioners with certified cooling capacity under 45,000 btu/h in the Southwest?", "intent": "lookup", "source": "fact_derived", "fact_id": "doe2017_ss_ac_lt45_southwest_seer2", "split": "train"}
+{"query": "What is the minimum SEER2 for split-system air conditioners with certified cooling capacity at least 45,000 btu/h in the Southeast?", "intent": "lookup", "source": "fact_derived", "fact_id": "doe2017_ss_ac_ge45_southeast_seer2", "split": "holdout"}
+{"query": "Give me the specs.", "intent": "clarify", "source": "hand_written", "split": "train"}
+{"query": "What is the TQ for Acetaldehyde?", "intent": "lookup", "source": "fact_derived", "fact_id": "osha_psm_tq_acetaldehyde", "split": "holdout"}
+{"query": "How does superheating steam improve turbine performance?", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "Explain the first law of thermodynamics for open systems.", "intent": "interpret", "source": "hand_written", "split": "holdout"}
+{"query": "What is the maximum allowable working pressure formula for pressure vessels under ASME Section VIII?", "intent": "interpret", "source": "eval_set", "split": "train"}
+{"query": "What did the 2023 DOE furnace rule change for gas furnaces?", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "How long must incident investigation reports be retained?", "intent": "lookup", "source": "hand_written", "split": "train"}
+{"query": "Ammonia solutions threshold quantity in pounds?", "intent": "lookup", "source": "fact_derived", "fact_id": "osha_psm_tq_ammonia_solutions", "split": "train"}
+{"query": "What SEER level did the 2017 DOE final rule set for split-system air conditioners under 45,000 Btu/h in the Southeast region?", "intent": "lookup", "source": "eval_set", "split": "train"}
+{"query": "Explain the purpose of the PSM compliance audit requirement.", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "At what quantity does Fluorine become PSM-covered?", "intent": "lookup", "source": "fact_derived", "fact_id": "osha_psm_tq_fluorine", "split": "train"}
+{"query": "How do the DOE efficiency standards differ between split-system and single-package units?", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "Can you check the value again?", "intent": "clarify", "source": "hand_written", "split": "holdout"}
+{"query": "What page is the table on?", "intent": "clarify", "source": "hand_written", "split": "train"}
+{"query": "What causes cavitation in pumps and why is it damaging?", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "What is the difference between counter-flow and parallel flow heat exchangers?", "intent": "interpret", "source": "eval_set", "split": "holdout"}
+{"query": "What SEER2 do small-duct high-velocity systems have to meet?", "intent": "lookup", "source": "fact_derived", "fact_id": "doe2017_sdhv_national_seer2", "split": "train"}
+{"query": "How soon must an incident investigation be initiated after an incident?", "intent": "lookup", "source": "hand_written", "split": "train"}
+{"query": "What is the purpose of the Critical Design Review according to the NASA Systems Engineering Handbook?", "intent": "interpret", "source": "eval_set", "split": "train"}
+{"query": "What SEER do space-constrained heat pumps have to meet?", "intent": "lookup", "source": "fact_derived", "fact_id": "doe2017_sc_hp_national_seer", "split": "train"}
+{"query": "How many pounds of Hydrochloric Acid, Anhydrous put a process under PSM coverage?", "intent": "lookup", "source": "fact_derived", "fact_id": "osha_psm_tq_hydrochloric_acid_anhydrous", "split": "train"}
+{"query": "What is the compliance date for the 2017 CAC/HP efficiency standards?", "intent": "lookup", "source": "hand_written", "split": "train"}
+{"query": "At what quantity does Formaldehyde become PSM-covered?", "intent": "lookup", "source": "fact_derived", "fact_id": "osha_psm_tq_formaldehyde", "split": "train"}
+{"query": "Why is subcooling used in refrigeration cycles?", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "Why is the threshold quantity for phosgene so much lower than for ammonia?", "intent": "interpret", "source": "hand_written", "split": "holdout"}
+{"query": "What HSPF2 do small-duct high-velocity systems have to meet?", "intent": "lookup", "source": "fact_derived", "fact_id": "doe2017_sdhv_national_hspf2", "split": "train"}
+{"query": "What is the TQ for Boron Trichloride?", "intent": "lookup", "source": "fact_derived", "fact_id": "osha_psm_tq_boron_trichloride", "split": "train"}
+{"query": "What are the rules for air conditioners?", "intent": "clarify", "source": "hand_written", "split": "train"}
+{"query": "What is the relationship between HSPF2 and heating performance?", "intent": "interpret", "source": "hand_written", "split": "holdout"}
+{"query": "What is the minimum efficiency?", "intent": "clarify", "source": "hand_written", "split": "train"}
+{"query": "How do employers demonstrate mechanical integrity under PSM?", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "What does technical risk management involve in NASA's SE process?", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "How many pounds of Hydrogen Sulfide put a process under PSM coverage?", "intent": "lookup", "source": "fact_derived", "fact_id": "osha_psm_tq_hydrogen_sulfide", "split": "train"}
+{"query": "Why must incident investigations start within 48 hours?", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "What is the minimum SEER2 for split-system heat pumps?", "intent": "lookup", "source": "fact_derived", "fact_id": "doe2017_ss_hp_national_seer2", "split": "holdout"}
+{"query": "Explain the difference between heat and work in thermodynamics.", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "Minimum SEER for space-constrained air conditioners?", "intent": "lookup", "source": "fact_derived", "fact_id": "doe2017_sc_ac_national_seer", "split": "train"}
+{"query": "Why do heat exchangers use counterflow arrangements?", "intent": "interpret", "source": "hand_written", "split": "holdout"}
+{"query": "Which region applies?", "intent": "clarify", "source": "hand_written", "split": "train"}
+{"query": "How many pounds is the cutoff?", "intent": "clarify", "source": "hand_written", "split": "train"}
+{"query": "What is the limit?", "intent": "clarify", "source": "hand_written", "split": "train"}
+{"query": "What is the threshold quantity for Diazomethane?", "intent": "lookup", "source": "fact_derived", "fact_id": "osha_psm_tq_diazomethane", "split": "train"}
+{"query": "What is the role of trade studies in systems design?", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "What are the ASME B31.3 requirements for process piping welds?", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "How does a check valve prevent reverse flow?", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "What's the minimum SEER2?", "intent": "clarify", "source": "hand_written", "split": "train"}
+{"query": "What is the deadline to start an incident investigation under PSM?", "intent": "lookup", "source": "hand_written", "split": "train"}
+{"query": "When does it take effect?", "intent": "clarify", "source": "hand_written", "split": "train"}
+{"query": "How often is training required?", "intent": "clarify", "source": "hand_written", "split": "train"}
+{"query": "Can a real heat engine achieve Carnot efficiency? Explain.", "intent": "interpret", "source": "eval_set", "split": "train"}
+{"query": "What does ASHRAE 90.1 require for building envelope insulation?", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "Allyl Chloride threshold quantity in pounds?", "intent": "lookup", "source": "fact_derived", "fact_id": "osha_psm_tq_allyl_chloride", "split": "train"}
+{"query": "Explain what management of change means under PSM.", "intent": "interpret", "source": "hand_written", "split": "holdout"}
+{"query": "Does the 2017 DOE final rule apply uniform national standards, or do requirements differ by region and product class?", "intent": "interpret", "source": "eval_set", "split": "holdout"}
+{"query": "What SEER2 efficiency standards will apply to residential central air conditioners in 2029?", "intent": "interpret", "source": "eval_set", "split": "train"}
+{"query": "Why does refresher training frequency depend on employee consultation?", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "Compare how OSHA treats toxic chemicals versus flammable liquids for PSM coverage.", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "What is the minimum?", "intent": "clarify", "source": "hand_written", "split": "train"}
+{"query": "How does the PSM standard define a catastrophic release?", "intent": "interpret", "source": "hand_written", "split": "holdout"}
+{"query": "What is the off mode power limit for split-system air conditioners?", "intent": "lookup", "source": "hand_written", "split": "holdout"}
+{"query": "Explain how a centrifugal pump develops head.", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "What is the global warming potential of R-410A and when does the EPA HFC phasedown restrict it in new residential systems?", "intent": "interpret", "source": "eval_set", "split": "train"}
+{"query": "What is the difference between a relief valve and a safety valve?", "intent": "interpret", "source": "eval_set", "split": "holdout"}
+{"query": "What methods are available for product validation, and how should the method be chosen?", "intent": "interpret", "source": "eval_set", "split": "train"}
+{"query": "And for the Southwest?", "intent": "clarify", "source": "hand_written", "split": "train"}
+{"query": "What is the off mode wattage standard for small-duct high-velocity systems?", "intent": "lookup", "source": "hand_written", "split": "holdout"}
+{"query": "How often must a process hazard analysis be revalidated?", "intent": "lookup", "source": "hand_written", "split": "holdout"}
+{"query": "What does the rule require?", "intent": "clarify", "source": "hand_written", "split": "train"}
+{"query": "Does 12 SEER2 comply?", "intent": "clarify", "source": "hand_written", "split": "train"}
+{"query": "What is the value of the Stefan-Boltzmann constant in English units?", "intent": "lookup", "source": "eval_set", "split": "holdout"}
+{"query": "Why is enthalpy given with respect to a reference value, and what reference is used for water?", "intent": "interpret", "source": "eval_set", "split": "train"}
+{"query": "What is the TQ for Acrolein?", "intent": "lookup", "source": "fact_derived", "fact_id": "osha_psm_tq_acrolein", "split": "train"}
+{"query": "What is the threshold quantity for Nitric Acid?", "intent": "lookup", "source": "fact_derived", "fact_id": "osha_psm_tq_nitric_acid", "split": "train"}
+{"query": "Compare the efficiency metrics SEER2 and EER2 \u2014 what does each measure?", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "What law is most commonly used to correlate conduction heat transfer, and what does it calculate?", "intent": "interpret", "source": "eval_set", "split": "train"}
+{"query": "How often must a process hazard analysis be updated and revalidated under the PSM standard?", "intent": "lookup", "source": "eval_set", "split": "train"}
+{"query": "What are the training rules?", "intent": "clarify", "source": "hand_written", "split": "train"}
+{"query": "Explain the difference between conduction, convection, and radiation.", "intent": "interpret", "source": "hand_written", "split": "holdout"}
+{"query": "Is 1,500 pounds over the threshold?", "intent": "clarify", "source": "hand_written", "split": "holdout"}
+{"query": "What's the TQ?", "intent": "clarify", "source": "hand_written", "split": "holdout"}
+{"query": "What's the deadline?", "intent": "clarify", "source": "hand_written", "split": "train"}
+{"query": "Which heat exchanger flow arrangement transfers heat more effectively, and what explains the difference?", "intent": "interpret", "source": "eval_set", "split": "train"}
+{"query": "What's the standard say about heat pumps?", "intent": "clarify", "source": "hand_written", "split": "holdout"}
+{"query": "How does a Carnot cycle establish the maximum possible efficiency?", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "Which equipment do the PSM mechanical integrity requirements apply to?", "intent": "interpret", "source": "eval_set", "split": "holdout"}
+{"query": "What is the PSM threshold for flammable gases in pounds?", "intent": "lookup", "source": "hand_written", "split": "holdout"}
+{"query": "What is the minimum SEER2 for single-package heat pumps?", "intent": "lookup", "source": "fact_derived", "fact_id": "doe2017_sp_hp_national_seer2", "split": "train"}
+{"query": "What is the compliance audit frequency under 1910.119?", "intent": "lookup", "source": "hand_written", "split": "train"}
+{"query": "What is a hot work permit and when is one required?", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "Methyl Isocyanate threshold quantity in pounds?", "intent": "lookup", "source": "fact_derived", "fact_id": "osha_psm_tq_methyl_isocyanate", "split": "train"}
+{"query": "How often must employers provide refresher training to process operators?", "intent": "lookup", "source": "hand_written", "split": "holdout"}
+{"query": "How often do we audit?", "intent": "clarify", "source": "hand_written", "split": "train"}
+{"query": "What's required for the audit?", "intent": "clarify", "source": "hand_written", "split": "train"}
+{"query": "Why is entropy described as a measure of unavailable energy?", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "Is chlorine covered?", "intent": "clarify", "source": "hand_written", "split": "train"}
+{"query": "What is the retention period for PSM incident investigation reports?", "intent": "lookup", "source": "hand_written", "split": "train"}
+{"query": "What minimum outdoor air ventilation rates does ASHRAE Standard 62.1 require for office spaces?", "intent": "interpret", "source": "eval_set", "split": "train"}
+{"query": "Why are expansion joints used in piping systems?", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "At what quantity does Nitric Oxide become PSM-covered?", "intent": "lookup", "source": "fact_derived", "fact_id": "osha_psm_tq_nitric_oxide", "split": "train"}
+{"query": "Do the standards apply to us?", "intent": "clarify", "source": "hand_written", "split": "train"}
+{"query": "Why would a globe valve be chosen over a gate valve for throttling service?", "intent": "interpret", "source": "eval_set", "split": "train"}
+{"query": "Why does the Southwest region have a separate EER2 requirement for air conditioners?", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "Which chemicals count?", "intent": "clarify", "source": "hand_written", "split": "train"}
+{"query": "What is a Technology Readiness Level?", "intent": "interpret", "source": "eval_set", "split": "train"}
+{"query": "What was that number?", "intent": "clarify", "source": "hand_written", "split": "train"}
+{"query": "What is the minimum SEER2 for split-system air conditioners with certified cooling capacity under 45,000 btu/h in the Southeast?", "intent": "lookup", "source": "fact_derived", "fact_id": "doe2017_ss_ac_lt45_southeast_seer2", "split": "holdout"}
+{"query": "How does film boiling differ from nucleate boiling?", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "What kind of valve motion does a butterfly valve use?", "intent": "interpret", "source": "eval_set", "split": "train"}
+{"query": "What are the temperature and pressure at the triple point of water?", "intent": "interpret", "source": "eval_set", "split": "train"}
+{"query": "How is the efficiency of a Carnot cycle defined?", "intent": "interpret", "source": "eval_set", "split": "train"}
+{"query": "What quantity of flammable liquids brings a process under PSM?", "intent": "lookup", "source": "hand_written", "split": "train"}
+{"query": "What SEER rating does ENERGY STAR require for certification?", "intent": "interpret", "source": "hand_written", "split": "holdout"}
+{"query": "What's the wattage limit?", "intent": "clarify", "source": "hand_written", "split": "holdout"}
+{"query": "How often must PSM compliance audits be performed?", "intent": "lookup", "source": "hand_written", "split": "train"}
+{"query": "How many pounds of Hydrofluoric Acid, Anhydrous put a process under PSM coverage?", "intent": "lookup", "source": "fact_derived", "fact_id": "osha_psm_tq_hydrofluoric_acid_anhydrous", "split": "train"}
+{"query": "What is the log mean temperature difference and why is it used in heat exchanger calculations?", "intent": "interpret", "source": "eval_set", "split": "train"}
+{"query": "What is the refresher training frequency under the PSM standard?", "intent": "lookup", "source": "hand_written", "split": "train"}
+{"query": "What is the purpose of a process hazard analysis?", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "What is the threshold quantity for Hydrogen Peroxide?", "intent": "lookup", "source": "fact_derived", "fact_id": "osha_psm_tq_hydrogen_peroxide", "split": "train"}
+{"query": "Why did DOE translate SEER values into SEER2 values in the 2017 rule?", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "What is the off mode standard for single-package heat pumps in watts?", "intent": "lookup", "source": "hand_written", "split": "train"}
+{"query": "Tell me the requirements for compliance.", "intent": "clarify", "source": "hand_written", "split": "train"}
+{"query": "Explain configuration management in the NASA systems engineering handbook.", "intent": "interpret", "source": "hand_written", "split": "train"}
+{"query": "What are the requirements?", "intent": "clarify", "source": "hand_written", "split": "train"}
+{"query": "Are we covered by the standard?", "intent": "clarify", "source": "hand_written", "split": "train"}
+{"query": "What is the minimum SEER for split-system heat pumps?", "intent": "lookup", "source": "fact_derived", "fact_id": "doe2017_ss_hp_national_seer", "split": "train"}
+{"query": "What is the required value?", "intent": "clarify", "source": "hand_written", "split": "holdout"}
+{"query": "What is the TQ for Hydrogen Cyanide, Anhydrous?", "intent": "lookup", "source": "fact_derived", "fact_id": "osha_psm_tq_hydrogen_cyanide_anhydrous", "split": "holdout"}
+{"query": "Is that within the limit?", "intent": "clarify", "source": "hand_written", "split": "train"}

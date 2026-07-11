@@ -1,0 +1,971 @@
+{
+  "facts_file_version": "1.0",
+  "domain": "process_safety_management",
+  "source_doc": "osha_3132_process_safety_management.pdf",
+  "source_title": "OSHA 3132 \u2014 Process Safety Management of Highly Hazardous Chemicals (29 CFR 1910.119)",
+  "curation": {
+    "status": "verified",
+    "method": "AI-assisted extraction with human-approved visual verification against every cited value, unit, page, and supporting quote.",
+    "verified_by": "Alvin Alias",
+    "verified_date": "2026-07-10"
+  },
+  "facts": [
+    {
+      "fact_id": "osha_psm_flammable_threshold",
+      "parameter": "Coverage threshold for flammable liquids and gases",
+      "entity": "OSHA Process Safety Management standard (29 CFR 1910.119)",
+      "value": "10,000",
+      "source_page": 9,
+      "quote": "it also includes flammable liquids and gases in quantities of 10,000 pounds",
+      "keywords": [
+        "flammable",
+        "liquids",
+        "gases",
+        "liquid",
+        "gas",
+        "10,000",
+        "pounds",
+        "threshold",
+        "coverage",
+        "covered",
+        "psm",
+        "process"
+      ],
+      "unit": "pounds",
+      "source_section": "The Standard"
+    },
+    {
+      "fact_id": "osha_psm_pha_revalidation",
+      "parameter": "Process hazard analysis (PHA) revalidation frequency",
+      "entity": "Process hazard analysis under PSM",
+      "value": "at least every 5 years",
+      "source_page": 15,
+      "quote": "At least every five years after the completion of the initial process hazard analysis, the process hazard analysis must be updated and revalidated",
+      "keywords": [
+        "process",
+        "hazard",
+        "analysis",
+        "pha",
+        "revalidated",
+        "updated",
+        "five",
+        "years",
+        "frequency"
+      ],
+      "source_section": "Process Hazard Analysis"
+    },
+    {
+      "fact_id": "osha_psm_refresher_training",
+      "parameter": "Refresher training frequency",
+      "entity": "Employees involved in operating a covered process",
+      "value": "at least every 3 years",
+      "source_page": 19,
+      "quote": "Refresher training must be provided at least every three years, or more often if necessary, to each employee involved in operating a process",
+      "keywords": [
+        "refresher",
+        "training",
+        "three",
+        "years",
+        "frequency",
+        "employees",
+        "operating"
+      ],
+      "source_section": "Training"
+    },
+    {
+      "fact_id": "osha_psm_compliance_audit",
+      "parameter": "Compliance audit frequency",
+      "entity": "Employer certification of PSM compliance evaluation",
+      "value": "at least every 3 years",
+      "source_page": 29,
+      "quote": "employers must certify that they have evaluated compliance with the provisions of PSM at least every three years",
+      "keywords": [
+        "compliance",
+        "audit",
+        "certify",
+        "three",
+        "years",
+        "frequency",
+        "evaluated"
+      ],
+      "source_section": "Compliance Audits"
+    },
+    {
+      "fact_id": "osha_psm_incident_investigation_start",
+      "parameter": "Incident investigation initiation deadline",
+      "entity": "Incident investigation (catastrophic release or near miss)",
+      "value": "no later than 48 hours after the incident",
+      "source_page": 27,
+      "quote": "Such an incident investigation must be initiated as promptly as possible, but not later than 48 hours following the incident.",
+      "keywords": [
+        "incident",
+        "investigation",
+        "initiated",
+        "48",
+        "hours",
+        "deadline",
+        "promptly"
+      ],
+      "source_section": "Incident Investigation"
+    },
+    {
+      "fact_id": "osha_psm_incident_report_retention",
+      "parameter": "Incident investigation report retention period",
+      "entity": "Incident investigation reports under PSM",
+      "value": "5 years",
+      "source_page": 27,
+      "quote": "The employer must keep these incident investigation reports for 5 years.",
+      "keywords": [
+        "incident",
+        "investigation",
+        "reports",
+        "retention",
+        "keep",
+        "five",
+        "years"
+      ],
+      "source_section": "Incident Investigation"
+    },
+    {
+      "fact_id": "osha_psm_listed_chemicals_count",
+      "parameter": "Number of listed highly hazardous chemicals",
+      "entity": "OSHA Process Safety Management standard (29 CFR 1910.119)",
+      "value": "more than 130",
+      "source_page": 9,
+      "quote": "PSM applies to those companies that deal with any of more than 130 specific toxic and reactive chemicals in listed quantities",
+      "keywords": [
+        "130",
+        "listed",
+        "toxic",
+        "reactive",
+        "chemicals",
+        "specific",
+        "covered",
+        "count"
+      ],
+      "unit": "chemicals",
+      "source_section": "The Standard"
+    },
+    {
+      "fact_id": "osha_psm_tq_acetaldehyde",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Acetaldehyde",
+      "value": "2500",
+      "source_page": 46,
+      "quote": "Acetaldehyde 75-07-0 2500",
+      "keywords": [
+        "acetaldehyde",
+        "hazardous",
+        "highly",
+        "pounds",
+        "quantity",
+        "threshold"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 75-07-0"
+    },
+    {
+      "fact_id": "osha_psm_tq_acrolein",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Acrolein (2-Propenal)",
+      "value": "150",
+      "source_page": 46,
+      "quote": "Acrolein (2-Propenal) 107-02-8 150",
+      "keywords": [
+        "acrolein",
+        "hazardous",
+        "highly",
+        "pounds",
+        "propenal",
+        "quantity",
+        "threshold"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 107-02-8"
+    },
+    {
+      "fact_id": "osha_psm_tq_allyl_chloride",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Allyl Chloride",
+      "value": "1000",
+      "source_page": 46,
+      "quote": "Allyl Chloride 107-05-1 1000",
+      "keywords": [
+        "allyl",
+        "chloride",
+        "hazardous",
+        "highly",
+        "pounds",
+        "quantity",
+        "threshold"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 107-05-1"
+    },
+    {
+      "fact_id": "osha_psm_tq_allylamine",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Allylamine",
+      "value": "1000",
+      "source_page": 46,
+      "quote": "Allylamine 107-11-9 1000",
+      "keywords": [
+        "allylamine",
+        "hazardous",
+        "highly",
+        "pounds",
+        "quantity",
+        "threshold"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 107-11-9"
+    },
+    {
+      "fact_id": "osha_psm_tq_ammonia_anhydrous",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Ammonia, Anhydrous",
+      "value": "10000",
+      "source_page": 46,
+      "quote": "Ammonia, Anhydrous 7664-41-7 10000",
+      "keywords": [
+        "ammonia",
+        "anhydrous",
+        "hazardous",
+        "highly",
+        "pounds",
+        "quantity",
+        "threshold"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 7664-41-7"
+    },
+    {
+      "fact_id": "osha_psm_tq_ammonia_solutions",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Ammonia solutions (>44% ammonia by weight)",
+      "value": "15000",
+      "source_page": 46,
+      "quote": "Ammonia solutions (>44% ammonia by weight) 7664-41-7 15000",
+      "keywords": [
+        ">44%",
+        "ammonia",
+        "hazardous",
+        "highly",
+        "pounds",
+        "quantity",
+        "solutions",
+        "threshold",
+        "weight"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 7664-41-7"
+    },
+    {
+      "fact_id": "osha_psm_tq_arsine",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Arsine (also called Arsenic Hydride)",
+      "value": "100",
+      "source_page": 46,
+      "quote": "Arsine (also called Arsenic Hydride) 7784-42-1 100",
+      "keywords": [
+        "also",
+        "arsenic",
+        "arsine",
+        "called",
+        "hazardous",
+        "highly",
+        "hydride",
+        "pounds",
+        "quantity",
+        "threshold"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 7784-42-1"
+    },
+    {
+      "fact_id": "osha_psm_tq_boron_trichloride",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Boron Trichloride",
+      "value": "2500",
+      "source_page": 46,
+      "quote": "Boron Trichloride 10294-34-5 2500",
+      "keywords": [
+        "boron",
+        "hazardous",
+        "highly",
+        "pounds",
+        "quantity",
+        "threshold",
+        "trichloride"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 10294-34-5"
+    },
+    {
+      "fact_id": "osha_psm_tq_boron_trifluoride",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Boron Trifluoride",
+      "value": "250",
+      "source_page": 46,
+      "quote": "Boron Trifluoride 7637-07-2 250",
+      "keywords": [
+        "boron",
+        "hazardous",
+        "highly",
+        "pounds",
+        "quantity",
+        "threshold",
+        "trifluoride"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 7637-07-2"
+    },
+    {
+      "fact_id": "osha_psm_tq_bromine",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Bromine",
+      "value": "1500",
+      "source_page": 46,
+      "quote": "Bromine 7726-95-6 1500",
+      "keywords": [
+        "bromine",
+        "hazardous",
+        "highly",
+        "pounds",
+        "quantity",
+        "threshold"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 7726-95-6"
+    },
+    {
+      "fact_id": "osha_psm_tq_carbonyl_fluoride",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Carbonyl Fluoride",
+      "value": "2500",
+      "source_page": 46,
+      "quote": "Carbonyl Fluoride 353-50-4 2500",
+      "keywords": [
+        "carbonyl",
+        "fluoride",
+        "hazardous",
+        "highly",
+        "pounds",
+        "quantity",
+        "threshold"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 353-50-4"
+    },
+    {
+      "fact_id": "osha_psm_tq_chlorine",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Chlorine",
+      "value": "1500",
+      "source_page": 46,
+      "quote": "Chlorine 7782-50-5 1500",
+      "keywords": [
+        "chlorine",
+        "hazardous",
+        "highly",
+        "pounds",
+        "quantity",
+        "threshold"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 7782-50-5"
+    },
+    {
+      "fact_id": "osha_psm_tq_chlorine_dioxide",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Chlorine Dioxide",
+      "value": "1000",
+      "source_page": 46,
+      "quote": "Chlorine Dioxide 10049-04-4 1000",
+      "keywords": [
+        "chlorine",
+        "dioxide",
+        "hazardous",
+        "highly",
+        "pounds",
+        "quantity",
+        "threshold"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 10049-04-4"
+    },
+    {
+      "fact_id": "osha_psm_tq_chlorine_trifluoride",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Chlorine Trifluoride",
+      "value": "1000",
+      "source_page": 46,
+      "quote": "Chlorine Trifluoride 7790-91-2 1000",
+      "keywords": [
+        "chlorine",
+        "hazardous",
+        "highly",
+        "pounds",
+        "quantity",
+        "threshold",
+        "trifluoride"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 7790-91-2"
+    },
+    {
+      "fact_id": "osha_psm_tq_cyanogen",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Cyanogen",
+      "value": "2500",
+      "source_page": 47,
+      "quote": "Cyanogen 460-19-5 2500",
+      "keywords": [
+        "cyanogen",
+        "hazardous",
+        "highly",
+        "pounds",
+        "quantity",
+        "threshold"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 460-19-5"
+    },
+    {
+      "fact_id": "osha_psm_tq_cyanogen_chloride",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Cyanogen Chloride",
+      "value": "500",
+      "source_page": 47,
+      "quote": "Cyanogen Chloride 506-77-4 500",
+      "keywords": [
+        "chloride",
+        "cyanogen",
+        "hazardous",
+        "highly",
+        "pounds",
+        "quantity",
+        "threshold"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 506-77-4"
+    },
+    {
+      "fact_id": "osha_psm_tq_diazomethane",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Diazomethane",
+      "value": "500",
+      "source_page": 47,
+      "quote": "Diazomethane 334-88-3 500",
+      "keywords": [
+        "diazomethane",
+        "hazardous",
+        "highly",
+        "pounds",
+        "quantity",
+        "threshold"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 334-88-3"
+    },
+    {
+      "fact_id": "osha_psm_tq_ethylene_oxide",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Ethylene Oxide",
+      "value": "5000",
+      "source_page": 47,
+      "quote": "Ethylene Oxide 75-21-8 5000",
+      "keywords": [
+        "ethylene",
+        "hazardous",
+        "highly",
+        "oxide",
+        "pounds",
+        "quantity",
+        "threshold"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 75-21-8"
+    },
+    {
+      "fact_id": "osha_psm_tq_fluorine",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Fluorine",
+      "value": "100",
+      "source_page": 47,
+      "quote": "Fluorine 7782-41-4 100",
+      "keywords": [
+        "fluorine",
+        "hazardous",
+        "highly",
+        "pounds",
+        "quantity",
+        "threshold"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 7782-41-4"
+    },
+    {
+      "fact_id": "osha_psm_tq_formaldehyde",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Formaldehyde (Formalin\u2019)",
+      "value": "1000",
+      "source_page": 47,
+      "quote": "Formaldehyde (Formalin\u2019) 50-00-0 1000",
+      "keywords": [
+        "formaldehyde",
+        "formalin",
+        "hazardous",
+        "highly",
+        "pounds",
+        "quantity",
+        "threshold"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 50-00-0"
+    },
+    {
+      "fact_id": "osha_psm_tq_furan",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Furan",
+      "value": "500",
+      "source_page": 47,
+      "quote": "Furan 110-00-9 500",
+      "keywords": [
+        "furan",
+        "hazardous",
+        "highly",
+        "pounds",
+        "quantity",
+        "threshold"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 110-00-9"
+    },
+    {
+      "fact_id": "osha_psm_tq_hydrochloric_acid_anhydrous",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Hydrochloric Acid, Anhydrous",
+      "value": "5000",
+      "source_page": 47,
+      "quote": "Hydrochloric Acid, Anhydrous 7647-01-0 5000",
+      "keywords": [
+        "acid",
+        "anhydrous",
+        "hazardous",
+        "highly",
+        "hydrochloric",
+        "pounds",
+        "quantity",
+        "threshold"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 7647-01-0"
+    },
+    {
+      "fact_id": "osha_psm_tq_hydrofluoric_acid_anhydrous",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Hydrofluoric Acid, Anhydrous",
+      "value": "1000",
+      "source_page": 47,
+      "quote": "Hydrofluoric Acid, Anhydrous 7664-39-3 1000",
+      "keywords": [
+        "acid",
+        "anhydrous",
+        "hazardous",
+        "highly",
+        "hydrofluoric",
+        "pounds",
+        "quantity",
+        "threshold"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 7664-39-3"
+    },
+    {
+      "fact_id": "osha_psm_tq_hydrogen_chloride",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Hydrogen Chloride",
+      "value": "5000",
+      "source_page": 47,
+      "quote": "Hydrogen Chloride 7647-01-0 5000",
+      "keywords": [
+        "chloride",
+        "hazardous",
+        "highly",
+        "hydrogen",
+        "pounds",
+        "quantity",
+        "threshold"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 7647-01-0"
+    },
+    {
+      "fact_id": "osha_psm_tq_hydrogen_cyanide_anhydrous",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Hydrogen Cyanide, Anhydrous",
+      "value": "1000",
+      "source_page": 47,
+      "quote": "Hodrogen Cyanide, Anhydrous 74-90-8 1000",
+      "keywords": [
+        "anhydrous",
+        "cyanide",
+        "hazardous",
+        "highly",
+        "hodrogen",
+        "pounds",
+        "quantity",
+        "threshold"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 74-90-8; source prints 'Hodrogen Cyanide, Anhydrous'"
+    },
+    {
+      "fact_id": "osha_psm_tq_hydrogen_fluoride",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Hydrogen Fluoride",
+      "value": "1000",
+      "source_page": 47,
+      "quote": "Hydrogen Fluoride 7664-39-3 1000",
+      "keywords": [
+        "fluoride",
+        "hazardous",
+        "highly",
+        "hydrogen",
+        "pounds",
+        "quantity",
+        "threshold"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 7664-39-3"
+    },
+    {
+      "fact_id": "osha_psm_tq_hydrogen_peroxide",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Hydrogen Peroxide",
+      "value": "7500",
+      "source_page": 47,
+      "quote": "Hydrogen Peroxide (52% by weight or greater 7722-84-1 7500",
+      "keywords": [
+        "52%",
+        "greater",
+        "hazardous",
+        "highly",
+        "hydrogen",
+        "peroxide",
+        "pounds",
+        "quantity",
+        "threshold",
+        "weight"
+      ],
+      "unit": "pounds",
+      "qualifier": "52% by weight or greater",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 7722-84-1"
+    },
+    {
+      "fact_id": "osha_psm_tq_hydrogen_selenide",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Hydrogen Selenide",
+      "value": "150",
+      "source_page": 47,
+      "quote": "Hydrogen Selenide 7783-07-5 150",
+      "keywords": [
+        "hazardous",
+        "highly",
+        "hydrogen",
+        "pounds",
+        "quantity",
+        "selenide",
+        "threshold"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 7783-07-5"
+    },
+    {
+      "fact_id": "osha_psm_tq_hydrogen_sulfide",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Hydrogen Sulfide",
+      "value": "1500",
+      "source_page": 47,
+      "quote": "Hydrogen Sulfide 7783=06-4 1500",
+      "keywords": [
+        "hazardous",
+        "highly",
+        "hydrogen",
+        "pounds",
+        "quantity",
+        "sulfide",
+        "threshold"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 7783-06-4 (source prints 7783=06-4)"
+    },
+    {
+      "fact_id": "osha_psm_tq_methylamine_anhydrous",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Methylamine, Anhydrous",
+      "value": "1000",
+      "source_page": 48,
+      "quote": "Methylamine, Anhydrous 74-89-5 1000",
+      "keywords": [
+        "anhydrous",
+        "hazardous",
+        "highly",
+        "methylamine",
+        "pounds",
+        "quantity",
+        "threshold"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 74-89-5"
+    },
+    {
+      "fact_id": "osha_psm_tq_methyl_chloride",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Methyl Chloride",
+      "value": "15000",
+      "source_page": 48,
+      "quote": "Methyl Chloride 74-87-3 15000",
+      "keywords": [
+        "chloride",
+        "hazardous",
+        "highly",
+        "methyl",
+        "pounds",
+        "quantity",
+        "threshold"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 74-87-3"
+    },
+    {
+      "fact_id": "osha_psm_tq_methyl_isocyanate",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Methyl Isocyanate",
+      "value": "250",
+      "source_page": 48,
+      "quote": "Methyl Isocyanate 624-83-9 250",
+      "keywords": [
+        "hazardous",
+        "highly",
+        "isocyanate",
+        "methyl",
+        "pounds",
+        "quantity",
+        "threshold"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 624-83-9"
+    },
+    {
+      "fact_id": "osha_psm_tq_nitric_acid",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Nitric Acid (94.5% by weight or greater)",
+      "value": "500",
+      "source_page": 48,
+      "quote": "Nitric Acid (94.5% by weight or greater) 7697-37-2 500",
+      "keywords": [
+        "acid",
+        "greater",
+        "hazardous",
+        "highly",
+        "nitric",
+        "pounds",
+        "quantity",
+        "threshold",
+        "weight"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 7697-37-2"
+    },
+    {
+      "fact_id": "osha_psm_tq_nitric_oxide",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Nitric Oxide",
+      "value": "250",
+      "source_page": 48,
+      "quote": "Nitric Oxide 10102-43-9 250",
+      "keywords": [
+        "hazardous",
+        "highly",
+        "nitric",
+        "oxide",
+        "pounds",
+        "quantity",
+        "threshold"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 10102-43-9"
+    },
+    {
+      "fact_id": "osha_psm_tq_oleum",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Oleum (65% to 80% by weight; also called Fuming Sulfuric Acid",
+      "value": "1000",
+      "source_page": 48,
+      "quote": "Oleum (65% to 80% by weight; also called Fuming Sulfuric Acid 8014-94-7 1000",
+      "keywords": [
+        "65%",
+        "80%",
+        "acid",
+        "also",
+        "called",
+        "fuming",
+        "hazardous",
+        "highly",
+        "oleum",
+        "pounds",
+        "quantity",
+        "sulfuric",
+        "threshold",
+        "weight"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 8014-94-7"
+    },
+    {
+      "fact_id": "osha_psm_tq_ozone",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Ozone",
+      "value": "100",
+      "source_page": 48,
+      "quote": "Ozone 10028-15-6 100",
+      "keywords": [
+        "hazardous",
+        "highly",
+        "ozone",
+        "pounds",
+        "quantity",
+        "threshold"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 10028-15-6"
+    },
+    {
+      "fact_id": "osha_psm_tq_phosgene",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Phosgene (also called Carbonyl Chloride)",
+      "value": "100",
+      "source_page": 49,
+      "quote": "Phosgene (also called Carbonyl Chloride) 75-44-5 100",
+      "keywords": [
+        "also",
+        "called",
+        "carbonyl",
+        "chloride",
+        "hazardous",
+        "highly",
+        "phosgene",
+        "pounds",
+        "quantity",
+        "threshold"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 75-44-5"
+    },
+    {
+      "fact_id": "osha_psm_tq_phosphine",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Phosphine (Hydrogen Phosphide)",
+      "value": "100",
+      "source_page": 49,
+      "quote": "Phosphine (Hydrogen Phosphide) 7803-51-2 100",
+      "keywords": [
+        "hazardous",
+        "highly",
+        "hydrogen",
+        "phosphide",
+        "phosphine",
+        "pounds",
+        "quantity",
+        "threshold"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 7803-51-2"
+    },
+    {
+      "fact_id": "osha_psm_tq_sulfur_dioxide",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Sulfur Dioxide (liquid)",
+      "value": "1000",
+      "source_page": 49,
+      "quote": "Sulfur Dioxide (liquid) 7446-09-5 1000",
+      "keywords": [
+        "dioxide",
+        "hazardous",
+        "highly",
+        "liquid",
+        "pounds",
+        "quantity",
+        "sulfur",
+        "threshold"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 7446-09-5"
+    },
+    {
+      "fact_id": "osha_psm_tq_sulfur_trioxide",
+      "parameter": "Threshold quantity (TQ)",
+      "entity": "Sulfur Trioxide (also called Sulfuric Anhydride)",
+      "value": "1000",
+      "source_page": 49,
+      "quote": "Sulfur Trioxide (also called Sulfuric Anhydride) 7446-11-9 1000",
+      "keywords": [
+        "also",
+        "anhydride",
+        "called",
+        "hazardous",
+        "highly",
+        "pounds",
+        "quantity",
+        "sulfur",
+        "sulfuric",
+        "threshold",
+        "trioxide"
+      ],
+      "unit": "pounds",
+      "source_section": "Appendix A to \u00a71910.119",
+      "notes": "CAS: 7446-11-9"
+    }
+  ]
+}

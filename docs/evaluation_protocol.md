@@ -48,9 +48,9 @@ Captured during `POST /query` from `latency_ms`, `prompt_tokens`, `completion_to
 
 Each ablation must run on the same fixed test set so deltas are comparable.
 
-1. Chunk size — 300 vs 500 vs 800 tokens (retrieval metrics).
-2. Retrieval mode — Dense-only vs BM25-only vs Hybrid RRF (retrieval metrics).
-3. Reranker on/off — Hybrid RRF without reranker vs Hybrid RRF + cross-encoder reranker (retrieval + generation metrics + latency).
+1. Chunk size: 300 vs 500 vs 800 tokens (retrieval metrics).
+2. Retrieval mode: Dense-only vs BM25-only vs Hybrid RRF (retrieval metrics).
+3. Reranker on/off: Hybrid RRF without reranker vs Hybrid RRF + cross-encoder reranker (retrieval + generation metrics + latency).
 
 Record the winning configuration and the deltas in the README results table.
 
@@ -58,10 +58,10 @@ Record the winning configuration and the deltas in the README results table.
 
 For every missed query, classify the failure into exactly one bucket:
 
-- bad-label — the ground truth was wrong; fix the test set.
-- bad-chunking — the chunk that contained the answer was split or lost.
-- bad-retrieval — the right chunk exists in the store but was not retrieved.
-- bad-generation — the right chunk was retrieved but the model did not use it correctly.
+- bad-label: the ground truth was wrong; fix the test set.
+- bad-chunking: the chunk that contained the answer was split or lost.
+- bad-retrieval: the right chunk exists in the store but was not retrieved.
+- bad-generation: the right chunk was retrieved but the model did not use it correctly.
 
 Failure counts by bucket should appear in `notebooks/02_retrieval_evaluation.ipynb` and `notebooks/03_rag_pipeline.ipynb`.
 

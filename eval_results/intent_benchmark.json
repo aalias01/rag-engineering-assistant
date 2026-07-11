@@ -1,0 +1,170 @@
+{
+  "rules": {
+    "n": 33,
+    "correct": 21,
+    "accuracy": 0.6363636363636364,
+    "wilson_95": [
+      0.4662,
+      0.7781
+    ],
+    "per_class": {
+      "clarify": {
+        "n": 8,
+        "correct": 1
+      },
+      "interpret": {
+        "n": 14,
+        "correct": 12
+      },
+      "lookup": {
+        "n": 11,
+        "correct": 8
+      }
+    },
+    "confusion": {
+      "clarify": {
+        "clarify": 1,
+        "interpret": 5,
+        "lookup": 2
+      },
+      "interpret": {
+        "clarify": 1,
+        "interpret": 12,
+        "lookup": 1
+      },
+      "lookup": {
+        "clarify": 0,
+        "interpret": 3,
+        "lookup": 8
+      }
+    },
+    "median_latency_ms": 0.0069141387939453125,
+    "api_errors": 0
+  },
+  "zero_shot_groq": {
+    "n": 33,
+    "correct": 29,
+    "accuracy": 0.8787878787878788,
+    "wilson_95": [
+      0.7267,
+      0.9518
+    ],
+    "per_class": {
+      "clarify": {
+        "n": 8,
+        "correct": 6
+      },
+      "interpret": {
+        "n": 14,
+        "correct": 12
+      },
+      "lookup": {
+        "n": 11,
+        "correct": 11
+      }
+    },
+    "confusion": {
+      "clarify": {
+        "clarify": 6,
+        "interpret": 1,
+        "lookup": 1
+      },
+      "interpret": {
+        "clarify": 0,
+        "interpret": 12,
+        "lookup": 2
+      },
+      "lookup": {
+        "clarify": 0,
+        "interpret": 0,
+        "lookup": 11
+      }
+    },
+    "median_latency_ms": 329.7100067138672,
+    "api_errors": 0
+  },
+  "zero_shot_gpt4o_mini": {
+    "n": 33,
+    "correct": 31,
+    "accuracy": 0.9393939393939394,
+    "wilson_95": [
+      0.8039,
+      0.9832
+    ],
+    "per_class": {
+      "clarify": {
+        "n": 8,
+        "correct": 8
+      },
+      "interpret": {
+        "n": 14,
+        "correct": 12
+      },
+      "lookup": {
+        "n": 11,
+        "correct": 11
+      }
+    },
+    "confusion": {
+      "clarify": {
+        "clarify": 8,
+        "interpret": 0,
+        "lookup": 0
+      },
+      "interpret": {
+        "clarify": 1,
+        "interpret": 12,
+        "lookup": 1
+      },
+      "lookup": {
+        "clarify": 0,
+        "interpret": 0,
+        "lookup": 11
+      }
+    },
+    "median_latency_ms": 570.9750652313232,
+    "api_errors": 0
+  },
+  "local_distilbert_lora": {
+    "n": 33,
+    "correct": 27,
+    "accuracy": 0.8181818181818182,
+    "wilson_95": [
+      0.6561,
+      0.9139
+    ],
+    "per_class": {
+      "clarify": {
+        "n": 8,
+        "correct": 7
+      },
+      "interpret": {
+        "n": 14,
+        "correct": 12
+      },
+      "lookup": {
+        "n": 11,
+        "correct": 8
+      }
+    },
+    "confusion": {
+      "clarify": {
+        "clarify": 7,
+        "interpret": 0,
+        "lookup": 1
+      },
+      "interpret": {
+        "clarify": 0,
+        "interpret": 12,
+        "lookup": 2
+      },
+      "lookup": {
+        "clarify": 0,
+        "interpret": 3,
+        "lookup": 8
+      }
+    },
+    "median_latency_ms": 21.132946014404297,
+    "api_errors": 0
+  }
+}

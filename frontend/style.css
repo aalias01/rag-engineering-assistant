@@ -3,6 +3,8 @@
   --ink: #1c1c1a;
   --ink-2: #66655e;
   --red: #a8301f;
+  --green: #2e6b3f;
+  --amber: #8f6516;
   --line: rgba(28, 28, 26, 0.28);
   --line-strong: rgba(28, 28, 26, 0.52);
   --hatch: repeating-linear-gradient(
@@ -20,6 +22,8 @@
   --ink: #eae7df;
   --ink-2: #a3a096;
   --red: #e57458;
+  --green: #7dbb8e;
+  --amber: #d9a94e;
   --line: rgba(234, 231, 223, 0.28);
   --line-strong: rgba(234, 231, 223, 0.54);
   --hatch: repeating-linear-gradient(
@@ -800,4 +804,33 @@ footer a {
   .warm-full {
     margin-left: 0;
   }
+}
+
+/* v2 route badge — how the answer was produced (deterministic lookup vs
+   AI synthesis vs clarification). Plain-language trust line. */
+.route-badge {
+  margin: 14px 0 2px 46px;
+  max-width: 640px;
+  font-family: "B612 Mono", monospace;
+  font-size: 11.5px;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  color: var(--ink-2);
+  border-left: 3px solid var(--ink-2);
+  padding: 4px 0 4px 10px;
+}
+
+.route-badge.route-factual {
+  border-left-color: var(--green, #2e7d43);
+  color: var(--green, #2e7d43);
+}
+
+.route-badge.route-clarify {
+  border-left-color: var(--amber, #a9761b);
+  color: var(--amber, #a9761b);
+}
+
+.route-badge.route-flagged {
+  border-left-color: var(--red, #b3402e);
+  color: var(--red, #b3402e);
 }

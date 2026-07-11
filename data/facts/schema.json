@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "facts-file.schema.json",
+  "title": "Typed facts file",
+  "description": "A domain-agnostic facts file for the deterministic lookup path. Each fact is a single atomic, citable value extracted verbatim from an authoritative source document. The LLM never generates these values — lookup answers are templated from this file, so a number cannot be hallucinated. The same schema works for any domain: efficiency standards, compliance thresholds, HR policy limits, contract terms, product specs.",
+  "type": "object",
+  "required": ["facts_file_version", "domain", "source_doc", "curation", "facts"],
+  "properties": {
+    "facts_file_version": { "type": "string" },
+    "domain": {
+      "type": "string",
+      "description": "Free-text domain tag (e.g. 'hvac_efficiency_standards', 'process_safety', 'hr_policy'). Not an enum on purpose — the pattern is pluggable."
+    },
+    "source_doc": {
+      "type": "string",
+      "description": "Filename of the source PDF in data/documents/ (must match chunk metadata so citations line up with retrieval)."
+    },
+    "source_title": { "type": "string" },
+    "curation": {
+      "type": "object",
+      "required": ["status", "method"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["draft", "verified"],
+          "description": "'draft' = machine-assisted extraction, not yet human-verified. The API exposes this so a draft fact is never presented as authoritative."
+        },
+        "method": { "type": "string" },
+        "verified_by": { "type": "string" },
+        "verified_date": { "type": "string" }
+      }
+    },
+    "facts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["fact_id", "parameter", "entity", "value", "source_page", "quote", "keywords"],
+        "properties": {
+          "fact_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9_\\-]+$",
+            "description": "Stable unique id, e.g. 'doe2017_ss_ac_lt45_national_seer2'."
+          },
+          "parameter": {
+            "type": "string",
+            "description": "What is being asked about (e.g. 'SEER2 minimum', 'threshold quantity')."
+          },
+          "entity": {
+            "type": "string",
+            "description": "What the parameter applies to (e.g. a product class, a chemical, a policy)."
+          },
+          "qualifier": {
+            "type": "string",
+            "description": "Optional disambiguator (e.g. region 'Southwest', capacity band). Facts that share parameter+entity but differ by qualifier trigger the clarify path when the query omits it."
+          },
+          "value": { "type": "string" },
+          "unit": { "type": "string" },
+          "condition": {
+            "type": "string",
+            "description": "Optional applicability condition stated by the source (e.g. 'applies when SEER2 >= 15.2')."
+          },
+          "effective": { "type": "string" },
+          "source_page": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "1-based PDF page number — same convention as retrieval chunk metadata and the eval set."
+          },
+          "source_section": { "type": "string" },
+          "quote": {
+            "type": "string",
+            "minLength": 10,
+            "description": "Verbatim supporting text from the source page. Every lookup answer shows this quote so the value is auditable."
+          },
+          "keywords": {
+            "type": "array",
+            "minItems": 2,
+            "items": { "type": "string" },
+            "description": "Lowercase match terms for deterministic slot scoring."
+          },
+          "notes": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
